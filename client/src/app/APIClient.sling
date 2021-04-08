@@ -1,0 +1,65 @@
+import jk.widget.web
+import jk.ui
+import jk.widget
+
+class is JSONAPIClientWithGui:
+
+pvar widgetDefaultErrorHandler as function<void, Error>
+var instance static as this
+
+func getInstance static as this:
+    return instance
+
+func create(context as GuiApplicationContext, parentWidget as Widget = null) static as this
+{
+    assert context
+    instance = new this()
+    instance.setApiUrl("http://ec2-13-250-10-234.ap-southeast-1.compute.amazonaws.com:30125") /* Server http*/
+    instance.setContext(context)
+    if parentWidget:
+        instance.setParentWidget(parentWidget)
+    return instance
+} 
+
+func onError(error as Error, callback as function<void,Error>) override
+{
+    assert callback:
+        onDefaultErrorHandler(error)
+    base.onError(error, callback)
+}
+
+func onDefaultErrorHandler(error as Error) override
+{
+    var context = assert getContext()
+    assert widgetDefaultErrorHandler:
+        context.showErrorDialog(error.toString())
+    widgetDefaultErrorHandler(error)
+}
+
+/*
+func addCustomer(data as DynamicMap, callback as function<void, DynamicMap>, errorCallback as function<void, Error>):
+    doPost("/customer", data, callback, errorCallback)
+
+func updateCustomer(id as string, data as DynamicMap, callback as function<void, DynamicMap>, errorCallback as function<void, Error>):
+    doPut("/customer" .. id, data, callback, errorCallback)
+
+func deleteCustomer(id as string, callback as function<void, DynamicMap>, errorCallback as function<void, Error>):
+    doDelete("/customer" .. id, callback, errorCallback)
+
+func getCustomers(callback as function<void, DynamicMap>, errorCallback as function<void, Error> = null):
+    doGet("/customers", callback, errorCallback)
+*/
+
+
+
+func addlogin(data as DynamicMap, callback as function<void, DynamicMap>, errorCallback as function<void, Error>):
+    doPost("/login", data, callback, errorCallback)
+
+func updateLogin(id as string, data as DynamicMap, callback as function<void, DynamicMap>, errorCallback as function<void, Error>):
+    doPut("/login/" .. id, data, callback, errorCallback)
+
+func deleteLogin(id as string, callback as function<void, DynamicMap>, errorCallback as function<void, Error>):
+    doDelete("/login/" .. id, callback, errorCallback)
+
+func getLogin(callback as function<void, DynamicMap>, errorCallback as function<void, Error> = null):
+    doGet("/login", callback, errorCallback)
