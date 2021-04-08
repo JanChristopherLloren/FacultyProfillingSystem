@@ -3,152 +3,69 @@ import jk.http.worker
 
 class is HTTPRPCRouter #webapi2:
 
-model InfoRequest
+model UserRequest
 {
+    id as int
     firstname as string
     lastname as string
-    contactnumber as string
-    address as string
     username as string
     password as string
-    firstnamedeceased as string
-    lastnamedeceased as string
-    currentdate as string
-    burialdate as string
-    servicetype as string
-    serviceprice as string
-    lotnumber as string
-}
-
-model LoginRequest
-{
-    fullname as string
-    gender as string
-    username as string
-    password as string
+    phonenumber as int
 }
 
 var db as FacultyDatabase
 var cors = FacultyConfig.getCorsUtil()
 
-func getInfoDatabase as FacultyDatabase
+func getDatabase as FacultyDatabase
 {
     if not db {
         db = FacultyDatabase.forContext(getCtx())
-        db.updateInfoTables()
+        db.updateTables()
     }
-    return db
-}
 
-func getLoginDatabase as FacultyDatabase
-{
-    if not db {
-        db = FacultyDatabase.forContext(getCtx())
-        db.updateLoginTables()
-    }
     return db
 }
 
 func postProcess(req as HTTPWorkerRequest, resp as HTTPWorkerResponse) override:
-    cors.handleWorkerRequest(req, resp)
+cors.handleWorkerRequest(req, resp)
 
-GET "/info"
+GET "/user"
 {
-    var info = assert getInfoDatabase().getInfo()
-    sendOk info
+    var user = assert getDatabase().getUser()
+    sendOk user
 }
 
-POST "/info"
+POST "/user"
 {
-    var requestData = assert InfoRequest.forJsonString(req.getBodyString())
-        sendError "invalidRequestInfo"
-    var info = new FacultyDatabase.Info()
-    info.setFirstname(requestData.getFirstname())
-    info.setLastname(requestData.getLastname())
-    info.setContactnumber(requestData.getContactnumber())
-    info.setAddress(requestData.getAddress())
-    info.setUsername(requestData.getUsername())
-    info.setPassword(requestData.getPassword())
-    info.setFirstnamedeceased(requestData.getFirstnamedeceased())
-    info.setLastnamedeceased(requestData.getLastnamedeceased())
-    info.setCurrentdate(requestData.getCurrentdate())
-    info.setBurialdate(requestData.getBurialdate())
-    info.setServicetype(requestData.getServicetype())
-    info.setServiceprice(requestData.getServiceprice())
-    info.setLotnumber(requestData.getLotnumber())
-    assert getInfoDatabase().addInfo(info):
-        sendError "failedToSaveInfo"
+    var requestData = assert UserRequest.forJsonString(req.getBodyString()):
+    sendError "invalidRequest"
+    var user = new FacultyDatabase.User()
+    user.setFirstname(requestData.getFirstname())
+    user.setLastname(requestData.getLastname())
+    user.setUsername(requestData.getUsername())
+    user.setPassword(requestData.getPassword())
+    user.setPhonenumber(requestData.getPhonenumber())
+
+    assert getDatabase().addUser(user):
+    sendError "failedToSaveUser"
     sendOk
 }
 
-PUT "/info/:id"
+ PUT "/user"
 {
-    var requestData = assert InfoRequest.forJsonString(req.getBodyString()):
+    var requestData = assert UserRequest.forJsonString(req.getBodyString()):
         sendError "invalidRequest"
-    var info = new FacultyDatabase.Info()
-    info.setFirstname(requestData.getFirstname())
-    info.setLastname(requestData.getLastname())
-    info.setContactnumber(requestData.getContactnumber())
-    info.setAddress(requestData.getAddress())
-    info.setUsername(requestData.getUsername())
-    info.setPassword(requestData.getPassword())
-    info.setFirstnamedeceased(requestData.getFirstnamedeceased())
-    info.setLastnamedeceased(requestData.getLastnamedeceased())
-    info.setCurrentdate(requestData.getCurrentdate())
-    info.setBurialdate(requestData.getBurialdate())
-    info.setServicetype(requestData.getServicetype())
-    info.setServiceprice(requestData.getServiceprice())
-    info.setLotnumber(requestData.getLotnumber())
-    assert getInfoDatabase().updateInfo(vars.getString("id"),info):
-        sendError "FailedUpdateinfo"
-        sendOk
-}
-
-DELETE "/info/:id"
-{
-    assert getInfoDatabase().deleteInfo(vars.getString("id")):
-        sendError "failedToDeleteinfo"
+    var user = new FacultyDatabase.User()
+    user.setUsername(requestData.getUsername())
+    user.setPassword(requestData.getPassword())
+    assert getDatabase().updateUser(vars.getString("id"), user):
+        sendError "failedToUpdateUser"
     sendOk
 }
 
-GET "/login"
+DELETE "/user"
 {
-    var login = assert getLoginDatabase().getLogin()
-    sendOk login
-}
-
-POST "/login"
-{
-    var requestData = assert LoginRequest.forJsonString(req.getBodyString()):
-        sendError "invalidRequestlogin"
-    var login = new FacultyDatabase.Login()
-    login.setFullname(requestData.getFullname())
-    login.setGender(requestData.getGender())
-    login.setUsername(requestData.getUsername())
-    login.setPassword(requestData.getPassword())
-    assert getLoginDatabase().addlogin(login):
-        sendError "failedToAddlogin"
+    assert getDatabase().deleteUser(vars.getString("id")):
+        sendError "failedToDeleteUser"
     sendOk
 }
-
-PUT "/login/:id"
-{
-    var requestData = assert LoginRequest.forJsonString(req.getBodyString()):
-        sendError "invalidRequestLogin"
-    var login = new FacultyDatabase.Login()
-    login.setFullname(requestData.getFullname())
-    login.setGender(requestData.getGender())
-    login.setUsername(requestData.getUsername())
-    login.setPassword(requestData.getPassword())
-    assert getLoginDatabase().updateLogin(vars.getString("id"),login):
-        sendError "failedToAddLogin"
-    sendOk
-}
-
-DELETE "/login/:id"
-{
-    assert getLoginDatabase().deleteLogin(vars.getString("id")):
-        sendError "failedToDeletelogin"
-    sendOk
-}
-

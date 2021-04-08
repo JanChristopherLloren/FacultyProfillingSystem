@@ -12,16 +12,15 @@ func initializeServer(server as HTTPServer) override as bool
     return true
 }
 
-
 func initializeApplication override as bool
 {
     assert base.initializeApplication()
     var db = FacultyDatabase.forContext(ctx)
-    db.updateInfoTables()
-    db.updateLoginTables()
+    db.updateTables()
     db.close()
     return true
 }
 
 main:
     return new this().setWorker(typeinfo FacultyApiHandler).executeMain(args)
+    

@@ -1,0 +1,73 @@
+class name app.MainScreen header extends jk.widget.ScreenForWidget public
+{
+	import jk.lang
+	import jk.widget
+	import jk.widget.common
+	ctor
+	func initialize override
+	func main(args as array<string>) static as int #main
+}
+class name app.LoginPage header extends jk.widget.LayerWidget public #widget
+{
+	import jk.lang
+	import jk.lang
+	import jk.ui
+	import jk.gfx
+	import jk.widget
+	import jk.widget.common
+	ctor(context as jk.ui.GuiApplicationContext)
+	func initializeWidget override
+	func createWidget override
+}
+class name app.AddAdminRegistration header extends jk.widget.LayerWidget public #widget
+{
+	import jk.lang
+	import jk.lang
+	import jk.ui
+	import jk.gfx
+	import jk.widget
+	import jk.widget.common
+	ctor(context as jk.ui.GuiApplicationContext)
+	class name User header extends jk.json.JSONObjectAdapter implements jk.lang.StringObject public static
+	{
+		import jk.json
+		ctor
+		func setFirstname(value as string) as app.AddAdminRegistration.User
+		func getFirstname as string
+		func setLastname(value as string) as app.AddAdminRegistration.User
+		func getLastname as string
+		func setUsername(value as string) as app.AddAdminRegistration.User
+		func getUsername as string
+		func setPassword(value as string) as app.AddAdminRegistration.User
+		func getPassword as string
+		func setPhonenumber(value as string) as app.AddAdminRegistration.User
+		func getPhonenumber as string
+		func toJsonObject override as object
+		func fromJsonObject(o as object) override as bool
+		func fromJsonString(o as string) as bool
+		func toJsonString as string
+		func toString as string
+		func forJsonString(o as string) static as app.AddAdminRegistration.User
+		func forJsonObject(o as object) static as app.AddAdminRegistration.User
+	}
+	func initializeWidget override
+	func createWidget override
+}
+class name app.APIClient header extends jk.widget.web.JSONAPIClientWithGui public
+{
+	import jk.lang
+	import jk.widget.web
+	import jk.ui
+	import jk.widget
+	ctor
+	func getInstance static as app.APIClient
+	func create(context as jk.ui.GuiApplicationContext, parentWidget as jk.widget.Widget = null) static as app.APIClient
+	func onError(error as jk.lang.Error, callback as function<void,jk.lang.Error>) override
+	func onDefaultErrorHandler(error as jk.lang.Error) override
+	func addUser(data as jk.lang.DynamicMap, callback as function<void,jk.lang.DynamicMap>, errorCallback as function<void,jk.lang.Error>)
+	func updateUser(id as string, data as jk.lang.DynamicMap, callback as function<void,jk.lang.DynamicMap>, errorCallback as function<void,jk.lang.Error>)
+	func deleteUser(id as string, callback as function<void,jk.lang.DynamicMap>, errorCallback as function<void,jk.lang.Error>)
+	func getUser(callback as function<void,jk.lang.DynamicMap>, errorCallback as function<void,jk.lang.Error> = null)
+	func getWidgetDefaultErrorHandler as function<void,jk.lang.Error> #getterMethod
+	func setWidgetDefaultErrorHandler(v as function<void,jk.lang.Error>) as app.APIClient #setterMethod
+}

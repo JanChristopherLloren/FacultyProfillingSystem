@@ -7,146 +7,113 @@ import jk.time
 
 class:
 
-model Info
+model User
 {
-    id as string
+    id as int
     firstname as string
     lastname as string
-    contactnumber as string
-    address as string
     username as string
     password as string
-    firstnamedeceased as string
-    lastnamedeceased as string
-    currentdate as string
-    burialdate as string
-    servicetype as string
-    serviceprice as string
-    lotnumber as string
-    timeStampAdded as long
-    timeStampLastUpdated as long
+    phonenumber as int
+    
 }
-model Login
+
+model Register 
 {
     id as string
-    fullname as string
-    gender as string
     username as string
     password as string
-    timeStampAdded as long
-    timeStampLastUpdated as long
+    firstName as string
+    lastName as string
+
+
 }
 
 
 
-    const INFO = "info"
-    const LOGIN = "login"
-    pvar db as MySQLDatabase
 
+const USER = "User"     //for user table
+const REGISTER = "Register"  // for register table
+
+pvar db as MySQLDatabase
 
 func forContext(ctx as LoggingContext) static as this
 {
-    var cstr = EnvironmentVariable.get("FacultyDatabase")
-    Log.debug(ctx, "Opening database connection: " .. cstr .. "'")
+    var cstr = EnvironmentVariable.get("TASK_DATABASE")
+    Log.debug(ctx, "Opening database connection: '" .. cstr .. "'")
     db = MySQLDatabase.forConnectionStringSync(ctx, cstr)
     if not db:
-        Error.throw("failedToConnectionToDatabase", cstr)
+        Error.throw("failedToConnectToDatabase", cstr)
     var v = new this()
     v.setDb(db)
     return v
 }
 
-
 func updateTable(table as SQLTableInfo)
 {
     if not table:
-        Error.throw("nullTable", "updateTable")
+        Error.throw("nullTabel", "updateTable")
     if not db:
-        Error.throw("nullDB","updateTable")
+        Error.throw("nullTable", "updateTable")
     if not db.ensureTableExistsSync(table):
         Error.throw("failedToUpdateTable", table.getName())
+}
+
+func updateTables
+{
+    var user = SQLTableInfo.forName(USER)
+    user.addIntegerKeyColumn("id")
+    user.addStringColumn("firstname")
+    user.addStringColumn("lastname")
+    user.addStringColumn("username")
+    user.addStringColumn("password")
+    user.addIntegerColumn("phonenumber")
+    updateTable(user)
+
 
 }
 
-func updateInfoTables
+func addUser(user as User) as User
 {
-    var info = SQLTableInfo.forName(INFO)
-    info.addStringKeyColumn("id")
-    info.addStringColumn("firstname")
-    info.addStringColumn("lastname")
-    info.addStringColumn("contactnumber")
-    info.addStringColumn("address")
-    info.addStringColumn("username")
-    info.addStringColumn("password")
-    info.addStringColumn("firstnamedeceased")
-    info.addStringColumn("lastnamedeceased")
-    info.addStringColumn("currentdate")
-    info.addStringColumn("burialdate")
-    info.addStringColumn("servicetype")
-    info.addStringColumn("serviceprice")
-    info.addStringColumn("lotnumber")
-    info.addLongColumn("timeStampAdded")
-    info.addLongColumn("timeStampLastUpdated")
-    updateTable(info)
+    assert user
+    assert db.executeSync(db.prepareInsertStatementSync(USER, user.toDynamicMap()))
+    return user
 }
 
-func updateLoginTables
+func addRegister(register as Register) as Register
 {
-    var login = SQLTableInfo.forName(LOGIN)
-    login.addStringKeyColumn("id")
-    login.addStringColumn("fullname")
-    login.addStringColumn("gender")
-    login.addStringColumn("username")
-    login.addStringColumn("password")
-    login.addLongColumn("timeStampAdded")
-    login.addLongColumn("timeStampLastUpdated")
-    updateTable(login)
+    assert register
+    assert db.executeSync(db.prepareInsertStatementSync(REGISTER, register.toDynamicMap()))
+    return register
 }
 
-
-
-
-func addInfo(info as Info) as Info
+func updateUser(id as string, user as User) as bool
 {
-    assert info
-    info.setId("1")
-    info.setTimeStampAddedValue(SystemClock.asUTCSeconds())
-    assert db.executeSync(db.prepareInsertStatementSync(INFO, info.toDynamicMap()))
-    return info
+    assert user
+    var criteria = new User()
+    return db.executeSync(db.prepareUpdateStatementSync(USER, criteria.toDynamicMap(), user.toDynamicMap()))
 
 }
 
-func updateInfo(id as string, info as Info) as bool
+func deleteUser(id as string) as bool
 {
-    assert info
-    info.setTimeStampLastUpdatedValue(SystemClock.asUTCSeconds())
-    var criteria = new Info()
-    criteria.setId(id)
-    return db.executeSync(db.prepareUpdateStatementSync(INFO, criteria.toDynamicMap(), info.toDynamicMap()))
+    var criteria = new User()
+    return db.executeSync(db.prepareDeleteStatementSync(USER, criteria.toDynamicMap()))
 }
 
-func deleteInfo(id as string) as bool
+func getUser as DynamicMap
 {
-    var criteria = new Info()
-    criteria.setId(id)
-    return db.executeSync(db.prepareDeleteStatementSync(INFO, criteria.toDynamicMap()))
-}
-
-
-func getInfo as DynamicMap
-{
-    var v = new vector<Info>
-    var it = assert db.querySync(db.prepareQueryAllStatementSync(INFO)):
+    var v = new vector<User>
+    var it = assert db.querySync(db.prepareQueryAllStatementSync(USER)):
         return null
     while it {
         var o = it.next()
         if not o:
             break
-        var info = Info.forJsonObject(o)
-        if not info:
+        var user = User.forJsonObject(o)
+        if not user:
             continue
-        v += info
-
+        v += user
     }
     var data = new DynamicMap()
     data.setObject("records", v)
@@ -154,53 +121,27 @@ func getInfo as DynamicMap
 
 }
 
-func addlogin(login as Login) as Login
+func getAdmin as DynamicMap
 {
-    assert login
-    login.setId("1")
-    login.setTimeStampAddedValue(SystemClock.asUTCSeconds())
-    assert db.executeSync(db.prepareInsertStatementSync(LOGIN, login.toDynamicMap()))
-    return login
-
-}
-
-func updateLogin(id as string, login as Login) as bool
-{
-    assert login
-    login.setTimeStampLastUpdatedValue(SystemClock.asUTCSeconds())
-    var criteria = new Login()
-    criteria.setId(id)
-    return db.executeSync(db.prepareUpdateStatementSync(LOGIN, criteria.toDynamicMap(), login.toDynamicMap()))
-}
-
-func deleteLogin(id as string) as bool
-{
-    var criteria = new Login()
-    criteria.setId(id)
-    return db.executeSync(db.prepareDeleteStatementSync(LOGIN, criteria.toDynamicMap()))
-}
-
-
-func getLogin as DynamicMap
-{
-    var v = new vector<Login>
-    var it = assert db.querySync(db.prepareQueryAllStatementSync(LOGIN)):
+    var v = new vector<Register>
+    var it = assert db.querySync(db.prepareQueryAllStatementSync(REGISTER)):
         return null
     while it {
         var o = it.next()
         if not o:
             break
-        var login = Login.forJsonObject(o)
-        if not login:
+        var register = Register.forJsonObject(o)
+        if not register:
             continue
-        v += login
-
+        v += register
     }
     var data = new DynamicMap()
-    data.setObject("records", v)
+   data.setObject("records", v)
     return data
-
 }
+
+
+
 
 func close
 {
@@ -208,4 +149,3 @@ func close
         db.closeSync()
     db = null
 }
-

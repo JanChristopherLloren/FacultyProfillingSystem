@@ -1,0 +1,193 @@
+class name app.FacultyDatabase header public
+{
+	import jk.lang
+	import jk.log
+	import jk.sqlite
+	import jk.mysql
+	import jk.sql
+	import jk.env
+	import jk.time
+	ctor
+	class name Info header extends jk.json.JSONObjectAdapter implements jk.lang.StringObject public static static
+	{
+		import jk.json
+		ctor
+		func setId(value as string) as app.FacultyDatabase.Info
+		func getId as string
+		func setFirstname(value as string) as app.FacultyDatabase.Info
+		func getFirstname as string
+		func setLastname(value as string) as app.FacultyDatabase.Info
+		func getLastname as string
+		func setContactnumber(value as string) as app.FacultyDatabase.Info
+		func getContactnumber as string
+		func setAddress(value as string) as app.FacultyDatabase.Info
+		func getAddress as string
+		func setUsername(value as string) as app.FacultyDatabase.Info
+		func getUsername as string
+		func setPassword(value as string) as app.FacultyDatabase.Info
+		func getPassword as string
+		func setFirstnamedeceased(value as string) as app.FacultyDatabase.Info
+		func getFirstnamedeceased as string
+		func setLastnamedeceased(value as string) as app.FacultyDatabase.Info
+		func getLastnamedeceased as string
+		func setCurrentdate(value as string) as app.FacultyDatabase.Info
+		func getCurrentdate as string
+		func setBurialdate(value as string) as app.FacultyDatabase.Info
+		func getBurialdate as string
+		func setServicetype(value as string) as app.FacultyDatabase.Info
+		func getServicetype as string
+		func setServiceprice(value as string) as app.FacultyDatabase.Info
+		func getServiceprice as string
+		func setLotnumber(value as string) as app.FacultyDatabase.Info
+		func getLotnumber as string
+		func setTimeStampAddedValue(value as long) as app.FacultyDatabase.Info
+		func getTimeStampAddedValue as long
+		func setTimeStampAdded(value as jk.lang.LongIntegerObject) as app.FacultyDatabase.Info
+		func getTimeStampAdded as jk.lang.LongIntegerObject
+		func setTimeStampLastUpdatedValue(value as long) as app.FacultyDatabase.Info
+		func getTimeStampLastUpdatedValue as long
+		func setTimeStampLastUpdated(value as jk.lang.LongIntegerObject) as app.FacultyDatabase.Info
+		func getTimeStampLastUpdated as jk.lang.LongIntegerObject
+		func toJsonObject override as object
+		func fromJsonObject(o as object) override as bool
+		func fromJsonString(o as string) as bool
+		func toJsonString as string
+		func toString as string
+		func forJsonString(o as string) static as app.FacultyDatabase.Info
+		func forJsonObject(o as object) static as app.FacultyDatabase.Info
+	}
+	class name Login header extends jk.json.JSONObjectAdapter implements jk.lang.StringObject public static static
+	{
+		import jk.json
+		ctor
+		func setId(value as string) as app.FacultyDatabase.Login
+		func getId as string
+		func setFullname(value as string) as app.FacultyDatabase.Login
+		func getFullname as string
+		func setGender(value as string) as app.FacultyDatabase.Login
+		func getGender as string
+		func setUsername(value as string) as app.FacultyDatabase.Login
+		func getUsername as string
+		func setPassword(value as string) as app.FacultyDatabase.Login
+		func getPassword as string
+		func setTimeStampAddedValue(value as long) as app.FacultyDatabase.Login
+		func getTimeStampAddedValue as long
+		func setTimeStampAdded(value as jk.lang.LongIntegerObject) as app.FacultyDatabase.Login
+		func getTimeStampAdded as jk.lang.LongIntegerObject
+		func setTimeStampLastUpdatedValue(value as long) as app.FacultyDatabase.Login
+		func getTimeStampLastUpdatedValue as long
+		func setTimeStampLastUpdated(value as jk.lang.LongIntegerObject) as app.FacultyDatabase.Login
+		func getTimeStampLastUpdated as jk.lang.LongIntegerObject
+		func toJsonObject override as object
+		func fromJsonObject(o as object) override as bool
+		func fromJsonString(o as string) as bool
+		func toJsonString as string
+		func toString as string
+		func forJsonString(o as string) static as app.FacultyDatabase.Login
+		func forJsonObject(o as object) static as app.FacultyDatabase.Login
+	}
+	var INFO public static const as string
+	var LOGIN public static const as string
+	func forContext(ctx as jk.log.LoggingContext) static as app.FacultyDatabase
+	func updateTable(table as jk.sql.SQLTableInfo)
+	func updateInfoTables
+	func updateLoginTables
+	func addInfo(info as app.FacultyDatabase.Info) as app.FacultyDatabase.Info
+	func updateInfo(id as string, info as app.FacultyDatabase.Info) as bool
+	func deleteInfo(id as string) as bool
+	func getInfo as jk.lang.DynamicMap
+	func addlogin(login as app.FacultyDatabase.Login) as app.FacultyDatabase.Login
+	func updateLogin(id as string, login as app.FacultyDatabase.Login) as bool
+	func deleteLogin(id as string) as bool
+	func getLogin as jk.lang.DynamicMap
+	func close
+	func getDb as jk.mysql.MySQLDatabase #getterMethod
+	func setDb(v as jk.mysql.MySQLDatabase) as app.FacultyDatabase #setterMethod
+}
+class name app.FacultyApiHandler header extends jk.http.worker.HTTPRPCRouter public
+{
+	import jk.lang
+	import jk.http.worker
+	import jk.http.client
+	ctor
+	class name InfoRequest header extends jk.json.JSONObjectAdapter implements jk.lang.StringObject public static static
+	{
+		import jk.json
+		ctor
+		func setFirstname(value as string) as app.FacultyApiHandler.InfoRequest
+		func getFirstname as string
+		func setLastname(value as string) as app.FacultyApiHandler.InfoRequest
+		func getLastname as string
+		func setContactnumber(value as string) as app.FacultyApiHandler.InfoRequest
+		func getContactnumber as string
+		func setAddress(value as string) as app.FacultyApiHandler.InfoRequest
+		func getAddress as string
+		func setUsername(value as string) as app.FacultyApiHandler.InfoRequest
+		func getUsername as string
+		func setPassword(value as string) as app.FacultyApiHandler.InfoRequest
+		func getPassword as string
+		func setFirstnamedeceased(value as string) as app.FacultyApiHandler.InfoRequest
+		func getFirstnamedeceased as string
+		func setLastnamedeceased(value as string) as app.FacultyApiHandler.InfoRequest
+		func getLastnamedeceased as string
+		func setCurrentdate(value as string) as app.FacultyApiHandler.InfoRequest
+		func getCurrentdate as string
+		func setBurialdate(value as string) as app.FacultyApiHandler.InfoRequest
+		func getBurialdate as string
+		func setServicetype(value as string) as app.FacultyApiHandler.InfoRequest
+		func getServicetype as string
+		func setServiceprice(value as string) as app.FacultyApiHandler.InfoRequest
+		func getServiceprice as string
+		func setLotnumber(value as string) as app.FacultyApiHandler.InfoRequest
+		func getLotnumber as string
+		func toJsonObject override as object
+		func fromJsonObject(o as object) override as bool
+		func fromJsonString(o as string) as bool
+		func toJsonString as string
+		func toString as string
+		func forJsonString(o as string) static as app.FacultyApiHandler.InfoRequest
+		func forJsonObject(o as object) static as app.FacultyApiHandler.InfoRequest
+	}
+	class name LoginRequest header extends jk.json.JSONObjectAdapter implements jk.lang.StringObject public static static
+	{
+		import jk.json
+		ctor
+		func setFullname(value as string) as app.FacultyApiHandler.LoginRequest
+		func getFullname as string
+		func setGender(value as string) as app.FacultyApiHandler.LoginRequest
+		func getGender as string
+		func setUsername(value as string) as app.FacultyApiHandler.LoginRequest
+		func getUsername as string
+		func setPassword(value as string) as app.FacultyApiHandler.LoginRequest
+		func getPassword as string
+		func toJsonObject override as object
+		func fromJsonObject(o as object) override as bool
+		func fromJsonString(o as string) as bool
+		func toJsonString as string
+		func toString as string
+		func forJsonString(o as string) static as app.FacultyApiHandler.LoginRequest
+		func forJsonObject(o as object) static as app.FacultyApiHandler.LoginRequest
+	}
+	func getInfoDatabase as app.FacultyDatabase
+	func getLoginDatabase as app.FacultyDatabase
+	func postProcess(req as jk.http.worker.HTTPWorkerRequest, resp as jk.http.worker.HTTPWorkerResponse) override
+	func initRoutes override
+}
+class name app.FacultyConfig header public
+{
+	import jk.lang
+	import jk.env
+	import jk.http.server.cors
+	ctor
+	func getAllowedOrigins as array
+	func getCorsUtil as jk.http.server.cors.HTTPServerCORSUtil
+}
+class name app.FacultyApiServer header extends jk.server.web.WebServer public
+{
+	import jk.lang
+	import jk.http.server
+	import jk.server.web
+	ctor
+	func initializeServer(server as jk.http.server.HTTPServer) override as bool
+	func initializeApplication override as bool
+}
