@@ -11,6 +11,10 @@ model UserRequest
     username as string
     password as string
     phonenumber as int
+    Gender as string
+    position as string
+    subject as string
+
 }
 
 var db as FacultyDatabase
@@ -45,7 +49,10 @@ POST "/user"
     user.setUsername(requestData.getUsername())
     user.setPassword(requestData.getPassword())
     user.setPhonenumber(requestData.getPhonenumber())
-
+    user.setGender(requestData.getGender())
+    user.setPosition(requestData.getPosition())
+    user.setSubject(requestData.getSubject())
+ 
     assert getDatabase().addUser(user):
     sendError "failedToSaveUser"
     sendOk

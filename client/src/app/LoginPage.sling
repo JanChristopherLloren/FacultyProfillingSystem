@@ -2,10 +2,11 @@ import jk.widget.common
 
 class #widget:
 
+  
 ui LayerWidget
 {
     CanvasWidget{
-        color = Color.instance("#229977")
+        color = Color.instance("#008CBA")
     }
 
     VerticalScrollerWidget {
@@ -21,9 +22,10 @@ ui LayerWidget
                 LabelWidget {
                     text = "Login"
                     textColor = Color.black()
-                    fontSize = context.getHeightValue("8mm")
+                    fontSize = context.getHeightValue("10mm")
                     textAlign = LabelWidget.ALIGN_CENTER
                     fontBold = true
+                    padding =context.getHeightValue("1500um")
                 }
                 TextInputWidget username {
                     type = TextInputWidget.TYPE_NAME
@@ -38,6 +40,7 @@ ui LayerWidget
 					backgroundColor = Color.white()
 					fontSize = context.getHeightValue("5mm")
 					padding = context.getHeightValue("1500um")
+                 
                    
 				}
 
@@ -48,28 +51,33 @@ ui LayerWidget
            
         }
     }
+    
 }
-
 
 func initializeWidget override
 {
     base.initializeWidget()
     var loginbtn = ButtonWidget.forText(context, "Login", func {
-	})
-   
-    var signupbtn = ButtonWidget.forText(context, "Sign Up", func{
+          NavigationWidget.switchToContainer(this, new homepage(context)) 
+              
 
-		NavigationWidget.switchToContainer(this, new AddAdminRegistration(context)) 
+	})
+    
+   
+    var signupbtn = ButtonWidget.forText(context, "Admin", func{
+
+		NavigationWidget.switchToContainer(this, new adminPage(context)) 
  
 	})
 
-    loginbtn.setWidgetBackgroundColor(Color.instance("#008CBA"))
+    loginbtn.setWidgetBackgroundColor(Color.instance("#264651"))
 	loginbtn.setWidgetTextColor(Color.white())
 	loginbtn.setWidgetFontSize(context.getHeightValue("4mm"))
-	signupbtn.setWidgetBackgroundColor(Color.instance("#008CBA"))
+	signupbtn.setWidgetBackgroundColor(Color.instance("#264651"))
 	signupbtn.setWidgetTextColor(Color.white())
 	signupbtn.setWidgetFontSize(context.getHeightValue("4mm"))
+
 	vbox.addWidget(loginbtn)
-	vbox.addWidget(signupbtn)
+    vbox.addWidget(signupbtn)
 
 }

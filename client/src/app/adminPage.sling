@@ -1,0 +1,83 @@
+import jk.widget.common
+
+class #widget:
+
+ui VerticalBoxWidget
+{
+
+	
+    spacing = context.getHeightValue("2000um")
+    margin = context.getHeightValue("5mm")
+    HorizontalBoxWidget {
+        spacing = context.getHeightValue("100um")
+        TextButtonWidget btnHome : 1.0 {
+            text = "HOME"
+            padding = context.getHeightValue("1000um")
+            backgroundColor = Color.instance("#D91E18")
+            clickHandler = func {
+                onHomeClicked()
+            }
+        }
+		TextButtonWidget btnSchedule : 1.0 {
+            text = "ADD INSTRUCTOR"
+            padding = context.getHeightValue("1000um")
+            backgroundColor = Color.instance("#D91E18")
+            clickHandler = func {
+                onADDClicked()
+            }
+        }
+		TextButtonWidget btnAboutUs : 1.0 {
+            text = "RECORDS"
+            padding = context.getHeightValue("1000um")
+            backgroundColor = Color.instance("#D91E18")
+            clickHandler = func {
+                onrecordClicked()
+            }
+        }
+		TextButtonWidget btnLogin : 1.0 {
+            text = "LOGOUT"
+            padding = context.getHeightValue("1000um")
+            backgroundColor = Color.instance("#fc3730")
+            clickHandler = func {
+                onlogoutClicked()
+            }
+        }
+    }
+    VerticalScrollerWidget {
+        scrollBarDisabled = false
+		LayerWithBackgroundColorWidget container {
+            color = Color.instance("#5d89e8")
+		AlignWidget {
+			VerticalBoxWidget vbox : 0.5, 0.5, false {
+				margin = context.getHeightValue("5mm")
+				spacing = context.getHeightValue("2000um") 
+		LabelWidget {
+					text = "ALL RECORDS"
+					textColor = Color.black()
+					fontSize = context.getHeightValue("8mm")
+					textAlign = LabelWidget.ALIGN_CENTER
+					fontBold = true
+				}
+            } 
+        }
+      
+        
+    }
+    }
+	
+}
+	 
+
+func onHomeClicked:
+    NavigationWidget.switchToContainer(this, new adminPage(context))
+
+func onADDClicked:
+    NavigationWidget.switchToContainer(this, new addinstructor(context))
+
+func onrecordClicked:
+    NavigationWidget.switchToContainer(this, new records(context))
+
+func onlogoutClicked:
+    NavigationWidget.switchToContainer(this, new LoginPage(context))
+
+

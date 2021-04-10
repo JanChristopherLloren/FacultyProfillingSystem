@@ -1,0 +1,81 @@
+import jk.widget.common
+
+class #widget:
+
+ui LayerWidget
+{
+    CanvasWidget{
+        color = Color.instance("#008CBA")
+    }
+    
+        AlignWidget {
+            marginLeft = 400
+            marginRight = 400
+           HorizontalBoxWidget vbox : 0.3, 0.3, true{
+    
+                margin = context.getHeightValue("700um")
+                spacing = context.getHeightValue("2000um") 
+                // border = context.getHeightValue("")
+                
+               
+           }
+        }
+         LabelWidget {
+                    text = "UserProfile"
+                    textColor = Color.black()
+                    fontSize = context.getHeightValue("10mm")
+                    textAlign = LabelWidget.ALIGN_CENTER
+                    fontBold = true
+                    padding =context.getHeightValue("1500um")
+                }
+
+
+        
+  
+    }
+
+
+func initializeWidget override
+{
+    base.initializeWidget()
+    var loginbtn = ButtonWidget.forText(context, "Home", func {
+        	NavigationWidget.switchToContainer(this, new homepage(context)) 
+	})
+   
+    var signupbtn = ButtonWidget.forText(context, "Subject/Handle", func{
+
+		NavigationWidget.switchToContainer(this, new LoginPage(context)) 
+ 
+	})
+    var Logout = ButtonWidget.forText(context, "Logout", func{
+
+		NavigationWidget.switchToContainer(this, new LoginPage(context)) 
+ 
+	})
+
+    loginbtn.setWidgetBackgroundColor(Color.instance("#264651"))
+	loginbtn.setWidgetTextColor(Color.white())
+	loginbtn.setWidgetFontSize(context.getHeightValue("4mm"))
+
+
+
+	signupbtn.setWidgetBackgroundColor(Color.instance("#264651"))
+	signupbtn.setWidgetTextColor(Color.white())
+	signupbtn.setWidgetFontSize(context.getHeightValue("4mm"))
+
+    Logout.setWidgetBackgroundColor(Color.instance("#264651"))
+	Logout.setWidgetTextColor(Color.white())
+	Logout.setWidgetFontSize(context.getHeightValue("4mm"))
+
+
+
+	vbox.addWidget(loginbtn)
+	vbox.addWidget(signupbtn)
+    vbox.addWidget(Logout)
+
+}
+
+
+
+
+

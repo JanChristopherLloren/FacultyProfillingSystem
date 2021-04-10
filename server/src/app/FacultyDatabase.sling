@@ -15,7 +15,11 @@ model User
     username as string
     password as string
     phonenumber as int
-    
+    Gender as string
+    position as string
+    subject as string
+
+
 }
 
 model Register 
@@ -68,6 +72,10 @@ func updateTables
     user.addStringColumn("username")
     user.addStringColumn("password")
     user.addIntegerColumn("phonenumber")
+    user.addIntegerColumn("Gender")
+    user.addIntegerColumn("position")
+    user.addIntegerColumn("subject")
+
     updateTable(user)
 
 

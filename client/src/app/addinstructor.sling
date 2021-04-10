@@ -12,13 +12,18 @@ model User
 	username as string
 	password as string
 	phonenumber as string
+    gender as string
+    position as string
+    subject as string
+
+
 }
 
 
 ui LayerWidget
 {
 	CanvasWidget {
-		color = Color.instance("DarkGray")
+		color = Color.instance("#008CBA")
 	}
 	VerticalScrollerWidget {
 		AlignWidget {
@@ -28,7 +33,7 @@ ui LayerWidget
 				margin = context.getHeightValue("5000um")
 				spacing = context.getHeightValue("2000um")
 				LabelWidget {
-					text = "Admin Registation"
+					text = "Registation"
 					textColor = Color.black()
 					fontSize = context.getHeightValue("8mm")
 					textAlign = LabelWidget.ALIGN_CENTER
@@ -70,6 +75,28 @@ ui LayerWidget
 					fontSize = context.getHeightValue("3mm")
 					padding = context.getHeightValue("2500um")
 				}
+                    TextInputWidget Gender {
+					type = TextInputWidget.TYPE_PASSWORD
+					placeholder = "gender"
+					backgroundColor = Color.white()
+					fontSize = context.getHeightValue("3mm")
+					padding = context.getHeightValue("2500um")
+				}
+                    TextInputWidget Position {
+					type = TextInputWidget.TYPE_PASSWORD
+					placeholder = "Position"
+					backgroundColor = Color.white()
+					fontSize = context.getHeightValue("3mm")
+					padding = context.getHeightValue("2500um")
+				}
+                    TextInputWidget Subject {
+					type = TextInputWidget.TYPE_PASSWORD
+					placeholder = "Subject Handling"
+					backgroundColor = Color.white()
+					fontSize = context.getHeightValue("3mm")
+					padding = context.getHeightValue("2500um")
+				}
+            
 			}
 		}
 	}
@@ -86,20 +113,26 @@ func initializeWidget override
 		admin.setUsername(username.getWidgetText())
 		admin.setPassword(password.getWidgetText())
 		admin.setPhonenumber(phonenumber.getWidgetText())
+        admin.setGender(Gender.getWidgetText())
+        admin.setPosition(Position.getWidgetText())
+        admin.setSubject(Subject.getWidgetText())
 		APIClient.getInstance().addUser(admin.toDynamicMap(), func(res as DynamicMap){
-			context.showMessageDialog("Notice", "Admin account successfully added")
+			context.showMessageDialog("Notice", "Your account successfully added")
 			firstname.setWidgetText("")
 			lastname.setWidgetText("")
 			username.setWidgetValue("")			
 			password.setWidgetText("")
 			phonenumber.setWidgetText("")
+            Gender.setWidgetText("")
+            Position.setWidgetText("")
+            Subject.setWidgetText("")
 		}, func(err as Error){
 			context.showMessageDialog("Notice", "Failed to add admin account")
 		})
 
 	})
     var returnbtn = ButtonWidget.forText(context, "Return", func{
-		NavigationWidget.switchToContainer(this, new LoginPage(context))
+		NavigationWidget.switchToContainer(this, new adminPage(context))
 	})
     confirmbtn.setWidgetBackgroundColor(Color.instance("#264651"))
 	confirmbtn.setWidgetTextColor(Color.white())
