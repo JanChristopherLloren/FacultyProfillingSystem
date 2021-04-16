@@ -76,21 +76,21 @@ ui LayerWidget
 					padding = context.getHeightValue("2500um")
 				}
                     TextInputWidget Gender {
-					type = TextInputWidget.TYPE_PASSWORD
+					type = TextInputWidget.TYPE_NAME
 					placeholder = "gender"
 					backgroundColor = Color.white()
 					fontSize = context.getHeightValue("3mm")
 					padding = context.getHeightValue("2500um")
 				}
                     TextInputWidget Position {
-					type = TextInputWidget.TYPE_PASSWORD
+					type = TextInputWidget.TYPE_NAME
 					placeholder = "Position"
 					backgroundColor = Color.white()
 					fontSize = context.getHeightValue("3mm")
 					padding = context.getHeightValue("2500um")
 				}
                     TextInputWidget Subject {
-					type = TextInputWidget.TYPE_PASSWORD
+					type = TextInputWidget.TYPE_NAME
 					placeholder = "Subject Handling"
 					backgroundColor = Color.white()
 					fontSize = context.getHeightValue("3mm")

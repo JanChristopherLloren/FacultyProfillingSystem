@@ -12,7 +12,7 @@ ui VerticalBoxWidget
         TextButtonWidget btnHome : 1.0 {
             text = "HOME"
             padding = context.getHeightValue("1000um")
-            backgroundColor = Color.instance("#D91E18")
+            backgroundColor = Color.instance("#264651")
             clickHandler = func {
                 onHomeClicked()
             }
@@ -20,7 +20,7 @@ ui VerticalBoxWidget
 		TextButtonWidget btnSchedule : 1.0 {
             text = "ADD INSTRUCTOR"
             padding = context.getHeightValue("1000um")
-            backgroundColor = Color.instance("#D91E18")
+            backgroundColor = Color.instance("#264651")
             clickHandler = func {
                 onADDClicked()
             }
@@ -28,7 +28,7 @@ ui VerticalBoxWidget
 		TextButtonWidget btnAboutUs : 1.0 {
             text = "RECORDS"
             padding = context.getHeightValue("1000um")
-            backgroundColor = Color.instance("#D91E18")
+            backgroundColor = Color.instance("#264651")
             clickHandler = func {
                 onrecordClicked()
             }
@@ -36,7 +36,7 @@ ui VerticalBoxWidget
 		TextButtonWidget btnLogin : 1.0 {
             text = "LOGOUT"
             padding = context.getHeightValue("1000um")
-            backgroundColor = Color.instance("#fc3730")
+            backgroundColor = Color.instance("#264651")
             clickHandler = func {
                 onlogoutClicked()
             }
@@ -45,7 +45,7 @@ ui VerticalBoxWidget
     VerticalScrollerWidget {
         scrollBarDisabled = false
 		LayerWithBackgroundColorWidget container {
-            color = Color.instance("#5d89e8")
+            color = Color.instance("#264651")
 		AlignWidget {
 			VerticalBoxWidget vbox : 0.5, 0.5, false {
 				margin = context.getHeightValue("5mm")
@@ -67,22 +67,27 @@ ui VerticalBoxWidget
 }
 func initializeWidget override
 {
-    base.initializeWidget()
-    grid.addColumn("ID", "idBooking", 0.5)
-	grid.addColumn("First Name", "firstname", 1.0)
-	grid.addColumn("Last Name", "lastname", 1.0)
-	grid.addColumn("Address", "address", 1.0)
-	grid.addColumn("Contact Number", "contact", 1.0)
-    grid.addColumn("Age", "age", 0.5)
-    grid.addColumn("Origin", "origin", 1.0)
-    grid.addColumn("Subject Handle", "origin", 1.0)
-    grid.addColumn("Faild Handle", "origin", 1.0)
- 
-
-
+	base.initializeWidget()
+	grid.addColumn("User Id", "id", 0.2)
+	grid.addColumn("Name", "name", 1.0)
+    grid.addColumn("Username", "username", 1.0)
+    grid.addColumn("Password", "password", 1.0)
+    grid.addColumn("Re Password", "re_password", 1.0)
 
 	grid.addWidgetHeaderRow()
-  
+    APIClient.getInstance().getUser(func(response as DynamicMap) {
+        var data = assert response.getDynamicMap("data")
+        var records = data.getDynamicVector("records")
+        if not records ||  records.getSize() < 1 {
+             grid.addRow([ "NO data"])
+        }
+        else {
+            foreach record as DynamicMap in records.toVector() {
+                var name = record.getString("lname") .. "," .. record.getString("fname")
+                grid.addRow([record.getString("userid"), name , record.getString("email"), record.getString("username"), record.getString("password"), record.getString("re_password")])
+            }
+        }
+    })
 }
 
 func onHomeClicked:

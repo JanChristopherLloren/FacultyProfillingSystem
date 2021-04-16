@@ -6,7 +6,7 @@ class #widget:
 ui LayerWidget
 {
 	CanvasWidget {
-		color = Color.instance("#FDFEFE")
+		color = Color.instance("#5d89e8")
 	}
 	VerticalScrollerWidget {
 		AlignWidget {
