@@ -16,7 +16,7 @@ ui LayerWidget
 				margin = context.getHeightValue("5000um")
 				spacing = context.getHeightValue("2000um")
 				LabelWidget {
-					text = "Burial Reservation System"
+					text = "LOGIN FORM"
 					textColor = Color.black()
 					fontSize = context.getHeightValue("7mm")
 					textAlign = LabelWidget.ALIGN_CENTER
