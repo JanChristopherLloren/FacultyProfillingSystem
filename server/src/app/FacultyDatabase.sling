@@ -38,7 +38,7 @@ model Admin
 
 
 const USER = "User"     //for user table
-const ADIN = "Admin"  // for register table
+const ADMIN = "Admin"  // for register table
 
 pvar db as MySQLDatabase
 
@@ -83,25 +83,25 @@ func updateTables
 }
 func updateTablesadmin
 {
-    var user = SQLTableInfo.forName(USER)
-    user.addIntegerKeyColumn("id")
-    user.addStringColumn("firstname")
-    user.addStringColumn("lastname")
-    user.addStringColumn("username")
-    user.addStringColumn("password")
-    user.addIntegerColumn("phonenumber")
-    user.addIntegerColumn("Gender")
-    user.addIntegerColumn("position")
-    user.addIntegerColumn("field")
+    var admin = SQLTableInfo.forName(ADMIN)
+    admin.addIntegerKeyColumn("id")
+    admin.addStringColumn("firstname")
+    admin.addStringColumn("lastname")
+    admin.addStringColumn("username")
+    admin.addStringColumn("password")
+    admin.addIntegerColumn("phonenumber")
+    admin.addIntegerColumn("Gender")
+    admin.addIntegerColumn("position")
+    admin.addIntegerColumn("field")
 
-    updateTable(user)
+    updateTable(admin)
 
 
 }
 func addadmin(admin as Admin) as Admin
 {
     assert admin
-    assert db.executeSync(db.prepareInsertStatementSync(Admin, user.toDynamicMap()))
+    assert db.executeSync(db.prepareInsertStatementSync(ADMIN, admin.toDynamicMap()))
     return admin
 }
 
@@ -117,7 +117,7 @@ func updateAdmin(id as string, admin as Admin) as bool
 {
     assert admin
     var criteria = new Admin()
-    return db.executeSync(db.prepareUpdateStatementSync(Admin, criteria.toDynamicMap(), user.toDynamicMap()))
+    return db.executeSync(db.prepareUpdateStatementSync(ADMIN, criteria.toDynamicMap(), admin.toDynamicMap()))
 
 }
 
@@ -129,10 +129,35 @@ func updateUser(id as string, user as User) as bool
 
 }
 
+func deleteAdmin(id as string) as bool
+{
+    var criteria = new User()
+    return db.executeSync(db.prepareDeleteStatementSync(ADMIN, criteria.toDynamicMap()))
+}
 func deleteUser(id as string) as bool
 {
     var criteria = new User()
     return db.executeSync(db.prepareDeleteStatementSync(USER, criteria.toDynamicMap()))
+}
+
+func getAdmin as DynamicMap
+{
+    var v = new vector<Admin>
+    var it = assert db.querySync(db.prepareQueryAllStatementSync(ADMIN)):
+        return null
+    while it {
+        var o = it.next()
+        if not o:
+            break
+        var admin = Admin.forJsonObject(o)
+        if not admin:
+            continue
+        v += admin
+    }
+    var data = new DynamicMap()
+    data.setObject("records", v)
+    return data
+
 }
 
 func getUser as DynamicMap

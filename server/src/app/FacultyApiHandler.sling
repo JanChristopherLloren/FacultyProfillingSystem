@@ -16,6 +16,19 @@ model UserRequest
     subject as string
 
 }
+model AdminRequest
+{
+    id as int
+    firstname as string
+    lastname as string
+    username as string
+    password as string
+    phonenumber as int
+    Gender as string
+    position as string
+    field as string
+
+}
 
 var db as FacultyDatabase
 var cors = FacultyConfig.getCorsUtil()
@@ -25,6 +38,7 @@ func getDatabase as FacultyDatabase
     if not db {
         db = FacultyDatabase.forContext(getCtx())
         db.updateTables()
+        db.updateTablesadmin()
     }
 
     return db
@@ -38,7 +52,30 @@ GET "/user"
     var user = assert getDatabase().getUser()
     sendOk user
 }
+GET "/admin"
+{
+    var ads = assert getDatabase().getAdmin()
+    sendOk ads
+}
 
+POST "/admin"
+{
+    var requestData = assert AdminRequest.forJsonString(req.getBodyString()):
+    sendError "invalidRequest"
+    var admin = new FacultyDatabase.Admin()
+    admin.setFirstname(requestData.getFirstname())
+    admin.setLastname(requestData.getLastname())
+    admin.setUsername(requestData.getUsername())
+    admin.setPassword(requestData.getPassword())
+    admin.setPhonenumber(requestData.getPhonenumber())
+    admin.setGender(requestData.getGender())
+    admin.setPosition(requestData.getPosition())
+    admin.setField(requestData.getField())
+ 
+    assert getDatabase().addadmin(admin):
+    sendError "failedToSaveAdmin"
+    sendOk
+}
 POST "/user"
 {
     var requestData = assert UserRequest.forJsonString(req.getBodyString()):
@@ -69,6 +106,24 @@ POST "/user"
         sendError "failedToUpdateUser"
     sendOk
 }
+ PUT "/admin"
+{
+    var requestData = assert AdminRequest.forJsonString(req.getBodyString()):
+        sendError "invalidRequest"
+    var ads = new FacultyDatabase.Admin()
+    ads.setUsername(requestData.getUsername())
+    ads.setPassword(requestData.getPassword())
+    assert getDatabase().updateAdmin(vars.getString("id"), ads):
+        sendError "failedToUpdateAdmin"
+    sendOk
+}
+DELETE "/admin"
+{
+    assert getDatabase().deleteAdmin(vars.getString("id")):
+        sendError "failedToDeleteAdmin"
+    sendOk
+}
+
 
 DELETE "/user"
 {
