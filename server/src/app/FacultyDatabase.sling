@@ -21,10 +21,24 @@ model User
 
 
 }
+model Admin
+{
+    id as int
+    firstname as string
+    lastname as string
+    username as string
+    password as string
+    phonenumber as int
+    Gender as string
+    position as string
+    field as string
+
+
+}
 
 
 const USER = "User"     //for user table
-const REGISTER = "Register"  // for register table
+const ADIN = "Admin"  // for register table
 
 pvar db as MySQLDatabase
 
@@ -67,6 +81,29 @@ func updateTables
 
 
 }
+func updateTablesadmin
+{
+    var user = SQLTableInfo.forName(USER)
+    user.addIntegerKeyColumn("id")
+    user.addStringColumn("firstname")
+    user.addStringColumn("lastname")
+    user.addStringColumn("username")
+    user.addStringColumn("password")
+    user.addIntegerColumn("phonenumber")
+    user.addIntegerColumn("Gender")
+    user.addIntegerColumn("position")
+    user.addIntegerColumn("field")
+
+    updateTable(user)
+
+
+}
+func addadmin(admin as Admin) as Admin
+{
+    assert admin
+    assert db.executeSync(db.prepareInsertStatementSync(Admin, user.toDynamicMap()))
+    return admin
+}
 
 func addUser(user as User) as User
 {
@@ -76,6 +113,13 @@ func addUser(user as User) as User
 }
 
 
+func updateAdmin(id as string, admin as Admin) as bool
+{
+    assert admin
+    var criteria = new Admin()
+    return db.executeSync(db.prepareUpdateStatementSync(Admin, criteria.toDynamicMap(), user.toDynamicMap()))
+
+}
 
 func updateUser(id as string, user as User) as bool
 {
