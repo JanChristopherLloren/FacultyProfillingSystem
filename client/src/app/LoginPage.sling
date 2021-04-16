@@ -1,83 +1,105 @@
+import jk.widget
 import jk.widget.common
 
 class #widget:
 
-  
 ui LayerWidget
 {
-    CanvasWidget{
-        color = Color.instance("#008CBA")
-    }
-
-    VerticalScrollerWidget {
-    
-        AlignWidget {
-            marginLeft = 400
-            marginRight = 400
-           VerticalBoxWidget vbox : 0.3, 0.3, true{
-                margin = context.getHeightValue("700um")
-                spacing = context.getHeightValue("2000um") 
-                // border = context.getHeightValue("")
-                 
-                LabelWidget {
-                    text = "Login"
-                    textColor = Color.black()
-                    fontSize = context.getHeightValue("10mm")
-                    textAlign = LabelWidget.ALIGN_CENTER
-                    fontBold = true
-                    padding =context.getHeightValue("1500um")
-                }
+	CanvasWidget {
+		color = Color.instance("#FDFEFE")
+	}
+	VerticalScrollerWidget {
+		AlignWidget {
+			marginLeft = 400
+			marginRight = 400
+			VerticalBoxWidget vbox : 0.5, 0.5, true {
+				margin = context.getHeightValue("5000um")
+				spacing = context.getHeightValue("2000um")
+				LabelWidget {
+					text = "Burial Reservation System"
+					textColor = Color.black()
+					fontSize = context.getHeightValue("7mm")
+					textAlign = LabelWidget.ALIGN_CENTER
+					fontBold = true
+				}
                 TextInputWidget username {
-                    type = TextInputWidget.TYPE_NAME
-                    backgroundColor = Color.white()
-                    placeholder = "Username"
-                    fontSize = context.getHeightValue("5mm")
-					padding = context.getHeightValue("1500um")
-                }
-                TextInputWidget {
+					type = TextInputWidget.TYPE_NAME
+					placeholder = "Username"
+					textColor = Color.black()
+					backgroundColor = Color.white()
+					fontSize = context.getHeightValue("3mm")
+					padding = context.getHeightValue("2500um")
+				}
+                TextInputWidget password {
 					type = TextInputWidget.TYPE_PASSWORD
 					placeholder = "Password"
+					textColor = Color.black()
 					backgroundColor = Color.white()
-					fontSize = context.getHeightValue("5mm")
-					padding = context.getHeightValue("1500um")
-                 
-                   
+					fontSize = context.getHeightValue("3mm")
+					padding = context.getHeightValue("2500um")
 				}
-
-                
-            
-
-            }
-           
-        }
-    }
-    
+			}
+		}
+	}
 }
 
 func initializeWidget override
 {
-    base.initializeWidget()
-    var loginbtn = ButtonWidget.forText(context, "Login", func {
-          NavigationWidget.switchToContainer(this, new homepage(context)) 
-              
+	base.initializeWidget()
 
-	})
-    
-   
-    var signupbtn = ButtonWidget.forText(context, "Admin", func{
+	var loginbtn = ButtonWidget.forText(context, "Log In", func{
+		APIClient.getInstance().getUser(func(response as DynamicMap){
+			var data = assert response.getDynamicMap("data")
+			var records = data.getDynamicVector("records")
+			var firstname = ""
+			var Username = ""
+			var Password = ""
+			if not records || records.getSize() < 1{
+				;
+			}
+			else {
+				foreach record as DynamicMap in records.toVector(){
+					if username.getWidgetText() == record.getString("username") && password.getWidgetText() == record.getString("password"){
+						firstname = record.getString("firstname")
+						Username = record.getString("username")
+						Password = record.getString("password")
+						NavigationWidget.switchToContainer(this, new adminPage(context))
+						if Username == Username && Password == Password {
+									context.showMessageDialog("Notice", "Welcome " .. firstname)
+									NavigationWidget.switchToContainer(this, new adminPage(context))
 
-		NavigationWidget.switchToContainer(this, new adminPage(context)) 
- 
-	})
+						}
+					}
+				}
+				if Username == "" && Password == "" {
+					context.showMessageDialog("Notice","Account Not Found")
+				}
+			}
+		})
 
-    loginbtn.setWidgetBackgroundColor(Color.instance("#264651"))
+
+	})	
+
+	var signupbtn = ButtonWidget.forText(context, "Sign Up", func{
+		NavigationWidget.switchToContainer(this, new addinstructor(context))
+	})	
+
+	var loginbtn2 = ButtonWidget.forText(context, "Login as Admin", func{
+		NavigationWidget.switchToContainer(this, new adminPage(context))
+	})	
+	loginbtn.setWidgetBackgroundColor(Color.instance("#16F0E3"))
 	loginbtn.setWidgetTextColor(Color.white())
 	loginbtn.setWidgetFontSize(context.getHeightValue("4mm"))
-	signupbtn.setWidgetBackgroundColor(Color.instance("#264651"))
+	vbox.addWidget(loginbtn)
+
+	signupbtn.setWidgetBackgroundColor(Color.instance("#16BFF0"))
 	signupbtn.setWidgetTextColor(Color.white())
 	signupbtn.setWidgetFontSize(context.getHeightValue("4mm"))
+	vbox.addWidget(signupbtn)
 
-	vbox.addWidget(loginbtn)
-    vbox.addWidget(signupbtn)
+	loginbtn2.setWidgetBackgroundColor(Color.instance("#6960EC"))
+	loginbtn2.setWidgetTextColor(Color.white())
+	loginbtn2.setWidgetFontSize(context.getHeightValue("4mm"))
+	vbox.addWidget(loginbtn2)
 
 }

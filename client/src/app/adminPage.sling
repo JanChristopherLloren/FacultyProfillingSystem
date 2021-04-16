@@ -13,7 +13,7 @@ ui VerticalBoxWidget
         TextButtonWidget btnHome : 1.0 {
             text = "HOME"
             padding = context.getHeightValue("1000um")
-            backgroundColor = Color.instance("#D91E18")
+            backgroundColor = Color.instance("#264651")
             clickHandler = func {
                 onHomeClicked()
             }
@@ -21,7 +21,7 @@ ui VerticalBoxWidget
 		TextButtonWidget btnSchedule : 1.0 {
             text = "ADD INSTRUCTOR"
             padding = context.getHeightValue("1000um")
-            backgroundColor = Color.instance("#D91E18")
+            backgroundColor = Color.instance("#264651")
             clickHandler = func {
                 onADDClicked()
             }
@@ -29,7 +29,7 @@ ui VerticalBoxWidget
 		TextButtonWidget btnAboutUs : 1.0 {
             text = "RECORDS"
             padding = context.getHeightValue("1000um")
-            backgroundColor = Color.instance("#D91E18")
+            backgroundColor = Color.instance("#264651")
             clickHandler = func {
                 onrecordClicked()
             }
@@ -37,7 +37,7 @@ ui VerticalBoxWidget
 		TextButtonWidget btnLogin : 1.0 {
             text = "LOGOUT"
             padding = context.getHeightValue("1000um")
-            backgroundColor = Color.instance("#fc3730")
+            backgroundColor = Color.instance("#264651")
             clickHandler = func {
                 onlogoutClicked()
             }

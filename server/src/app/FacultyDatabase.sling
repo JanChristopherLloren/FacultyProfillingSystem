@@ -22,19 +22,6 @@ model User
 
 }
 
-model Register 
-{
-    id as string
-    username as string
-    password as string
-    firstName as string
-    lastName as string
-
-
-}
-
-
-
 
 const USER = "User"     //for user table
 const REGISTER = "Register"  // for register table
@@ -88,12 +75,7 @@ func addUser(user as User) as User
     return user
 }
 
-func addRegister(register as Register) as Register
-{
-    assert register
-    assert db.executeSync(db.prepareInsertStatementSync(REGISTER, register.toDynamicMap()))
-    return register
-}
+
 
 func updateUser(id as string, user as User) as bool
 {
@@ -128,28 +110,6 @@ func getUser as DynamicMap
     return data
 
 }
-
-func getAdmin as DynamicMap
-{
-    var v = new vector<Register>
-    var it = assert db.querySync(db.prepareQueryAllStatementSync(REGISTER)):
-        return null
-    while it {
-        var o = it.next()
-        if not o:
-            break
-        var register = Register.forJsonObject(o)
-        if not register:
-            continue
-        v += register
-    }
-    var data = new DynamicMap()
-   data.setObject("records", v)
-    return data
-}
-
-
-
 
 func close
 {
