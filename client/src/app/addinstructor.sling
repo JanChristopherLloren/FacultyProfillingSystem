@@ -106,17 +106,17 @@ func initializeWidget override
 {
     base.initializeWidget()
     var confirmbtn = ButtonWidget.forText(context, "Confirm", func {
-		var admin = new User()
+		var user = new User()
 		//admin.setId(id.getWidgetText())
-		admin.setFirstname(firstname.getWidgetText())
-		admin.setLastname(lastname.getWidgetText())
-		admin.setUsername(username.getWidgetText())
-		admin.setPassword(password.getWidgetText())
-		admin.setPhonenumber(phonenumber.getWidgetText())
-        admin.setGender(Gender.getWidgetText())
-        admin.setPosition(Position.getWidgetText())
-        admin.setSubject(Subject.getWidgetText())
-		APIClient.getInstance().addUser(admin.toDynamicMap(), func(res as DynamicMap){
+		user.setFirstname(firstname.getWidgetText())
+		user.setLastname(lastname.getWidgetText())
+		user.setUsername(username.getWidgetText())
+		user.setPassword(password.getWidgetText())
+		user.setPhonenumber(phonenumber.getWidgetText())
+        user.setGender(Gender.getWidgetText())
+        user.setPosition(Position.getWidgetText())
+        user.setSubject(Subject.getWidgetText())
+		APIClient.getInstance().addUser(user.toDynamicMap(), func(res as DynamicMap){
 			context.showMessageDialog("Notice", "Your account successfully added")
 			firstname.setWidgetText("")
 			lastname.setWidgetText("")
@@ -127,7 +127,7 @@ func initializeWidget override
             Position.setWidgetText("")
             Subject.setWidgetText("")
 		}, func(err as Error){
-			context.showMessageDialog("Notice", "Failed to add admin account")
+			context.showMessageDialog("Notice", "HINDI KA MA ADD")
 		})
 
 	})

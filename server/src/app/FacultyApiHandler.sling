@@ -11,7 +11,7 @@ model UserRequest
     username as string
     password as string
     phonenumber as int
-    Gender as string
+    gender as string
     position as string
     subject as string
 
@@ -24,7 +24,7 @@ model AdminRequest
     username as string
     password as string
     phonenumber as int
-    Gender as string
+    gender as string
     position as string
     field as string
 

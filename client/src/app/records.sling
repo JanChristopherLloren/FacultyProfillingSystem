@@ -72,7 +72,7 @@ func initializeWidget override
 	grid.addColumn("Name", "name", 1.0)
     grid.addColumn("Username", "username", 1.0)
     grid.addColumn("Password", "password", 1.0)
-    grid.addColumn("Re Password", "re_password", 1.0)
+    grid.addColumn("Subject Handle", "subject", 1.0)
 
 	grid.addWidgetHeaderRow()
     APIClient.getInstance().getUser(func(response as DynamicMap) {

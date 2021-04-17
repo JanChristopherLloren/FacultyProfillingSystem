@@ -58,15 +58,26 @@ ui VerticalBoxWidget
 					textAlign = LabelWidget.ALIGN_CENTER
 					fontBold = true
 				}
+                 TextButtonWidget btnupdate : 1.0 {
+            text = "Update"
+            padding = context.getHeightValue("1000um")
+            backgroundColor = Color.instance("#264651")
+            clickHandler = func {
+                onUpdateClicked()
+            }
+                
+           
+        }
             } 
         }
-      
+           
         
     }
     }
-	
+
 }
-	 
+	
+ 
 
 func onHomeClicked:
     NavigationWidget.switchToContainer(this, new adminPage(context))
@@ -79,5 +90,6 @@ func onrecordClicked:
 
 func onlogoutClicked:
     NavigationWidget.switchToContainer(this, new LoginPage(context))
-
+func onUpdateClicked:
+    NavigationWidget.switchToContainer(this, new updateinfo(context))
 

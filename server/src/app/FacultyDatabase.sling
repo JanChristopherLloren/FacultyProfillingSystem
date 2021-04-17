@@ -15,7 +15,7 @@ model User
     username as string
     password as string
     phonenumber as int
-    Gender as string
+    gender as string
     position as string
     subject as string
 
@@ -29,7 +29,7 @@ model Admin
     username as string
     password as string
     phonenumber as int
-    Gender as string
+    gender as string
     position as string
     field as string
 
@@ -73,7 +73,7 @@ func updateTables
     user.addStringColumn("username")
     user.addStringColumn("password")
     user.addIntegerColumn("phonenumber")
-    user.addIntegerColumn("Gender")
+    user.addIntegerColumn("gender")
     user.addIntegerColumn("position")
     user.addIntegerColumn("subject")
 
@@ -90,7 +90,7 @@ func updateTablesadmin
     admin.addStringColumn("username")
     admin.addStringColumn("password")
     admin.addIntegerColumn("phonenumber")
-    admin.addIntegerColumn("Gender")
+    admin.addIntegerColumn("gender")
     admin.addIntegerColumn("position")
     admin.addIntegerColumn("field")
 

@@ -85,7 +85,7 @@ func initializeWidget override
 	})	
 
 	var loginbtn2 = ButtonWidget.forText(context, "Login as Admin", func{
-		NavigationWidget.switchToContainer(this, new adminPage(context))
+		NavigationWidget.switchToContainer(this, new updateinfo(context))
 	})	
 	loginbtn.setWidgetBackgroundColor(Color.instance("#16F0E3"))
 	loginbtn.setWidgetTextColor(Color.white())
