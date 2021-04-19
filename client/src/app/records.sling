@@ -5,6 +5,9 @@ class #widget:
 
 ui VerticalBoxWidget
 {
+    	CanvasWidget {
+		color = Color.instance("#5d89e8")
+	}
     spacing = context.getHeightValue("2000um")
     margin = context.getHeightValue("5mm")
     HorizontalBoxWidget {
@@ -33,13 +36,18 @@ ui VerticalBoxWidget
                 onrecordClicked()
             }
         }
-		TextButtonWidget btnLogin : 1.0 {
+		TextButtonWidget btnLogout : 1.0 {
             text = "LOGOUT"
             padding = context.getHeightValue("1000um")
             backgroundColor = Color.instance("#264651")
-            clickHandler = func {
-                onlogoutClicked()
-            }
+            clickHandler = func{
+						var popup = new PopupDialogManager(context, this)
+						popup.showConfirmDialog("Confirmation","Leave this Page?", func{
+							onLogoutClicked()
+						}, func{
+							;
+						})
+			}
         }
     }
     VerticalScrollerWidget {
@@ -60,7 +68,7 @@ ui VerticalBoxWidget
             } 
         }
         DataGridWidget grid{
-                    cellPadding = 1
+        cellPadding = 1
         }
     }
     }
@@ -69,9 +77,13 @@ func initializeWidget override
 {
 	base.initializeWidget()
 	grid.addColumn("User Id", "id", 0.2)
-	grid.addColumn("Name", "name", 1.0)
+	grid.addColumn("Name", "firstname", 1.0)
+    grid.addColumn("lastName", "lastname", 1.0)
     grid.addColumn("Username", "username", 1.0)
     grid.addColumn("Password", "password", 1.0)
+    grid.addColumn("Phonenumber", "phonenumber", 1.0)
+    grid.addColumn("Gender", "gender", 1.0)
+    grid.addColumn("Position", "position", 1.0)
     grid.addColumn("Subject Handle", "subject", 1.0)
 
 	grid.addWidgetHeaderRow()
@@ -81,13 +93,27 @@ func initializeWidget override
         if not records ||  records.getSize() < 1 {
              grid.addRow([ "NO data"])
         }
-        else {
-            foreach record as DynamicMap in records.toVector() {
-                var name = record.getString("lname") .. "," .. record.getString("fname")
-                grid.addRow([record.getString("userid"), name , record.getString("email"), record.getString("username"), record.getString("password"), record.getString("re_password")])
+    	else {
+			foreach record as DynamicMap in records.toVector(){
+				grid.addRow([record.getString("id"),record.getString("firstname"),record.getString("lastname"),record.getString("username"),record.getString("password"),record.getString("phonenumber"),record.getString("gender"),record.getString("position"),record.getString("subject")])
+			}
+           
             }
-        }
-    })
+        },func(err as Error){
+        grid.addRow([ "Error" ])
+      })
+        var btnUpdate = ButtonWidget.forText(context, "UPDATEInFo", func {
+        onUpdateClicked()   
+      })
+        btnUpdate.setWidgetFontSize(context.getHeightValue("3mm"))
+        vbox.addWidget(btnUpdate)
+
+        var btnDelete = ButtonWidget.forText(context, "DELETE InFo", func {
+        onDeleteClicked()   
+      })
+     btnDelete.setWidgetFontSize(context.getHeightValue("3mm"))
+        vbox.addWidget(btnDelete)
+
 }
 
 func onHomeClicked:
@@ -99,9 +125,14 @@ func onADDClicked:
 func onrecordClicked:
     NavigationWidget.switchToContainer(this, new records(context))
 
-func onlogoutClicked:
+func onLogoutClicked:
     NavigationWidget.switchToContainer(this, new LoginPage(context))
 
-
+func onUpdateClicked:
+    NavigationWidget.switchToContainer(this, new updateinfo(context))
+	
+func onDeleteClicked:
+    NavigationWidget.switchToContainer(this, new deleteinfo(context))
+	
 
 

@@ -75,21 +75,21 @@ ui LayerWidget
 					fontSize = context.getHeightValue("3mm")
 					padding = context.getHeightValue("2500um")
 				}
-                    TextInputWidget Gender {
+                    TextInputWidget gender {
 					type = TextInputWidget.TYPE_NAME
 					placeholder = "gender"
 					backgroundColor = Color.white()
 					fontSize = context.getHeightValue("3mm")
 					padding = context.getHeightValue("2500um")
 				}
-                    TextInputWidget Position {
+                    TextInputWidget position {
 					type = TextInputWidget.TYPE_NAME
 					placeholder = "Position"
 					backgroundColor = Color.white()
 					fontSize = context.getHeightValue("3mm")
 					padding = context.getHeightValue("2500um")
 				}
-                    TextInputWidget Subject {
+                    TextInputWidget subject {
 					type = TextInputWidget.TYPE_NAME
 					placeholder = "Subject Handling"
 					backgroundColor = Color.white()
@@ -113,9 +113,9 @@ func initializeWidget override
 		user.setUsername(username.getWidgetText())
 		user.setPassword(password.getWidgetText())
 		user.setPhonenumber(phonenumber.getWidgetText())
-        user.setGender(Gender.getWidgetText())
-        user.setPosition(Position.getWidgetText())
-        user.setSubject(Subject.getWidgetText())
+        user.setGender(gender.getWidgetText())
+        user.setPosition(position.getWidgetText())
+        user.setSubject(subject.getWidgetText())
 		APIClient.getInstance().addUser(user.toDynamicMap(), func(res as DynamicMap){
 			context.showMessageDialog("Notice", "Your account successfully added")
 			firstname.setWidgetText("")
@@ -123,9 +123,9 @@ func initializeWidget override
 			username.setWidgetValue("")			
 			password.setWidgetText("")
 			phonenumber.setWidgetText("")
-            Gender.setWidgetText("")
-            Position.setWidgetText("")
-            Subject.setWidgetText("")
+            gender.setWidgetText("")
+            position.setWidgetText("")
+            subject.setWidgetText("")
 		}, func(err as Error){
 			context.showMessageDialog("Notice", "HINDI KA MA ADD")
 		})

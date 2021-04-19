@@ -1,0 +1,88 @@
+import jk.widget.common
+import jk.widget.datagrid
+
+class #widget:
+
+ui VerticalBoxWidget
+{
+    	CanvasWidget {
+		color = Color.instance("#5d89e8")
+	}
+    spacing = context.getHeightValue("2000um")
+    margin = context.getHeightValue("5mm")
+    HorizontalBoxWidget {
+        spacing = context.getHeightValue("100um")
+        TextButtonWidget btnHome : 1.0 {
+            text = "HOME"
+            padding = context.getHeightValue("1000um")
+            backgroundColor = Color.instance("#D91E18")
+            clickHandler = func {
+                onHomeClicked()
+            }
+        }
+		TextButtonWidget btnProfile : 1.0 {
+            text = "Profile"
+            padding = context.getHeightValue("1000um")
+            backgroundColor = Color.instance("#D91E18")
+            clickHandler = func {
+                onprofileClicked()
+            }
+        }
+		TextButtonWidget btnRecords : 1.0 {
+            text = "RECORDS"
+            padding = context.getHeightValue("1000um")
+            backgroundColor = Color.instance("#D91E18")
+            clickHandler = func {
+                onrecordClicked()
+            }
+        }
+	TextButtonWidget btnLogout : 1.0 {
+            text = "LOGOUT"
+            padding = context.getHeightValue("1000um")
+            backgroundColor = Color.instance("#264651")
+            clickHandler = func{
+						var popup = new PopupDialogManager(context, this)
+						popup.showConfirmDialog("Confirmation","Leave this Page?", func{
+							onLogoutClicked()
+						}, func{
+							;
+						})
+			}
+        }
+    }
+    VerticalScrollerWidget {
+        scrollBarDisabled = false
+		LayerWithBackgroundColorWidget container {
+            color = Color.instance("#5d89e8")
+		AlignWidget {
+			VerticalBoxWidget vbox : 0.5, 0.5, false {
+				margin = context.getHeightValue("5mm")
+				spacing = context.getHeightValue("2000um") 
+		LabelWidget {
+					text = "WALA PA NAHUMAN"
+					textColor = Color.black()
+					fontSize = context.getHeightValue("8mm")
+					textAlign = LabelWidget.ALIGN_CENTER
+					fontBold = true
+				}
+            } 
+        }
+  
+    }
+    }
+}
+func onHomeClicked:
+    NavigationWidget.switchToContainer(this, new userDashboard(context))
+
+func onprofileClicked:
+    NavigationWidget.switchToContainer(this, new userProfile(context))
+
+func onrecordClicked:
+    NavigationWidget.switchToContainer(this, new usersubject(context))
+
+func onLogoutClicked:
+    NavigationWidget.switchToContainer(this, new LoginPage(context))
+
+
+
+

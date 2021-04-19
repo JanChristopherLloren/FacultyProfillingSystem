@@ -1,13 +1,13 @@
 import jk.widget.common
 import jk.widget.datagrid
+
 class #widget:
 
 ui VerticalBoxWidget
 {
-	CanvasWidget {
+    	CanvasWidget {
 		color = Color.instance("#5d89e8")
 	}
-	
     spacing = context.getHeightValue("2000um")
     margin = context.getHeightValue("5mm")
     HorizontalBoxWidget {
@@ -21,7 +21,7 @@ ui VerticalBoxWidget
             }
         }
 		TextButtonWidget btnSchedule : 1.0 {
-            text = "ADD INSTRUCTOR"
+            text = "Profile"
             padding = context.getHeightValue("1000um")
             backgroundColor = Color.instance("#264651")
             clickHandler = func {
@@ -49,9 +49,8 @@ ui VerticalBoxWidget
 						})
 			}
         }
-        
     }
-     VerticalScrollerWidget {
+    VerticalScrollerWidget {
         scrollBarDisabled = false
 		LayerWithBackgroundColorWidget container {
             color = Color.instance("#264651")
@@ -92,29 +91,29 @@ func initializeWidget override
         var data = assert response.getDynamicMap("data")
         var records = data.getDynamicVector("records")
         if not records ||  records.getSize() < 1 {
-             grid.addRow([ "NO data In Database"])
-             context.showMessageDialog("Notice","NO DATA INSERT!")
+             grid.addRow([ "NO data Record"])
         }
     	else {
 			foreach record as DynamicMap in records.toVector(){
 				grid.addRow([record.getString("id"),record.getString("firstname"),record.getString("lastname"),record.getString("username"),record.getString("password"),record.getString("phonenumber"),record.getString("gender"),record.getString("position"),record.getString("subject")])
-			}
-        }
+			}        
+     }
     })
-}	
- 
+
+}
 
 func onHomeClicked:
-    NavigationWidget.switchToContainer(this, new adminPage(context))
+    NavigationWidget.switchToContainer(this, new userDashboard(context))
 
 func onADDClicked:
-    NavigationWidget.switchToContainer(this, new addinstructor(context))
+    NavigationWidget.switchToContainer(this, new userProfile(context))
 
 func onrecordClicked:
     NavigationWidget.switchToContainer(this, new records(context))
 
-func onlogoutClicked:
+func onLogoutClicked:
     NavigationWidget.switchToContainer(this, new LoginPage(context))
-func onUpdateClicked:
-    NavigationWidget.switchToContainer(this, new updateinfo(context))
+
+
+
 

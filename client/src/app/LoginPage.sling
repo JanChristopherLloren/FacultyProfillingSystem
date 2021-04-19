@@ -51,55 +51,28 @@ func initializeWidget override
 		APIClient.getInstance().getUser(func(response as DynamicMap){
 			var data = assert response.getDynamicMap("data")
 			var records = data.getDynamicVector("records")
-			var firstname = ""
 			var Username = ""
 			var Password = ""
-			if not records || records.getSize() < 1{
-				;
-			}
-			else {
-				foreach record as DynamicMap in records.toVector(){
-					if username.getWidgetText() == record.getString("username") && password.getWidgetText() == record.getString("password"){
-						firstname = record.getString("firstname")
+			foreach record as DynamicMap in records.toVector(){
+				if username.getWidgetText() == record.getString("username") && password.getWidgetText() == record.getString("password"){
 						Username = record.getString("username")
 						Password = record.getString("password")
-						NavigationWidget.switchToContainer(this, new adminPage(context))
-						if Username == Username && Password == Password {
-									context.showMessageDialog("Notice", "Welcome " .. firstname)
-									NavigationWidget.switchToContainer(this, new adminPage(context))
-
+						if adminUser != "" && adminPass != "" {
+							context.showMessageDialog("Notice", "Welcome to Faculty Profilling Web Page!")
+							NavigationWidget.switchToContainer(this, new adminPage(context))
 						}
 					}
 				}
 				if Username == "" && Password == "" {
-					context.showMessageDialog("Notice","Account Not Found")
+					context.showMessageDialog("Notice","Try Again!")
 				}
-			}
+			
 		})
 
 
 	})	
 
-	var signupbtn = ButtonWidget.forText(context, "Sign Up", func{
-		NavigationWidget.switchToContainer(this, new addinstructor(context))
-	})	
-
-	var loginbtn2 = ButtonWidget.forText(context, "Login as Admin", func{
-		NavigationWidget.switchToContainer(this, new updateinfo(context))
-	})	
-	loginbtn.setWidgetBackgroundColor(Color.instance("#16F0E3"))
-	loginbtn.setWidgetTextColor(Color.white())
-	loginbtn.setWidgetFontSize(context.getHeightValue("4mm"))
-	vbox.addWidget(loginbtn)
-
-	signupbtn.setWidgetBackgroundColor(Color.instance("#16BFF0"))
-	signupbtn.setWidgetTextColor(Color.white())
-	signupbtn.setWidgetFontSize(context.getHeightValue("4mm"))
-	vbox.addWidget(signupbtn)
-
-	loginbtn2.setWidgetBackgroundColor(Color.instance("#6960EC"))
-	loginbtn2.setWidgetTextColor(Color.white())
-	loginbtn2.setWidgetFontSize(context.getHeightValue("4mm"))
-	vbox.addWidget(loginbtn2)
-
+	loginbtn.setWidgetFontSize(context.getHeightValue("2mm"))
+	loginbtn.setWidgetBackgroundColor(Color.instance("#5d89e8"))
+	vbox.addWidget(loginbtn)		
 }

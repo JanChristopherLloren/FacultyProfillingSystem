@@ -1,13 +1,13 @@
 import jk.widget.common
 import jk.widget.datagrid
+
 class #widget:
 
 ui VerticalBoxWidget
 {
-	CanvasWidget {
+    	CanvasWidget {
 		color = Color.instance("#5d89e8")
-	}
-	
+	} 
     spacing = context.getHeightValue("2000um")
     margin = context.getHeightValue("5mm")
     HorizontalBoxWidget {
@@ -21,7 +21,7 @@ ui VerticalBoxWidget
             }
         }
 		TextButtonWidget btnSchedule : 1.0 {
-            text = "ADD INSTRUCTOR"
+            text = "Profile"
             padding = context.getHeightValue("1000um")
             backgroundColor = Color.instance("#264651")
             clickHandler = func {
@@ -29,14 +29,14 @@ ui VerticalBoxWidget
             }
         }
 		TextButtonWidget btnAboutUs : 1.0 {
-            text = "RECORDS"
+            text = "SubjectHandling"
             padding = context.getHeightValue("1000um")
             backgroundColor = Color.instance("#264651")
             clickHandler = func {
                 onrecordClicked()
             }
         }
-		TextButtonWidget btnLogout : 1.0 {
+	TextButtonWidget btnLogout : 1.0 {
             text = "LOGOUT"
             padding = context.getHeightValue("1000um")
             backgroundColor = Color.instance("#264651")
@@ -49,12 +49,11 @@ ui VerticalBoxWidget
 						})
 			}
         }
-        
     }
-     VerticalScrollerWidget {
+    VerticalScrollerWidget {
         scrollBarDisabled = false
 		LayerWithBackgroundColorWidget container {
-            color = Color.instance("#264651")
+            color = Color.instance("#5d89e8")
 		AlignWidget {
 			VerticalBoxWidget vbox : 0.5, 0.5, false {
 				margin = context.getHeightValue("5mm")
@@ -69,52 +68,26 @@ ui VerticalBoxWidget
             } 
         }
         DataGridWidget grid{
-        cellPadding = 1
+                    cellPadding = 1
         }
     }
     }
 }
-func initializeWidget override
-{
-	base.initializeWidget()
-	grid.addColumn("User Id", "id", 0.2)
-	grid.addColumn("Name", "firstname", 1.0)
-    grid.addColumn("lastName", "lastname", 1.0)
-    grid.addColumn("Username", "username", 1.0)
-    grid.addColumn("Password", "password", 1.0)
-    grid.addColumn("Phonenumber", "phonenumber", 1.0)
-    grid.addColumn("Gender", "gender", 1.0)
-    grid.addColumn("Position", "position", 1.0)
-    grid.addColumn("Subject Handle", "subject", 1.0)
 
-	grid.addWidgetHeaderRow()
-    APIClient.getInstance().getUser(func(response as DynamicMap) {
-        var data = assert response.getDynamicMap("data")
-        var records = data.getDynamicVector("records")
-        if not records ||  records.getSize() < 1 {
-             grid.addRow([ "NO data In Database"])
-             context.showMessageDialog("Notice","NO DATA INSERT!")
-        }
-    	else {
-			foreach record as DynamicMap in records.toVector(){
-				grid.addRow([record.getString("id"),record.getString("firstname"),record.getString("lastname"),record.getString("username"),record.getString("password"),record.getString("phonenumber"),record.getString("gender"),record.getString("position"),record.getString("subject")])
-			}
-        }
-    })
-}	
- 
+
 
 func onHomeClicked:
-    NavigationWidget.switchToContainer(this, new adminPage(context))
+    NavigationWidget.switchToContainer(this, new userDashboard(context))
 
 func onADDClicked:
-    NavigationWidget.switchToContainer(this, new addinstructor(context))
+    NavigationWidget.switchToContainer(this, new userProfile(context))
 
 func onrecordClicked:
     NavigationWidget.switchToContainer(this, new records(context))
 
 func onlogoutClicked:
     NavigationWidget.switchToContainer(this, new LoginPage(context))
-func onUpdateClicked:
-    NavigationWidget.switchToContainer(this, new updateinfo(context))
+
+
+
 

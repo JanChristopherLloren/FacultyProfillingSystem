@@ -1,5 +1,5 @@
 import jk.widget.common
-import jk.widget.datagrid
+
 class #widget:
 
 ui VerticalBoxWidget
@@ -49,61 +49,67 @@ ui VerticalBoxWidget
 						})
 			}
         }
-        
     }
-     VerticalScrollerWidget {
-        scrollBarDisabled = false
+    VerticalScrollerWidget {
+		scrollBarDisabled = true
 		LayerWithBackgroundColorWidget container {
-            color = Color.instance("#264651")
+            ImageWidget image {
+                    imageResource = "delete"
+                    imageWidth = context.getHeightValue("260mm")
+                    imageHeight = context.getHeightValue("100mm")
+	        	}
 		AlignWidget {
 			VerticalBoxWidget vbox : 0.5, 0.5, false {
 				margin = context.getHeightValue("5mm")
-				spacing = context.getHeightValue("2000um") 
-		LabelWidget {
-					text = "SCHEDULE"
-					textColor = Color.black()
-					fontSize = context.getHeightValue("8mm")
-					textAlign = LabelWidget.ALIGN_CENTER
-					fontBold = true
+				spacing = context.getHeightValue("2000um")
+				TextInputWidget idAdmin  {
+					type = TextInputWidget.TYPE_INTEGER
+					placeholder = "ID"
+					backgroundColor = Color.white()
+					fontSize = context.getHeightValue("2mm")
+					padding = context.getHeightValue("2500um")
 				}
             } 
         }
-        DataGridWidget grid{
-        cellPadding = 1
         }
-    }
     }
 }
 func initializeWidget override
-{
+{	
 	base.initializeWidget()
-	grid.addColumn("User Id", "id", 0.2)
-	grid.addColumn("Name", "firstname", 1.0)
-    grid.addColumn("lastName", "lastname", 1.0)
-    grid.addColumn("Username", "username", 1.0)
-    grid.addColumn("Password", "password", 1.0)
-    grid.addColumn("Phonenumber", "phonenumber", 1.0)
-    grid.addColumn("Gender", "gender", 1.0)
-    grid.addColumn("Position", "position", 1.0)
-    grid.addColumn("Subject Handle", "subject", 1.0)
-
-	grid.addWidgetHeaderRow()
-    APIClient.getInstance().getUser(func(response as DynamicMap) {
-        var data = assert response.getDynamicMap("data")
-        var records = data.getDynamicVector("records")
-        if not records ||  records.getSize() < 1 {
-             grid.addRow([ "NO data In Database"])
-             context.showMessageDialog("Notice","NO DATA INSERT!")
-        }
-    	else {
+	var deletebtn = ButtonWidget.forText(context, "Submit", func {
+		APIClient.getInstance().getUser(func(response as DynamicMap){
+			var data = assert response.getDynamicMap("data")
+			var records = data.getDynamicVector("records")
 			foreach record as DynamicMap in records.toVector(){
-				grid.addRow([record.getString("id"),record.getString("firstname"),record.getString("lastname"),record.getString("username"),record.getString("password"),record.getString("phonenumber"),record.getString("gender"),record.getString("position"),record.getString("subject")])
+				if record.getString("id") == id.getWidgetText(){
+							var popup = new PopupDialogManager(context, this)
+							popup.showConfirmDialog("Confirmation","Are you sure to delete Info?", func{
+								APIClient.getInstance().deleteUser(id.getWidgetText(), func(res as DynamicMap){
+									context.showMessageDialog("Notice", "Successfully deleted!")
+									
+								}, func(err as Error){
+									context.showMessageDialog("Notice", "Failed! to Delete")
+								})
+							}, func{
+								;
+							})
+				}
 			}
-        }
-    })
-}	
- 
+        })
+	})
+	deletebtn.setWidgetFontSize(context.getHeightValue("2mm"))
+	deletebtn.setWidgetBackgroundColor(Color.instance("#5d89e8"))
+	vbox.addWidget(deletebtn)	
 
+	
+    var btnBack = ButtonWidget.forText(context, "BACK", func {
+		onBackClicked()	
+	})
+    btnBack.setWidgetFontSize(context.getHeightValue("2mm"))
+    btnBack.setWidgetBackgroundColor(Color.instance("#6aeb7f"))
+	vbox.addWidget(btnBack)
+}
 func onHomeClicked:
     NavigationWidget.switchToContainer(this, new adminPage(context))
 
