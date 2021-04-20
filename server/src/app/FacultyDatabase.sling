@@ -84,7 +84,7 @@ func updateTables
 func updateTablesadmin
 {
     var admin = SQLTableInfo.forName(ADMIN)
-    admin.addIntegerKeyColumn("idadmin")
+    admin.addIntegerKeyColumn("id")
     admin.addStringColumn("firstname")
     admin.addStringColumn("lastname")
     admin.addStringColumn("username")
@@ -113,7 +113,7 @@ func addUser(user as User) as User
 }
 
 
-func updateAdmin(idadmin as string, admin as Admin) as bool
+func updateAdmin(id as string, admin as Admin) as bool
 {
     assert admin
     var criteria = new Admin()
@@ -129,7 +129,7 @@ func updateUser(id as string, user as User) as bool
 
 }
 
-func deleteAdmin(idadmin as string) as bool
+func deleteAdmin(id as string) as bool
 {
     var criteria = new Admin()
     
