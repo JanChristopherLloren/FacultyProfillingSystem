@@ -57,7 +57,7 @@ func initializeWidget override
 				if username.getWidgetText() == record.getString("username") && password.getWidgetText() == record.getString("password"){
 						Username = record.getString("username")
 						Password = record.getString("password")
-						if adminUser != "" && adminPass != "" {
+						if username != "" && password != "" {
 							context.showMessageDialog("Notice", "Welcome to Faculty Profilling Web Page!")
 							NavigationWidget.switchToContainer(this, new adminPage(context))
 						}

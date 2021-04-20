@@ -85,7 +85,7 @@ func onADDClicked:
 func onrecordClicked:
     NavigationWidget.switchToContainer(this, new records(context))
 
-func onlogoutClicked:
+func onLogoutClicked:
     NavigationWidget.switchToContainer(this, new LoginPage(context))
 
 

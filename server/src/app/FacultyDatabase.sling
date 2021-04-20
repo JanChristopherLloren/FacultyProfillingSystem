@@ -9,7 +9,7 @@ class:
 
 model User
 {
-    id as int
+    id as string
     firstname as string
     lastname as string
     username as string
@@ -23,7 +23,7 @@ model User
 }
 model Admin
 {
-    id as int
+    idadmin as string
     firstname as string
     lastname as string
     username as string
@@ -84,7 +84,7 @@ func updateTables
 func updateTablesadmin
 {
     var admin = SQLTableInfo.forName(ADMIN)
-    admin.addIntegerKeyColumn("id")
+    admin.addIntegerKeyColumn("idadmin")
     admin.addStringColumn("firstname")
     admin.addStringColumn("lastname")
     admin.addStringColumn("username")
@@ -113,7 +113,7 @@ func addUser(user as User) as User
 }
 
 
-func updateAdmin(id as string, admin as Admin) as bool
+func updateAdmin(idadmin as string, admin as Admin) as bool
 {
     assert admin
     var criteria = new Admin()
@@ -129,9 +129,10 @@ func updateUser(id as string, user as User) as bool
 
 }
 
-func deleteAdmin(id as string) as bool
+func deleteAdmin(idadmin as string) as bool
 {
-    var criteria = new User()
+    var criteria = new Admin()
+    
     return db.executeSync(db.prepareDeleteStatementSync(ADMIN, criteria.toDynamicMap()))
 }
 func deleteUser(id as string) as bool

@@ -105,7 +105,7 @@ ui LayerWidget
 func initializeWidget override
 {
     base.initializeWidget()
-    var confirmbtn = ButtonWidget.forText(context, "Confirm", func {
+    var confirmbtn = ButtonWidget.forText(context, "Submit", func {
 		var user = new User()
 		//admin.setId(id.getWidgetText())
 		user.setFirstname(firstname.getWidgetText())
@@ -116,6 +116,7 @@ func initializeWidget override
         user.setGender(gender.getWidgetText())
         user.setPosition(position.getWidgetText())
         user.setSubject(subject.getWidgetText())
+
 		APIClient.getInstance().addUser(user.toDynamicMap(), func(res as DynamicMap){
 			context.showMessageDialog("Notice", "Your account successfully added")
 			firstname.setWidgetText("")
@@ -126,7 +127,7 @@ func initializeWidget override
             gender.setWidgetText("")
             position.setWidgetText("")
             subject.setWidgetText("")
-		}, func(err as Error){
+		}, func(error as Error){
 			context.showMessageDialog("Notice", "HINDI KA MA ADD")
 		})
 

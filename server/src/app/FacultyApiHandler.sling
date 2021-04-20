@@ -5,7 +5,7 @@ class is HTTPRPCRouter #webapi2:
 
 model UserRequest
 {
-    id as int
+    id as string
     firstname as string
     lastname as string
     username as string
@@ -18,7 +18,7 @@ model UserRequest
 }
 model AdminRequest
 {
-    id as int
+    id as string
     firstname as string
     lastname as string
     username as string

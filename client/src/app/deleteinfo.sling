@@ -50,7 +50,7 @@ ui VerticalBoxWidget
 			}
         }
     }
-    VerticalScrollerWidget {
+  VerticalScrollerWidget {
 		scrollBarDisabled = true
 		LayerWithBackgroundColorWidget container {
             ImageWidget image {
@@ -62,7 +62,7 @@ ui VerticalBoxWidget
 			VerticalBoxWidget vbox : 0.5, 0.5, false {
 				margin = context.getHeightValue("5mm")
 				spacing = context.getHeightValue("2000um")
-				TextInputWidget idAdmin  {
+				TextInputWidget id  {
 					type = TextInputWidget.TYPE_INTEGER
 					placeholder = "ID"
 					backgroundColor = Color.white()
@@ -82,7 +82,7 @@ func initializeWidget override
 			var data = assert response.getDynamicMap("data")
 			var records = data.getDynamicVector("records")
 			foreach record as DynamicMap in records.toVector(){
-				if record.getString("id") == id.getWidgetText(){
+				if record.getString("id") ==id.getWidgetText(){
 							var popup = new PopupDialogManager(context, this)
 							popup.showConfirmDialog("Confirmation","Are you sure to delete Info?", func{
 								APIClient.getInstance().deleteUser(id.getWidgetText(), func(res as DynamicMap){
@@ -103,12 +103,7 @@ func initializeWidget override
 	vbox.addWidget(deletebtn)	
 
 	
-    var btnBack = ButtonWidget.forText(context, "BACK", func {
-		onBackClicked()	
-	})
-    btnBack.setWidgetFontSize(context.getHeightValue("2mm"))
-    btnBack.setWidgetBackgroundColor(Color.instance("#6aeb7f"))
-	vbox.addWidget(btnBack)
+
 }
 func onHomeClicked:
     NavigationWidget.switchToContainer(this, new adminPage(context))
@@ -119,7 +114,7 @@ func onADDClicked:
 func onrecordClicked:
     NavigationWidget.switchToContainer(this, new records(context))
 
-func onlogoutClicked:
+func onLogoutClicked:
     NavigationWidget.switchToContainer(this, new LoginPage(context))
 func onUpdateClicked:
     NavigationWidget.switchToContainer(this, new updateinfo(context))
