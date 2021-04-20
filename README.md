@@ -1,0 +1,1 @@
+Faculty Profiling System is a system that stores the personal info of the Faculty members in an institution. Aside from the personal info, this system allows an admin to also assign the subjects along with the time schedule the teachers will handle on the coming semester. 
