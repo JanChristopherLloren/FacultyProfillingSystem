@@ -12,5 +12,5 @@ func initialize override
     navi.setWidgetEnableActionBar(false)
     setWidget(navi)
     APIClient.create(context, navi)
-    navi.pushWidget(new addinstructor(context))
+    navi.pushWidget(new LoginPage(context))
 }

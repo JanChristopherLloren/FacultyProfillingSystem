@@ -1,3 +1,22 @@
+class name app.records header extends jk.widget.VerticalBoxWidget public #widget
+{
+	import jk.lang
+	import jk.lang
+	import jk.ui
+	import jk.gfx
+	import jk.widget
+	import jk.widget.common
+	import jk.widget.datagrid
+	ctor(context as jk.ui.GuiApplicationContext)
+	func initializeWidget override
+	func onHomeClicked
+	func onADDClicked
+	func onrecordClicked
+	func onLogoutClicked
+	func onUpdateClicked
+	func onDeleteClicked
+	func createWidget override
+}
 class name app.MainScreen header extends jk.widget.ScreenForWidget public
 {
 	import jk.lang
@@ -7,7 +26,7 @@ class name app.MainScreen header extends jk.widget.ScreenForWidget public
 	func initialize override
 	func main(args as array<string>) static as int #main
 }
-class name app.LoginPage header extends jk.widget.LayerWidget public #widget
+class name app.userProfile header extends jk.widget.VerticalBoxWidget public #widget
 {
 	import jk.lang
 	import jk.lang
@@ -15,11 +34,32 @@ class name app.LoginPage header extends jk.widget.LayerWidget public #widget
 	import jk.gfx
 	import jk.widget
 	import jk.widget.common
+	import jk.widget.datagrid
 	ctor(context as jk.ui.GuiApplicationContext)
-	func initializeWidget override
+	func onHomeClicked
+	func onprofileClicked
+	func onrecordClicked
+	func onLogoutClicked
 	func createWidget override
 }
-class name app.AddAdminRegistration header extends jk.widget.LayerWidget public #widget
+class name app.usersubject header extends jk.widget.VerticalBoxWidget public #widget
+{
+	import jk.lang
+	import jk.lang
+	import jk.ui
+	import jk.gfx
+	import jk.widget
+	import jk.widget.common
+	import jk.widget.datagrid
+	ctor(context as jk.ui.GuiApplicationContext)
+	func initializeWidget override
+	func onHomeClicked
+	func onADDClicked
+	func onrecordClicked
+	func onLogoutClicked
+	func createWidget override
+}
+class name app.updateinfo header extends jk.widget.LayerWidget public #widget
 {
 	import jk.lang
 	import jk.lang
@@ -32,24 +72,133 @@ class name app.AddAdminRegistration header extends jk.widget.LayerWidget public 
 	{
 		import jk.json
 		ctor
-		func setFirstname(value as string) as app.AddAdminRegistration.User
+		func setFirstname(value as string) as app.updateinfo.User
 		func getFirstname as string
-		func setLastname(value as string) as app.AddAdminRegistration.User
+		func setLastname(value as string) as app.updateinfo.User
 		func getLastname as string
-		func setUsername(value as string) as app.AddAdminRegistration.User
+		func setUsername(value as string) as app.updateinfo.User
 		func getUsername as string
-		func setPassword(value as string) as app.AddAdminRegistration.User
+		func setPassword(value as string) as app.updateinfo.User
 		func getPassword as string
-		func setPhonenumber(value as string) as app.AddAdminRegistration.User
+		func setPhonenumber(value as string) as app.updateinfo.User
 		func getPhonenumber as string
+		func setGender(value as string) as app.updateinfo.User
+		func getGender as string
+		func setPosition(value as string) as app.updateinfo.User
+		func getPosition as string
+		func setSubject(value as string) as app.updateinfo.User
+		func getSubject as string
 		func toJsonObject override as object
 		func fromJsonObject(o as object) override as bool
 		func fromJsonString(o as string) as bool
 		func toJsonString as string
 		func toString as string
-		func forJsonString(o as string) static as app.AddAdminRegistration.User
-		func forJsonObject(o as object) static as app.AddAdminRegistration.User
+		func forJsonString(o as string) static as app.updateinfo.User
+		func forJsonObject(o as object) static as app.updateinfo.User
 	}
+	func initializeWidget override
+	func createWidget override
+}
+class name app.deleteinfo header extends jk.widget.VerticalBoxWidget public #widget
+{
+	import jk.lang
+	import jk.lang
+	import jk.ui
+	import jk.gfx
+	import jk.widget
+	import jk.widget.common
+	ctor(context as jk.ui.GuiApplicationContext)
+	func initializeWidget override
+	func onHomeClicked
+	func onADDClicked
+	func onrecordClicked
+	func onLogoutClicked
+	func onUpdateClicked
+	func createWidget override
+}
+class name app.addinstructor header extends jk.widget.LayerWidget public #widget
+{
+	import jk.lang
+	import jk.lang
+	import jk.ui
+	import jk.gfx
+	import jk.widget
+	import jk.widget.common
+	ctor(context as jk.ui.GuiApplicationContext)
+	class name User header extends jk.json.JSONObjectAdapter implements jk.lang.StringObject public static
+	{
+		import jk.json
+		ctor
+		func setFirstname(value as string) as app.addinstructor.User
+		func getFirstname as string
+		func setLastname(value as string) as app.addinstructor.User
+		func getLastname as string
+		func setUsername(value as string) as app.addinstructor.User
+		func getUsername as string
+		func setPassword(value as string) as app.addinstructor.User
+		func getPassword as string
+		func setPhonenumber(value as string) as app.addinstructor.User
+		func getPhonenumber as string
+		func setGender(value as string) as app.addinstructor.User
+		func getGender as string
+		func setPosition(value as string) as app.addinstructor.User
+		func getPosition as string
+		func setSubject(value as string) as app.addinstructor.User
+		func getSubject as string
+		func toJsonObject override as object
+		func fromJsonObject(o as object) override as bool
+		func fromJsonString(o as string) as bool
+		func toJsonString as string
+		func toString as string
+		func forJsonString(o as string) static as app.addinstructor.User
+		func forJsonObject(o as object) static as app.addinstructor.User
+	}
+	func initializeWidget override
+	func createWidget override
+}
+class name app.adminPage header extends jk.widget.VerticalBoxWidget public #widget
+{
+	import jk.lang
+	import jk.lang
+	import jk.ui
+	import jk.gfx
+	import jk.widget
+	import jk.widget.common
+	import jk.widget.datagrid
+	ctor(context as jk.ui.GuiApplicationContext)
+	func initializeWidget override
+	func onHomeClicked
+	func onADDClicked
+	func onrecordClicked
+	func onLogoutClicked
+	func onUpdateClicked
+	func createWidget override
+}
+class name app.homepage header extends jk.widget.VerticalBoxWidget public #widget
+{
+	import jk.lang
+	import jk.lang
+	import jk.ui
+	import jk.gfx
+	import jk.widget
+	import jk.widget.common
+	import jk.widget.datagrid
+	ctor(context as jk.ui.GuiApplicationContext)
+	func onHomeClicked
+	func onADDClicked
+	func onrecordClicked
+	func onlogoutClicked
+	func createWidget override
+}
+class name app.LoginPage header extends jk.widget.LayerWidget public #widget
+{
+	import jk.lang
+	import jk.lang
+	import jk.ui
+	import jk.gfx
+	import jk.widget
+	import jk.widget.common
+	ctor(context as jk.ui.GuiApplicationContext)
 	func initializeWidget override
 	func createWidget override
 }
@@ -70,4 +219,20 @@ class name app.APIClient header extends jk.widget.web.JSONAPIClientWithGui publi
 	func getUser(callback as function<void,jk.lang.DynamicMap>, errorCallback as function<void,jk.lang.Error> = null)
 	func getWidgetDefaultErrorHandler as function<void,jk.lang.Error> #getterMethod
 	func setWidgetDefaultErrorHandler(v as function<void,jk.lang.Error>) as app.APIClient #setterMethod
+}
+class name app.userDashboard header extends jk.widget.VerticalBoxWidget public #widget
+{
+	import jk.lang
+	import jk.lang
+	import jk.ui
+	import jk.gfx
+	import jk.widget
+	import jk.widget.common
+	import jk.widget.datagrid
+	ctor(context as jk.ui.GuiApplicationContext)
+	func onHomeClicked
+	func onADDClicked
+	func onrecordClicked
+	func onLogoutClicked
+	func createWidget override
 }

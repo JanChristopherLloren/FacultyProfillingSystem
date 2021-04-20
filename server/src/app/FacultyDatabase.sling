@@ -23,7 +23,7 @@ model User
 }
 model Admin
 {
-    idadmin as string
+    id as string
     firstname as string
     lastname as string
     username as string

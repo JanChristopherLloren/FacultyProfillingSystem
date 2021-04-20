@@ -57,9 +57,9 @@ func initializeWidget override
 				if username.getWidgetText() == record.getString("username") && password.getWidgetText() == record.getString("password"){
 						Username = record.getString("username")
 						Password = record.getString("password")
-						if username != "" && password != "" {
+						if username != "User" && password != "user" {
 							context.showMessageDialog("Notice", "Welcome to Faculty Profilling Web Page!")
-							NavigationWidget.switchToContainer(this, new adminPage(context))
+							NavigationWidget.switchToContainer(this, new userDashboard(context))
 						}
 					}
 				}
@@ -73,6 +73,6 @@ func initializeWidget override
 	})	
 
 	loginbtn.setWidgetFontSize(context.getHeightValue("2mm"))
-	loginbtn.setWidgetBackgroundColor(Color.instance("#5d89e8"))
+	loginbtn.setWidgetBackgroundColor(Color.instance("#949796"))
 	vbox.addWidget(loginbtn)		
 }

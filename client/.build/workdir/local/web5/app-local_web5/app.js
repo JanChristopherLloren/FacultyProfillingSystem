@@ -27048,6 +27048,721 @@ function app() {
 	};
 	JkWidgetWebCachingWebImageWidget.cacheMap = null;
 	JkWidgetWebCachingWebImageWidget.ttl = 60 * 5;
+	let JkWidgetDatagridDataGridWidgetColumn = function() {
+		this.name = null;
+		this.weight = 0.0;
+		this.key = null;
+		this.textAlign = 0;
+	};
+	JkWidgetDatagridDataGridWidgetColumn.prototype._t = { "JkWidgetDatagridDataGridWidgetColumn" : true };
+	JkWidgetDatagridDataGridWidgetColumn.prototype._tobj = JkWidgetDatagridDataGridWidgetColumn;
+	JkWidgetDatagridDataGridWidgetColumn.NEW = function() {
+		var v = new JkWidgetDatagridDataGridWidgetColumn;
+		return v.CTOR_JkWidgetDatagridDataGridWidgetColumn();
+	};
+	JkWidgetDatagridDataGridWidgetColumn.prototype.CTOR_JkWidgetDatagridDataGridWidgetColumn = function() {
+		this.textAlign = 0;
+		this.key = null;
+		this.weight = 0.0;
+		this.name = null;
+		return this;
+	};
+	JkWidgetDatagridDataGridWidgetColumn.IS_INSTANCE = function(o) {
+		return o != null && o._t != null && o._t["JkWidgetDatagridDataGridWidgetColumn"] === true;
+	};
+	let JkWidgetDatagridDataGridWidgetCellWidget = function() {
+		JkWidgetLayerWidget.call(this);
+		this.widgetText = null;
+		this.widgetIsEditable = false;
+		this.widgetKey = null;
+		this.widgetTextAlign = 0;
+		this.widgetTextColor = null;
+		this.widget = null;
+		this.cellBackground = null;
+		this.cellTextCon = null;
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype = (function(o) {
+		function F() {
+		}
+		;
+		F.prototype = o;
+		return new F();
+	})(JkWidgetLayerWidget.prototype);
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype.constructor = JkWidgetDatagridDataGridWidgetCellWidget;
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype._t = {
+		"JkWidgetParentAwareWidget" : true,
+		"JkWidgetHeightAwareWidget" : true,
+		"JkWidgetDatagridDataGridWidgetCellWidget" : true,
+		"JkWidgetWidget" : true,
+		"JkWidgetLayerWidget" : true,
+		"JkWidgetContainerWidget" : true,
+		"JkWidgetWidgetWithLayout" : true
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype._tobj = JkWidgetDatagridDataGridWidgetCellWidget;
+	JkWidgetDatagridDataGridWidgetCellWidget.NEW_JkUiGuiApplicationContext = function(ctx) {
+		var v = new JkWidgetDatagridDataGridWidgetCellWidget;
+		return v.CTOR_JkWidgetDatagridDataGridWidgetCellWidget_JkUiGuiApplicationContext(ctx);
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype.CTOR_JkWidgetDatagridDataGridWidgetCellWidget_JkUiGuiApplicationContext = function(ctx) {
+		this.cellTextCon = null;
+		this.cellBackground = null;
+		this.widget = null;
+		this.widgetTextColor = null;
+		this.widgetTextAlign = 0;
+		this.widgetKey = null;
+		this.widgetIsEditable = false;
+		this.widgetText = null;
+		if(JkWidgetLayerWidget.prototype.CTOR_JkWidgetLayerWidget_JkUiGuiApplicationContext.call(this, ctx) == null) {
+			return null;
+		}
+		this.forceCreateWidget();
+		return this;
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.forEditableCell = function(ctx, text, padding, textAlign) {
+		var v = JkWidgetDatagridDataGridWidgetCellWidget.NEW_JkUiGuiApplicationContext(ctx);
+		v.setWidgetText(text);
+		v.setWidgetCellPadding(padding);
+		v.setWidgetIsEditable(true);
+		v.setWidgetTextAlign(textAlign);
+		return v;
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.forStaticCell = function(ctx, text, padding, textAlign) {
+		var v = JkWidgetDatagridDataGridWidgetCellWidget.NEW_JkUiGuiApplicationContext(ctx);
+		v.setWidgetText(text);
+		v.setWidgetCellPadding(padding);
+		v.setWidgetIsEditable(false);
+		v.setWidgetTextAlign(textAlign);
+		return v;
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype.initializeWidget = function() {
+		JkWidgetLayerWidget.prototype.initializeWidget.call(this);
+		if(this.widgetIsEditable) {
+			this.widget = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
+			this.widget.setWidgetText(this.widgetText);
+			this.widget.setWidgetTextColor(this.widgetTextColor);
+			this.widget.setWidgetTextAlign(this.widgetTextAlign);
+			this.cellTextCon.addWidget(this.widget);
+		}
+		else {
+			this.widget = JkWidgetLabelWidget.forText(this.context, this.widgetText);
+			this.widget.setWidgetTextColor(this.widgetTextColor);
+			this.widget.setWidgetTextAlign(this.widgetTextAlign);
+			this.cellTextCon.addWidget(this.widget);
+		}
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype.setWidgetCellPadding = function(padding) {
+		this.cellTextCon.setWidgetMargin(padding);
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype.setWidgetCellBackgroundColor = function(color) {
+		this.cellBackground.setWidgetColor(color);
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype.setWidgetCellTextColor = function(color) {
+		this.widgetTextColor = color;
+		if(!(this.widget != null)) {
+			return;
+		}
+		if(JkWidgetCommonTextInputWidget.IS_INSTANCE && JkWidgetCommonTextInputWidget.IS_INSTANCE(this.widget)) {
+			this.widget.setWidgetTextColor(color);
+		}
+		else {
+			this.widget.setWidgetTextColor(color);
+		}
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype.getWidgetText = function() {
+		var v = "";
+		if(JkWidgetCommonTextInputWidget.IS_INSTANCE && JkWidgetCommonTextInputWidget.IS_INSTANCE(this.widget)) {
+			v = this.widget.getWidgetText();
+		}
+		else {
+			v = this.widget.getWidgetText();
+		}
+		return v;
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype.createWidget = function() {
+		JkWidgetLayerWidget.prototype.createWidget.call(this);
+		var thisWidget = this;
+		this.cellBackground = JkWidgetCanvasWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.cellBackground.setWidgetColor((JkGfxColor.white()));
+		this.addWidget(this.cellBackground);
+		this.cellTextCon = JkWidgetLayerWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.addWidget(this.cellTextCon);
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype.setWidgetText = function(v) {
+		this.widgetText = v;
+		return this;
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype.getWidgetIsEditable = function() {
+		return this.widgetIsEditable;
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype.setWidgetIsEditable = function(v) {
+		this.widgetIsEditable = v;
+		return this;
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype.getWidgetKey = function() {
+		return this.widgetKey;
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype.setWidgetKey = function(v) {
+		this.widgetKey = v;
+		return this;
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype.getWidgetTextAlign = function() {
+		return this.widgetTextAlign;
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.prototype.setWidgetTextAlign = function(v) {
+		this.widgetTextAlign = v;
+		return this;
+	};
+	JkWidgetDatagridDataGridWidgetCellWidget.IS_INSTANCE = function(o) {
+		return o != null && o._t != null && o._t["JkWidgetDatagridDataGridWidgetCellWidget"] === true;
+	};
+	let JkWidgetDatagridDataGridWidgetDataGridRowWidget = function() {
+		JkWidgetLayerWidget.call(this);
+		this.widgetGridWidth = 0;
+		this.widgetCellPadding = 0;
+		this.widgetIsEditable = false;
+		this.widgetBackground = null;
+		this.widgetMain = null;
+		this.widgetCellContainer = null;
+	};
+	JkWidgetDatagridDataGridWidgetDataGridRowWidget.prototype = (function(o) {
+		function F() {
+		}
+		;
+		F.prototype = o;
+		return new F();
+	})(JkWidgetLayerWidget.prototype);
+	JkWidgetDatagridDataGridWidgetDataGridRowWidget.prototype.constructor = JkWidgetDatagridDataGridWidgetDataGridRowWidget;
+	JkWidgetDatagridDataGridWidgetDataGridRowWidget.prototype._t = {
+		"JkWidgetParentAwareWidget" : true,
+		"JkWidgetHeightAwareWidget" : true,
+		"JkWidgetWidget" : true,
+		"JkWidgetWidgetWithLayout" : true,
+		"JkWidgetLayerWidget" : true,
+		"JkWidgetContainerWidget" : true,
+		"JkWidgetDatagridDataGridWidgetDataGridRowWidget" : true
+	};
+	JkWidgetDatagridDataGridWidgetDataGridRowWidget.prototype._tobj = JkWidgetDatagridDataGridWidgetDataGridRowWidget;
+	JkWidgetDatagridDataGridWidgetDataGridRowWidget.NEW_JkUiGuiApplicationContext = function(ctx) {
+		var v = new JkWidgetDatagridDataGridWidgetDataGridRowWidget;
+		return v.CTOR_JkWidgetDatagridDataGridWidgetDataGridRowWidget_JkUiGuiApplicationContext(ctx);
+	};
+	JkWidgetDatagridDataGridWidgetDataGridRowWidget.prototype.CTOR_JkWidgetDatagridDataGridWidgetDataGridRowWidget_JkUiGuiApplicationContext = function(ctx) {
+		this.widgetCellContainer = null;
+		this.widgetMain = null;
+		this.widgetBackground = null;
+		this.widgetIsEditable = false;
+		this.widgetCellPadding = 0;
+		this.widgetGridWidth = 0;
+		if(JkWidgetLayerWidget.prototype.CTOR_JkWidgetLayerWidget_JkUiGuiApplicationContext.call(this, ctx) == null) {
+			return null;
+		}
+		this.addWidget((this.widgetBackground = JkWidgetCanvasWidget.forColor(this.context, (JkGfxColor.black()))));
+		this.addWidget((this.widgetMain = JkWidgetLayerWidget.NEW_JkUiGuiApplicationContext(ctx)));
+		return this;
+	};
+	JkWidgetDatagridDataGridWidgetDataGridRowWidget.prototype.setWidgetBackgroundColor = function(color) {
+		var array = JkWidgetWidget.getChildren(this.widgetCellContainer);
+		if(array != null) {
+			var n = 0;
+			var m = array.length;
+			for(n = 0 ; n < m ; n++) {
+				var cell = (function(o) {
+					if(JkWidgetDatagridDataGridWidgetCellWidget.IS_INSTANCE && JkWidgetDatagridDataGridWidgetCellWidget.IS_INSTANCE(o)) {
+						return o;
+					}
+					return null;
+				}.bind(this))(array[n]);
+				if(cell != null) {
+					cell.setWidgetCellBackgroundColor(color);
+				}
+			}
+		}
+	};
+	JkWidgetDatagridDataGridWidgetDataGridRowWidget.prototype.reload = function(data, widgetColumns, isEditable) {
+		var n = 0;
+		var c = data.length;
+		this.widgetCellContainer = JkWidgetHorizontalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.widgetCellContainer.setWidgetSpacing(this.widgetGridWidth);
+		this.widgetMain.addWidget(this.widgetCellContainer);
+		if(widgetColumns != null) {
+			var n2 = 0;
+			var m = widgetColumns.length;
+			for(n2 = 0 ; n2 < m ; n2++) {
+				var column = widgetColumns[n2];
+				if(column != null) {
+					if(n >= c) {
+						continue;
+					}
+					var dd = data[n];
+					var str = JkLangString.asString(dd);
+					if(!(str != null)) {
+						str = "";
+					}
+					var ta = column.textAlign;
+					if(ta < 0) {
+						ta = 0;
+					}
+					var cell = null;
+					if(isEditable) {
+						cell = JkWidgetDatagridDataGridWidgetCellWidget.forEditableCell(this.context, str, this.widgetCellPadding, ta);
+					}
+					else {
+						cell = JkWidgetDatagridDataGridWidgetCellWidget.forStaticCell(this.context, str, this.widgetCellPadding, ta);
+					}
+					cell.setWidgetKey(column.key);
+					cell.setWidgetCellTextColor((JkGfxColor.black()));
+					this.widgetCellContainer.addWidget1(cell, column.weight);
+					n++;
+				}
+			}
+		}
+	};
+	JkWidgetDatagridDataGridWidgetDataGridRowWidget.prototype.collectRowDataTo = function(dv) {
+		if(!(dv != null)) {
+			return;
+		}
+		var dm = JkLangDynamicMap.NEW();
+		var array = JkWidgetWidget.getChildren(this.widgetCellContainer);
+		if(array != null) {
+			var n = 0;
+			var m = array.length;
+			for(n = 0 ; n < m ; n++) {
+				var cell = (function(o) {
+					if(JkWidgetDatagridDataGridWidgetCellWidget.IS_INSTANCE && JkWidgetDatagridDataGridWidgetCellWidget.IS_INSTANCE(o)) {
+						return o;
+					}
+					return null;
+				}.bind(this))(array[n]);
+				if(cell != null) {
+					dm.setString((cell.getWidgetKey()), (cell.getWidgetText()));
+				}
+			}
+		}
+		dv.appendObject(dm);
+	};
+	JkWidgetDatagridDataGridWidgetDataGridRowWidget.prototype.getWidgetGridWidth = function() {
+		return this.widgetGridWidth;
+	};
+	JkWidgetDatagridDataGridWidgetDataGridRowWidget.prototype.setWidgetGridWidth = function(v) {
+		this.widgetGridWidth = v;
+		return this;
+	};
+	JkWidgetDatagridDataGridWidgetDataGridRowWidget.prototype.getWidgetCellPadding = function() {
+		return this.widgetCellPadding;
+	};
+	JkWidgetDatagridDataGridWidgetDataGridRowWidget.prototype.setWidgetCellPadding = function(v) {
+		this.widgetCellPadding = v;
+		return this;
+	};
+	JkWidgetDatagridDataGridWidgetDataGridRowWidget.prototype.getWidgetIsEditable = function() {
+		return this.widgetIsEditable;
+	};
+	JkWidgetDatagridDataGridWidgetDataGridRowWidget.prototype.setWidgetIsEditable = function(v) {
+		this.widgetIsEditable = v;
+		return this;
+	};
+	JkWidgetDatagridDataGridWidgetDataGridRowWidget.IS_INSTANCE = function(o) {
+		return o != null && o._t != null && o._t["JkWidgetDatagridDataGridWidgetDataGridRowWidget"] === true;
+	};
+	let JkWidgetDatagridDataGridWidget = function() {
+		JkWidgetLayerWidget.call(this);
+		this.widgetBackground = null;
+		this.widgetGridBackground = null;
+		this.widgetGrid = null;
+		this.widgetDataBox = null;
+		this.widgetHeaderRow = null;
+		this.widgetColumns = null;
+		this.widgetGridWidth = 0;
+		this.selectedRow = null;
+		this.widgetHeaderBackgroundColor = null;
+		this.widgetHeaderForegroundColor = null;
+		this.widgetDataBackgroundColor = null;
+		this.widgetDataForegroundColor = null;
+		this.widgetSelectedDataBackgroundColor = null;
+		this.widgetSelectedDataForegroundColor = null;
+		this.widgetCellPadding = 0;
+		this.widgetIsEditable = false;
+	};
+	JkWidgetDatagridDataGridWidget.prototype = (function(o) {
+		function F() {
+		}
+		;
+		F.prototype = o;
+		return new F();
+	})(JkWidgetLayerWidget.prototype);
+	JkWidgetDatagridDataGridWidget.prototype.constructor = JkWidgetDatagridDataGridWidget;
+	JkWidgetDatagridDataGridWidget.prototype._t = {
+		"JkWidgetParentAwareWidget" : true,
+		"JkWidgetHeightAwareWidget" : true,
+		"JkWidgetWidget" : true,
+		"JkWidgetDatagridDataGridWidget" : true,
+		"JkWidgetLayerWidget" : true,
+		"JkWidgetContainerWidget" : true,
+		"JkWidgetWidgetWithLayout" : true
+	};
+	JkWidgetDatagridDataGridWidget.prototype._tobj = JkWidgetDatagridDataGridWidget;
+	JkWidgetDatagridDataGridWidget.NEW_JkUiGuiApplicationContext = function(ctx) {
+		var v = new JkWidgetDatagridDataGridWidget;
+		return v.CTOR_JkWidgetDatagridDataGridWidget_JkUiGuiApplicationContext(ctx);
+	};
+	JkWidgetDatagridDataGridWidget.prototype.CTOR_JkWidgetDatagridDataGridWidget_JkUiGuiApplicationContext = function(ctx) {
+		this.widgetIsEditable = false;
+		this.widgetCellPadding = 0;
+		this.widgetSelectedDataForegroundColor = null;
+		this.widgetSelectedDataBackgroundColor = null;
+		this.widgetDataForegroundColor = null;
+		this.widgetDataBackgroundColor = null;
+		this.widgetHeaderForegroundColor = null;
+		this.widgetHeaderBackgroundColor = null;
+		this.selectedRow = null;
+		this.widgetGridWidth = 0;
+		this.widgetColumns = null;
+		this.widgetHeaderRow = null;
+		this.widgetDataBox = null;
+		this.widgetGrid = null;
+		this.widgetGridBackground = null;
+		this.widgetBackground = null;
+		if(JkWidgetLayerWidget.prototype.CTOR_JkWidgetLayerWidget_JkUiGuiApplicationContext.call(this, ctx) == null) {
+			return null;
+		}
+		this.addWidget((this.widgetBackground = JkWidgetCanvasWidget.NEW_JkUiGuiApplicationContext(ctx)));
+		var db = JkWidgetVerticalBoxWidget.NEW_JkUiGuiApplicationContext(ctx);
+		this.widgetGrid = db;
+		db.addWidget((this.widgetHeaderRow = JkWidgetHorizontalBoxWidget.NEW_JkUiGuiApplicationContext(ctx)));
+		db.addWidget((this.widgetDataBox = JkWidgetVerticalBoxWidget.NEW_JkUiGuiApplicationContext(ctx)));
+		var dblayer = JkWidgetLayerWidget.NEW_JkUiGuiApplicationContext(ctx);
+		dblayer.addWidget((this.widgetGridBackground = JkWidgetCanvasWidget.NEW_JkUiGuiApplicationContext(ctx)));
+		dblayer.addWidget(db);
+		var dblb = JkWidgetVerticalBoxWidget.NEW_JkUiGuiApplicationContext(ctx);
+		dblb.addWidget(dblayer);
+		this.addWidget(dblb);
+		this.setWidgetHeaderForegroundColor((JkGfxColor.black()));
+		this.setWidgetDataBackgroundColor((JkGfxColor.white()));
+		this.setWidgetDataForegroundColor((JkGfxColor.black()));
+		this.setWidgetSelectedDataForegroundColor((JkGfxColor.white()));
+		this.setWidgetSelectedDataBackgroundColor((JkGfxColor.instance("#428AFF")));
+		this.setWidgetBackgroundColor((JkGfxColor.white()));
+		this.setWidgetGridColor((JkGfxColor.black()));
+		this.setWidgetHeaderBackgroundColor((JkGfxColor.instance("#AAAAAA")));
+		this.setWidgetBackgroundColor((JkGfxColor.white()));
+		this.setWidgetGridWidth((ctx.getHeightValue("500um")));
+		this.setWidgetCellPadding((ctx.getHeightValue("1mm")));
+		return this;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.setWidgetBackgroundColor = function(color) {
+		this.widgetBackground.setWidgetColor(color);
+	};
+	JkWidgetDatagridDataGridWidget.prototype.getWidgetBackgroundColor = function() {
+		return this.widgetBackground.getWidgetColor();
+	};
+	JkWidgetDatagridDataGridWidget.prototype.setWidgetGridColor = function(color) {
+		this.widgetGridBackground.setWidgetColor(color);
+	};
+	JkWidgetDatagridDataGridWidget.prototype.getWidgetGridColor = function() {
+		return this.widgetGridBackground.getWidgetColor();
+	};
+	JkWidgetDatagridDataGridWidget.prototype.setWidgetGridWidth = function(width) {
+		this.widgetGridWidth = width;
+		this.widgetGrid.setWidgetMargin(width);
+		this.widgetGrid.setWidgetSpacing(width);
+		this.widgetDataBox.setWidgetSpacing(width);
+		this.widgetHeaderRow.setWidgetSpacing(width);
+	};
+	JkWidgetDatagridDataGridWidget.prototype.deleteAllColumns = function() {
+		this.widgetColumns = null;
+		this.deleteWidgetHeaderRow();
+		this.deleteAllRows();
+	};
+	JkWidgetDatagridDataGridWidget.prototype.addColumn = function(name, key, weight, textAlign) {
+		if(!(this.widgetColumns != null)) {
+			this.widgetColumns = new Array;
+		}
+		var c = JkWidgetDatagridDataGridWidgetColumn.NEW();
+		c.name = name;
+		c.key = key;
+		c.weight = weight;
+		c.textAlign = textAlign;
+		this.widgetColumns.push(c);
+	};
+	JkWidgetDatagridDataGridWidget.prototype.addWidgetHeaderRow = function() {
+		this.widgetHeaderRow.removeAllChildren();
+		if(this.widgetColumns != null) {
+			var n = 0;
+			var m = this.widgetColumns.length;
+			for(n = 0 ; n < m ; n++) {
+				var column = this.widgetColumns[n];
+				if(column != null) {
+					var str = column.name;
+					if(!(str != null)) {
+						str = "";
+					}
+					var lbl = JkWidgetLabelWidget.forText(this.context, str);
+					lbl.setWidgetTextColor(this.widgetHeaderForegroundColor);
+					lbl.setWidgetFontBold(true);
+					var cc = JkWidgetCanvasWidget.forColor(this.context, this.widgetHeaderBackgroundColor);
+					var ll = JkWidgetLayerWidget.NEW_JkUiGuiApplicationContext(this.context);
+					ll.addWidget(cc);
+					if(this.widgetCellPadding > 0) {
+						ll.addWidget((JkWidgetLayerWidget.forWidget(this.context, lbl, this.widgetCellPadding)));
+					}
+					else {
+						ll.addWidget(lbl);
+					}
+					this.widgetHeaderRow.addWidget1(ll, column.weight);
+				}
+			}
+		}
+	};
+	JkWidgetDatagridDataGridWidget.prototype.deleteWidgetHeaderRow = function() {
+		this.widgetHeaderRow.removeAllChildren();
+	};
+	JkWidgetDatagridDataGridWidget.prototype.deleteAllRows = function() {
+		this.widgetDataBox.removeAllChildren();
+	};
+	JkWidgetDatagridDataGridWidget.prototype.addRow = function(data, clickHandler, doubleClickHandler) {
+		var row = JkWidgetDatagridDataGridWidgetDataGridRowWidget.NEW_JkUiGuiApplicationContext(this.context);
+		row.setWidgetGridWidth(this.widgetGridWidth);
+		row.setWidgetCellPadding(this.widgetCellPadding);
+		row.reload(data, this.widgetColumns, this.widgetIsEditable);
+		this.widgetDataBox.addWidget(row);
+		var r = row;
+		var h = clickHandler;
+		var d = doubleClickHandler;
+		JkWidgetWidget.setWidgetClickHandler(row, (function() {
+			if(this.selectedRow != null) {
+				this.selectedRow.setWidgetBackgroundColor((JkGfxColor.white()));
+			}
+			r.setWidgetBackgroundColor(this.widgetSelectedDataBackgroundColor);
+			this.selectedRow = r;
+			if(h != null) {
+				h();
+			}
+		}.bind(this)));
+		JkWidgetWidget.setWidgetDoubleClickHandler(row, (function() {
+			if(this.selectedRow != null) {
+				this.selectedRow.setWidgetBackgroundColor((JkGfxColor.white()));
+			}
+			r.setWidgetBackgroundColor(this.widgetSelectedDataBackgroundColor);
+			this.selectedRow = r;
+			if(d != null) {
+				d();
+			}
+		}.bind(this)));
+	};
+	JkWidgetDatagridDataGridWidget.prototype.getGridData = function() {
+		var dv = JkLangDynamicVector.NEW();
+		var array = JkWidgetWidget.getChildren(this.widgetDataBox);
+		if(array != null) {
+			var n = 0;
+			var m = array.length;
+			for(n = 0 ; n < m ; n++) {
+				var dgr = (function(o) {
+					if(JkWidgetDatagridDataGridWidgetDataGridRowWidget.IS_INSTANCE && JkWidgetDatagridDataGridWidgetDataGridRowWidget.IS_INSTANCE(o)) {
+						return o;
+					}
+					return null;
+				}.bind(this))(array[n]);
+				if(dgr != null) {
+					dgr.collectRowDataTo(dv);
+				}
+			}
+		}
+		return dv;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.getWidgetHeaderBackgroundColor = function() {
+		return this.widgetHeaderBackgroundColor;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.setWidgetHeaderBackgroundColor = function(v) {
+		this.widgetHeaderBackgroundColor = v;
+		return this;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.getWidgetHeaderForegroundColor = function() {
+		return this.widgetHeaderForegroundColor;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.setWidgetHeaderForegroundColor = function(v) {
+		this.widgetHeaderForegroundColor = v;
+		return this;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.getWidgetDataBackgroundColor = function() {
+		return this.widgetDataBackgroundColor;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.setWidgetDataBackgroundColor = function(v) {
+		this.widgetDataBackgroundColor = v;
+		return this;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.getWidgetDataForegroundColor = function() {
+		return this.widgetDataForegroundColor;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.setWidgetDataForegroundColor = function(v) {
+		this.widgetDataForegroundColor = v;
+		return this;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.getWidgetSelectedDataBackgroundColor = function() {
+		return this.widgetSelectedDataBackgroundColor;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.setWidgetSelectedDataBackgroundColor = function(v) {
+		this.widgetSelectedDataBackgroundColor = v;
+		return this;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.getWidgetSelectedDataForegroundColor = function() {
+		return this.widgetSelectedDataForegroundColor;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.setWidgetSelectedDataForegroundColor = function(v) {
+		this.widgetSelectedDataForegroundColor = v;
+		return this;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.getWidgetCellPadding = function() {
+		return this.widgetCellPadding;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.setWidgetCellPadding = function(v) {
+		this.widgetCellPadding = v;
+		return this;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.getWidgetIsEditable = function() {
+		return this.widgetIsEditable;
+	};
+	JkWidgetDatagridDataGridWidget.prototype.setWidgetIsEditable = function(v) {
+		this.widgetIsEditable = v;
+		return this;
+	};
+	JkWidgetDatagridDataGridWidget.IS_INSTANCE = function(o) {
+		return o != null && o._t != null && o._t["JkWidgetDatagridDataGridWidget"] === true;
+	};
+	JkWidgetDatagridDataGridWidget.ALIGN_LEFT = 0;
+	JkWidgetDatagridDataGridWidget.ALIGN_CENTER = 1;
+	JkWidgetDatagridDataGridWidget.ALIGN_RIGHT = 2;
+	JkWidgetDatagridDataGridWidget.ALIGN_JUSTIFY = 3;
+	let AppUserDashboard = function() {
+		JkWidgetVerticalBoxWidget.call(this);
+		this.btnHome = null;
+		this.btnSchedule = null;
+		this.btnAboutUs = null;
+		this.btnLogout = null;
+		this.container = null;
+		this.vbox = null;
+		this.grid = null;
+	};
+	AppUserDashboard.prototype = (function(o) {
+		function F() {
+		}
+		;
+		F.prototype = o;
+		return new F();
+	})(JkWidgetVerticalBoxWidget.prototype);
+	AppUserDashboard.prototype.constructor = AppUserDashboard;
+	AppUserDashboard.prototype._t = {
+		"AppUserDashboard" : true,
+		"JkWidgetParentAwareWidget" : true,
+		"JkWidgetContainerWidget" : true,
+		"JkWidgetWidget" : true,
+		"JkWidgetHeightAwareWidget" : true,
+		"JkWidgetVerticalBoxWidget" : true,
+		"JkWidgetWidgetWithLayout" : true
+	};
+	AppUserDashboard.prototype._tobj = AppUserDashboard;
+	AppUserDashboard.NEW_JkUiGuiApplicationContext = function(context) {
+		var v = new AppUserDashboard;
+		return v.CTOR_AppUserDashboard_JkUiGuiApplicationContext(context);
+	};
+	AppUserDashboard.prototype.CTOR_AppUserDashboard_JkUiGuiApplicationContext = function(context) {
+		this.grid = null;
+		this.vbox = null;
+		this.container = null;
+		this.btnLogout = null;
+		this.btnAboutUs = null;
+		this.btnSchedule = null;
+		this.btnHome = null;
+		if(JkWidgetVerticalBoxWidget.prototype.CTOR_JkWidgetVerticalBoxWidget_JkUiGuiApplicationContext.call(this, context) == null) {
+			return null;
+		}
+		return this;
+	};
+	AppUserDashboard.prototype.onHomeClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppUserDashboard.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppUserDashboard.prototype.onADDClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppUserProfile.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppUserDashboard.prototype.onrecordClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppRecords.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppUserDashboard.prototype.onLogoutClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppLoginPage.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppUserDashboard.prototype.createWidget = function() {
+		JkWidgetVerticalBoxWidget.prototype.createWidget.call(this);
+		var thisWidget = this;
+		var widget = JkWidgetCanvasWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget.setWidgetColor((JkGfxColor.instance("#5d89e8")));
+		this.addWidget(widget);
+		this.setWidgetSpacing((this.context.getHeightValue("2000um")));
+		this.setWidgetMargin((this.context.getHeightValue("5mm")));
+		var widget2 = JkWidgetHorizontalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget2.setWidgetSpacing((this.context.getHeightValue("100um")));
+		this.btnHome = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnHome.setWidgetText("HOME");
+		this.btnHome.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnHome.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnHome.setWidgetClickHandler((function() {
+			this.onHomeClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnHome, 1.0);
+		this.btnSchedule = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnSchedule.setWidgetText("Profile");
+		this.btnSchedule.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnSchedule.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnSchedule.setWidgetClickHandler((function() {
+			this.onADDClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnSchedule, 1.0);
+		this.btnAboutUs = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnAboutUs.setWidgetText("SubjectHandling");
+		this.btnAboutUs.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnAboutUs.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnAboutUs.setWidgetClickHandler((function() {
+			this.onrecordClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnAboutUs, 1.0);
+		this.btnLogout = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnLogout.setWidgetText("LOGOUT");
+		this.btnLogout.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnLogout.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnLogout.setWidgetClickHandler((function() {
+			var popup = JkWidgetCommonPopupDialogManager.NEW_JkUiGuiApplicationContextJkWidgetWidget(this.context, this);
+			popup.showConfirmDialog("Confirmation", "Leave this Page?", (function() {
+				this.onLogoutClicked();
+			}.bind(this)), (function() {
+				;
+			}.bind(this)));
+		}.bind(this)));
+		widget2.addWidget1(this.btnLogout, 1.0);
+		this.addWidget(widget2);
+		var widget3 = JkWidgetVerticalScrollerWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget3.setWidgetScrollBarDisabled(false);
+		this.container = JkWidgetLayerWithBackgroundColorWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.container.setWidgetColor((JkGfxColor.instance("#5d89e8")));
+		var widget4 = JkWidgetAlignWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.vbox = JkWidgetVerticalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.vbox.setWidgetMargin((this.context.getHeightValue("5mm")));
+		this.vbox.setWidgetSpacing((this.context.getHeightValue("2000um")));
+		var widget5 = JkWidgetLabelWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget5.setWidgetText("SCHEDULE");
+		widget5.setWidgetTextColor((JkGfxColor.black()));
+		widget5.setWidgetFontSize((this.context.getHeightValue("8mm")));
+		widget5.setWidgetTextAlign(JkWidgetLabelWidget.ALIGN_CENTER);
+		widget5.setWidgetFontBold(true);
+		this.vbox.addWidget(widget5);
+		widget4.addWidget1(this.vbox, 0.5, 0.5, false);
+		this.container.addWidget(widget4);
+		this.grid = JkWidgetDatagridDataGridWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.grid.setWidgetCellPadding(1);
+		this.container.addWidget(this.grid);
+		widget3.addWidget(this.container);
+		this.addWidget(widget3);
+	};
+	AppUserDashboard.IS_INSTANCE = function(o) {
+		return o != null && o._t != null && o._t["AppUserDashboard"] === true;
+	};
 	let AppAPIClient = function() {
 		JkWidgetWebJSONAPIClientWithGui.call(this);
 		this.widgetDefaultErrorHandler = null;
@@ -27085,7 +27800,7 @@ function app() {
 			return null;
 		}
 		AppAPIClient.instance = AppAPIClient.NEW();
-		AppAPIClient.instance.setApiUrl("http://ec2-13-212-197-20.ap-southeast-1.compute.amazonaws.com:30128");
+		AppAPIClient.instance.setApiUrl("http://ec2-54-179-146-170.ap-southeast-1.compute.amazonaws.com:30128");
 		AppAPIClient.instance.setContext(context);
 		if(parentWidget != null) {
 			AppAPIClient.instance.setParentWidget(parentWidget);
@@ -27136,34 +27851,462 @@ function app() {
 		return o != null && o._t != null && o._t["AppAPIClient"] === true;
 	};
 	AppAPIClient.instance = null;
-	let AppAddAdminRegistrationUser = function() {
+	let AppLoginPage = function() {
+		JkWidgetLayerWidget.call(this);
+		this.vbox = null;
+		this.username = null;
+		this.password = null;
+	};
+	AppLoginPage.prototype = (function(o) {
+		function F() {
+		}
+		;
+		F.prototype = o;
+		return new F();
+	})(JkWidgetLayerWidget.prototype);
+	AppLoginPage.prototype.constructor = AppLoginPage;
+	AppLoginPage.prototype._t = {
+		"JkWidgetParentAwareWidget" : true,
+		"AppLoginPage" : true,
+		"JkWidgetHeightAwareWidget" : true,
+		"JkWidgetWidget" : true,
+		"JkWidgetLayerWidget" : true,
+		"JkWidgetContainerWidget" : true,
+		"JkWidgetWidgetWithLayout" : true
+	};
+	AppLoginPage.prototype._tobj = AppLoginPage;
+	AppLoginPage.NEW_JkUiGuiApplicationContext = function(context) {
+		var v = new AppLoginPage;
+		return v.CTOR_AppLoginPage_JkUiGuiApplicationContext(context);
+	};
+	AppLoginPage.prototype.CTOR_AppLoginPage_JkUiGuiApplicationContext = function(context) {
+		this.password = null;
+		this.username = null;
+		this.vbox = null;
+		if(JkWidgetLayerWidget.prototype.CTOR_JkWidgetLayerWidget_JkUiGuiApplicationContext.call(this, context) == null) {
+			return null;
+		}
+		return this;
+	};
+	AppLoginPage.prototype.initializeWidget = function() {
+		JkWidgetLayerWidget.prototype.initializeWidget.call(this);
+		var loginbtn = JkWidgetCommonButtonWidget.forText(this.context, "Log In", (function() {
+			AppAPIClient.getInstance().getUser((function(response1) {
+				var data = response1.getDynamicMap("data");
+				if(!(data != null)) {
+					return;
+				}
+				var records = data.getDynamicVector("records");
+				var Username = "";
+				var Password = "";
+				var array = records.toVector();
+				if(array != null) {
+					var n = 0;
+					var m = array.length;
+					for(n = 0 ; n < m ; n++) {
+						var record = (function(o) {
+							if(JkLangDynamicMap.IS_INSTANCE && JkLangDynamicMap.IS_INSTANCE(o)) {
+								return o;
+							}
+							return null;
+						}.bind(this))(array[n]);
+						if(record != null) {
+							if(this.username.getWidgetText() == record.getString("username", null) && this.password.getWidgetText() == record.getString("password", null)) {
+								Username = record.getString("username", null);
+								Password = record.getString("password", null);
+								if(this.username != "User" && this.password != "user") {
+									this.context.showMessageDialog("Notice", "Welcome to Faculty Profilling Web Page!", null);
+									JkWidgetCommonNavigationWidget.switchToContainer(this, (AppUserDashboard.NEW_JkUiGuiApplicationContext(this.context)));
+								}
+							}
+						}
+					}
+				}
+				if(Username == "" && Password == "") {
+					this.context.showMessageDialog("Notice", "Try Again!", null);
+				}
+			}.bind(this)), null);
+		}.bind(this)));
+		loginbtn.setWidgetFontSize((this.context.getHeightValue("2mm")));
+		loginbtn.setWidgetBackgroundColor((JkGfxColor.instance("#949796")));
+		this.vbox.addWidget(loginbtn);
+	};
+	AppLoginPage.prototype.createWidget = function() {
+		JkWidgetLayerWidget.prototype.createWidget.call(this);
+		var thisWidget = this;
+		var widget = JkWidgetCanvasWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget.setWidgetColor((JkGfxColor.instance("#5d89e8")));
+		this.addWidget(widget);
+		var widget2 = JkWidgetVerticalScrollerWidget.NEW_JkUiGuiApplicationContext(this.context);
+		var widget3 = JkWidgetAlignWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget3.setWidgetMarginLeft(400);
+		widget3.setWidgetMarginRight(400);
+		this.vbox = JkWidgetVerticalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.vbox.setWidgetMargin((this.context.getHeightValue("5000um")));
+		this.vbox.setWidgetSpacing((this.context.getHeightValue("2000um")));
+		var widget4 = JkWidgetLabelWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget4.setWidgetText("LOGIN FORM");
+		widget4.setWidgetTextColor((JkGfxColor.black()));
+		widget4.setWidgetFontSize((this.context.getHeightValue("7mm")));
+		widget4.setWidgetTextAlign(JkWidgetLabelWidget.ALIGN_CENTER);
+		widget4.setWidgetFontBold(true);
+		this.vbox.addWidget(widget4);
+		this.username = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.username.setWidgetType(JkWidgetCommonTextInputWidget.TYPE_NAME);
+		this.username.setWidgetPlaceholder("Username");
+		this.username.setWidgetTextColor((JkGfxColor.black()));
+		this.username.setWidgetBackgroundColor((JkGfxColor.white()));
+		this.username.setWidgetFontSize((this.context.getHeightValue("3mm")));
+		this.username.setWidgetPadding1((this.context.getHeightValue("2500um")));
+		this.vbox.addWidget(this.username);
+		this.password = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.password.setWidgetType(JkWidgetCommonTextInputWidget.TYPE_PASSWORD);
+		this.password.setWidgetPlaceholder("Password");
+		this.password.setWidgetTextColor((JkGfxColor.black()));
+		this.password.setWidgetBackgroundColor((JkGfxColor.white()));
+		this.password.setWidgetFontSize((this.context.getHeightValue("3mm")));
+		this.password.setWidgetPadding1((this.context.getHeightValue("2500um")));
+		this.vbox.addWidget(this.password);
+		widget3.addWidget1(this.vbox, 0.5, 0.5, true);
+		widget2.addWidget(widget3);
+		this.addWidget(widget2);
+	};
+	AppLoginPage.IS_INSTANCE = function(o) {
+		return o != null && o._t != null && o._t["AppLoginPage"] === true;
+	};
+	let AppHomepage = function() {
+		JkWidgetVerticalBoxWidget.call(this);
+		this.btnHome = null;
+		this.btnSchedule = null;
+		this.btnAboutUs = null;
+		this.btnLogin = null;
+		this.container = null;
+		this.vbox = null;
+		this.grid = null;
+	};
+	AppHomepage.prototype = (function(o) {
+		function F() {
+		}
+		;
+		F.prototype = o;
+		return new F();
+	})(JkWidgetVerticalBoxWidget.prototype);
+	AppHomepage.prototype.constructor = AppHomepage;
+	AppHomepage.prototype._t = {
+		"JkWidgetParentAwareWidget" : true,
+		"JkWidgetVerticalBoxWidget" : true,
+		"JkWidgetWidget" : true,
+		"AppHomepage" : true,
+		"JkWidgetHeightAwareWidget" : true,
+		"JkWidgetContainerWidget" : true,
+		"JkWidgetWidgetWithLayout" : true
+	};
+	AppHomepage.prototype._tobj = AppHomepage;
+	AppHomepage.NEW_JkUiGuiApplicationContext = function(context) {
+		var v = new AppHomepage;
+		return v.CTOR_AppHomepage_JkUiGuiApplicationContext(context);
+	};
+	AppHomepage.prototype.CTOR_AppHomepage_JkUiGuiApplicationContext = function(context) {
+		this.grid = null;
+		this.vbox = null;
+		this.container = null;
+		this.btnLogin = null;
+		this.btnAboutUs = null;
+		this.btnSchedule = null;
+		this.btnHome = null;
+		if(JkWidgetVerticalBoxWidget.prototype.CTOR_JkWidgetVerticalBoxWidget_JkUiGuiApplicationContext.call(this, context) == null) {
+			return null;
+		}
+		return this;
+	};
+	AppHomepage.prototype.onHomeClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppAdminPage.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppHomepage.prototype.onADDClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppAddinstructor.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppHomepage.prototype.onrecordClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppRecords.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppHomepage.prototype.onlogoutClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppLoginPage.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppHomepage.prototype.createWidget = function() {
+		JkWidgetVerticalBoxWidget.prototype.createWidget.call(this);
+		var thisWidget = this;
+		this.setWidgetSpacing((this.context.getHeightValue("2000um")));
+		this.setWidgetMargin((this.context.getHeightValue("5mm")));
+		var widget = JkWidgetHorizontalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget.setWidgetSpacing((this.context.getHeightValue("100um")));
+		this.btnHome = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnHome.setWidgetText("HOME");
+		this.btnHome.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnHome.setWidgetBackgroundColor((JkGfxColor.instance("#D91E18")));
+		this.btnHome.setWidgetClickHandler((function() {
+			this.onHomeClicked();
+		}.bind(this)));
+		widget.addWidget1(this.btnHome, 1.0);
+		this.btnSchedule = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnSchedule.setWidgetText("ADD INSTRUCTOR");
+		this.btnSchedule.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnSchedule.setWidgetBackgroundColor((JkGfxColor.instance("#D91E18")));
+		this.btnSchedule.setWidgetClickHandler((function() {
+			this.onADDClicked();
+		}.bind(this)));
+		widget.addWidget1(this.btnSchedule, 1.0);
+		this.btnAboutUs = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnAboutUs.setWidgetText("RECORDS");
+		this.btnAboutUs.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnAboutUs.setWidgetBackgroundColor((JkGfxColor.instance("#D91E18")));
+		this.btnAboutUs.setWidgetClickHandler((function() {
+			this.onrecordClicked();
+		}.bind(this)));
+		widget.addWidget1(this.btnAboutUs, 1.0);
+		this.btnLogin = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnLogin.setWidgetText("LOGOUT");
+		this.btnLogin.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnLogin.setWidgetBackgroundColor((JkGfxColor.instance("#fc3730")));
+		this.btnLogin.setWidgetClickHandler((function() {
+			this.onlogoutClicked();
+		}.bind(this)));
+		widget.addWidget1(this.btnLogin, 1.0);
+		this.addWidget(widget);
+		var widget2 = JkWidgetVerticalScrollerWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget2.setWidgetScrollBarDisabled(false);
+		this.container = JkWidgetLayerWithBackgroundColorWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.container.setWidgetColor((JkGfxColor.instance("#5d89e8")));
+		var widget3 = JkWidgetAlignWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.vbox = JkWidgetVerticalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.vbox.setWidgetMargin((this.context.getHeightValue("5mm")));
+		this.vbox.setWidgetSpacing((this.context.getHeightValue("2000um")));
+		var widget4 = JkWidgetLabelWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget4.setWidgetText("SCHEDULE");
+		widget4.setWidgetTextColor((JkGfxColor.black()));
+		widget4.setWidgetFontSize((this.context.getHeightValue("8mm")));
+		widget4.setWidgetTextAlign(JkWidgetLabelWidget.ALIGN_CENTER);
+		widget4.setWidgetFontBold(true);
+		this.vbox.addWidget(widget4);
+		widget3.addWidget1(this.vbox, 0.5, 0.5, false);
+		this.container.addWidget(widget3);
+		this.grid = JkWidgetDatagridDataGridWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.grid.setWidgetCellPadding(1);
+		this.container.addWidget(this.grid);
+		widget2.addWidget(this.container);
+		this.addWidget(widget2);
+	};
+	AppHomepage.IS_INSTANCE = function(o) {
+		return o != null && o._t != null && o._t["AppHomepage"] === true;
+	};
+	let AppAdminPage = function() {
+		JkWidgetVerticalBoxWidget.call(this);
+		this.btnHome = null;
+		this.btnSchedule = null;
+		this.btnAboutUs = null;
+		this.btnLogout = null;
+		this.container = null;
+		this.vbox = null;
+		this.grid = null;
+	};
+	AppAdminPage.prototype = (function(o) {
+		function F() {
+		}
+		;
+		F.prototype = o;
+		return new F();
+	})(JkWidgetVerticalBoxWidget.prototype);
+	AppAdminPage.prototype.constructor = AppAdminPage;
+	AppAdminPage.prototype._t = {
+		"JkWidgetParentAwareWidget" : true,
+		"JkWidgetVerticalBoxWidget" : true,
+		"AppAdminPage" : true,
+		"JkWidgetWidget" : true,
+		"JkWidgetHeightAwareWidget" : true,
+		"JkWidgetContainerWidget" : true,
+		"JkWidgetWidgetWithLayout" : true
+	};
+	AppAdminPage.prototype._tobj = AppAdminPage;
+	AppAdminPage.NEW_JkUiGuiApplicationContext = function(context) {
+		var v = new AppAdminPage;
+		return v.CTOR_AppAdminPage_JkUiGuiApplicationContext(context);
+	};
+	AppAdminPage.prototype.CTOR_AppAdminPage_JkUiGuiApplicationContext = function(context) {
+		this.grid = null;
+		this.vbox = null;
+		this.container = null;
+		this.btnLogout = null;
+		this.btnAboutUs = null;
+		this.btnSchedule = null;
+		this.btnHome = null;
+		if(JkWidgetVerticalBoxWidget.prototype.CTOR_JkWidgetVerticalBoxWidget_JkUiGuiApplicationContext.call(this, context) == null) {
+			return null;
+		}
+		return this;
+	};
+	AppAdminPage.prototype.initializeWidget = function() {
+		JkWidgetVerticalBoxWidget.prototype.initializeWidget.call(this);
+		this.grid.addColumn("User Id", "id", 0.2, 0);
+		this.grid.addColumn("Name", "firstname", 1.0, 0);
+		this.grid.addColumn("lastName", "lastname", 1.0, 0);
+		this.grid.addColumn("Username", "username", 1.0, 0);
+		this.grid.addColumn("Password", "password", 1.0, 0);
+		this.grid.addColumn("Phonenumber", "phonenumber", 1.0, 0);
+		this.grid.addColumn("Gender", "gender", 1.0, 0);
+		this.grid.addColumn("Position", "position", 1.0, 0);
+		this.grid.addColumn("Subject Handle", "subject", 1.0, 0);
+		this.grid.addWidgetHeaderRow();
+		AppAPIClient.getInstance().getUser((function(response1) {
+			var data = response1.getDynamicMap("data");
+			if(!(data != null)) {
+				return;
+			}
+			var records = data.getDynamicVector("records");
+			if(!(records != null) || records.getSize() < 1) {
+				this.grid.addRow(["NO data In Database"], null, null);
+				this.context.showMessageDialog("Notice", "NO DATA INSERT!", null);
+			}
+			else {
+				var array = records.toVector();
+				if(array != null) {
+					var n = 0;
+					var m = array.length;
+					for(n = 0 ; n < m ; n++) {
+						var record = (function(o) {
+							if(JkLangDynamicMap.IS_INSTANCE && JkLangDynamicMap.IS_INSTANCE(o)) {
+								return o;
+							}
+							return null;
+						}.bind(this))(array[n]);
+						if(record != null) {
+							this.grid.addRow([record.getString("id", null), record.getString("firstname", null), record.getString("lastname", null), record.getString("username", null), record.getString("password", null), record.getString("phonenumber", null), record.getString("gender", null), record.getString("position", null), record.getString("subject", null)], null, null);
+						}
+					}
+				}
+			}
+		}.bind(this)), null);
+	};
+	AppAdminPage.prototype.onHomeClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppAdminPage.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppAdminPage.prototype.onADDClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppAddinstructor.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppAdminPage.prototype.onrecordClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppRecords.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppAdminPage.prototype.onLogoutClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppLoginPage.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppAdminPage.prototype.onUpdateClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppUpdateinfo.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppAdminPage.prototype.createWidget = function() {
+		JkWidgetVerticalBoxWidget.prototype.createWidget.call(this);
+		var thisWidget = this;
+		var widget = JkWidgetCanvasWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget.setWidgetColor((JkGfxColor.instance("#5d89e8")));
+		this.addWidget(widget);
+		this.setWidgetSpacing((this.context.getHeightValue("2000um")));
+		this.setWidgetMargin((this.context.getHeightValue("5mm")));
+		var widget2 = JkWidgetHorizontalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget2.setWidgetSpacing((this.context.getHeightValue("100um")));
+		this.btnHome = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnHome.setWidgetText("HOME");
+		this.btnHome.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnHome.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnHome.setWidgetClickHandler((function() {
+			this.onHomeClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnHome, 1.0);
+		this.btnSchedule = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnSchedule.setWidgetText("ADD INSTRUCTOR");
+		this.btnSchedule.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnSchedule.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnSchedule.setWidgetClickHandler((function() {
+			this.onADDClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnSchedule, 1.0);
+		this.btnAboutUs = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnAboutUs.setWidgetText("RECORDS");
+		this.btnAboutUs.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnAboutUs.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnAboutUs.setWidgetClickHandler((function() {
+			this.onrecordClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnAboutUs, 1.0);
+		this.btnLogout = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnLogout.setWidgetText("LOGOUT");
+		this.btnLogout.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnLogout.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnLogout.setWidgetClickHandler((function() {
+			var popup = JkWidgetCommonPopupDialogManager.NEW_JkUiGuiApplicationContextJkWidgetWidget(this.context, this);
+			popup.showConfirmDialog("Confirmation", "Leave this Page?", (function() {
+				this.onLogoutClicked();
+			}.bind(this)), (function() {
+				;
+			}.bind(this)));
+		}.bind(this)));
+		widget2.addWidget1(this.btnLogout, 1.0);
+		this.addWidget(widget2);
+		var widget3 = JkWidgetVerticalScrollerWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget3.setWidgetScrollBarDisabled(false);
+		this.container = JkWidgetLayerWithBackgroundColorWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.container.setWidgetColor((JkGfxColor.instance("#264651")));
+		var widget4 = JkWidgetAlignWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.vbox = JkWidgetVerticalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.vbox.setWidgetMargin((this.context.getHeightValue("5mm")));
+		this.vbox.setWidgetSpacing((this.context.getHeightValue("2000um")));
+		var widget5 = JkWidgetLabelWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget5.setWidgetText("SCHEDULE");
+		widget5.setWidgetTextColor((JkGfxColor.black()));
+		widget5.setWidgetFontSize((this.context.getHeightValue("8mm")));
+		widget5.setWidgetTextAlign(JkWidgetLabelWidget.ALIGN_CENTER);
+		widget5.setWidgetFontBold(true);
+		this.vbox.addWidget(widget5);
+		widget4.addWidget1(this.vbox, 0.5, 0.5, false);
+		this.container.addWidget(widget4);
+		this.grid = JkWidgetDatagridDataGridWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.grid.setWidgetCellPadding(1);
+		this.container.addWidget(this.grid);
+		widget3.addWidget(this.container);
+		this.addWidget(widget3);
+	};
+	AppAdminPage.IS_INSTANCE = function(o) {
+		return o != null && o._t != null && o._t["AppAdminPage"] === true;
+	};
+	let AppAddinstructorUser = function() {
 		JkJsonJSONObjectAdapter.call(this);
 		this._firstname = null;
 		this._lastname = null;
 		this._username = null;
 		this._password = null;
 		this._phonenumber = null;
+		this._gender = null;
+		this._position = null;
+		this._subject = null;
 	};
-	AppAddAdminRegistrationUser.prototype = (function(o) {
+	AppAddinstructorUser.prototype = (function(o) {
 		function F() {
 		}
 		;
 		F.prototype = o;
 		return new F();
 	})(JkJsonJSONObjectAdapter.prototype);
-	AppAddAdminRegistrationUser.prototype.constructor = AppAddAdminRegistrationUser;
-	AppAddAdminRegistrationUser.prototype._t = {
+	AppAddinstructorUser.prototype.constructor = AppAddinstructorUser;
+	AppAddinstructorUser.prototype._t = {
 		"JkLangStringObject" : true,
 		"JkJsonJSONObjectAdapter" : true,
 		"JkJsonJSONObject" : true,
-		"AppAddAdminRegistrationUser" : true
+		"AppAddinstructorUser" : true
 	};
-	AppAddAdminRegistrationUser.prototype._tobj = AppAddAdminRegistrationUser;
-	AppAddAdminRegistrationUser.NEW = function() {
-		var v = new AppAddAdminRegistrationUser;
-		return v.CTOR_AppAddAdminRegistrationUser();
+	AppAddinstructorUser.prototype._tobj = AppAddinstructorUser;
+	AppAddinstructorUser.NEW = function() {
+		var v = new AppAddinstructorUser;
+		return v.CTOR_AppAddinstructorUser();
 	};
-	AppAddAdminRegistrationUser.prototype.CTOR_AppAddAdminRegistrationUser = function() {
+	AppAddinstructorUser.prototype.CTOR_AppAddinstructorUser = function() {
+		this._subject = null;
+		this._position = null;
+		this._gender = null;
 		this._phonenumber = null;
 		this._password = null;
 		this._username = null;
@@ -27174,42 +28317,63 @@ function app() {
 		}
 		return this;
 	};
-	AppAddAdminRegistrationUser.prototype.setFirstname = function(value) {
+	AppAddinstructorUser.prototype.setFirstname = function(value) {
 		this._firstname = value;
 		return this;
 	};
-	AppAddAdminRegistrationUser.prototype.getFirstname = function() {
+	AppAddinstructorUser.prototype.getFirstname = function() {
 		return this._firstname;
 	};
-	AppAddAdminRegistrationUser.prototype.setLastname = function(value) {
+	AppAddinstructorUser.prototype.setLastname = function(value) {
 		this._lastname = value;
 		return this;
 	};
-	AppAddAdminRegistrationUser.prototype.getLastname = function() {
+	AppAddinstructorUser.prototype.getLastname = function() {
 		return this._lastname;
 	};
-	AppAddAdminRegistrationUser.prototype.setUsername = function(value) {
+	AppAddinstructorUser.prototype.setUsername = function(value) {
 		this._username = value;
 		return this;
 	};
-	AppAddAdminRegistrationUser.prototype.getUsername = function() {
+	AppAddinstructorUser.prototype.getUsername = function() {
 		return this._username;
 	};
-	AppAddAdminRegistrationUser.prototype.setPassword = function(value) {
+	AppAddinstructorUser.prototype.setPassword = function(value) {
 		this._password = value;
 		return this;
 	};
-	AppAddAdminRegistrationUser.prototype.getPassword = function() {
+	AppAddinstructorUser.prototype.getPassword = function() {
 		return this._password;
 	};
-	AppAddAdminRegistrationUser.prototype.setPhonenumber = function(value) {
+	AppAddinstructorUser.prototype.setPhonenumber = function(value) {
 		this._phonenumber = value;
 		return this;
 	};
-	AppAddAdminRegistrationUser.prototype.getPhonenumber = function() {
+	AppAddinstructorUser.prototype.getPhonenumber = function() {
 		return this._phonenumber;
 	};
-	AppAddAdminRegistrationUser.prototype.toJsonObject = function() {
+	AppAddinstructorUser.prototype.setGender = function(value) {
+		this._gender = value;
+		return this;
+	};
+	AppAddinstructorUser.prototype.getGender = function() {
+		return this._gender;
+	};
+	AppAddinstructorUser.prototype.setPosition = function(value) {
+		this._position = value;
+		return this;
+	};
+	AppAddinstructorUser.prototype.getPosition = function() {
+		return this._position;
+	};
+	AppAddinstructorUser.prototype.setSubject = function(value) {
+		this._subject = value;
+		return this;
+	};
+	AppAddinstructorUser.prototype.getSubject = function() {
+		return this._subject;
+	};
+	AppAddinstructorUser.prototype.toJsonObject = function() {
 		var v = JkLangDynamicMap.NEW();
 		if(this._firstname != null) {
 			v.setObject("firstname", (this.asJsonValue(this._firstname)));
@@ -27226,9 +28390,18 @@ function app() {
 		if(this._phonenumber != null) {
 			v.setObject("phonenumber", (this.asJsonValue(this._phonenumber)));
 		}
+		if(this._gender != null) {
+			v.setObject("gender", (this.asJsonValue(this._gender)));
+		}
+		if(this._position != null) {
+			v.setObject("position", (this.asJsonValue(this._position)));
+		}
+		if(this._subject != null) {
+			v.setObject("subject", (this.asJsonValue(this._subject)));
+		}
 		return v;
 	};
-	AppAddAdminRegistrationUser.prototype.fromJsonObject = function(o1) {
+	AppAddinstructorUser.prototype.fromJsonObject = function(o1) {
 		var v = (function(o) {
 			if(JkLangDynamicMap.IS_INSTANCE && JkLangDynamicMap.IS_INSTANCE(o)) {
 				return o;
@@ -27243,35 +28416,38 @@ function app() {
 		this._username = v.getString("username", null);
 		this._password = v.getString("password", null);
 		this._phonenumber = v.getString("phonenumber", null);
+		this._gender = v.getString("gender", null);
+		this._position = v.getString("position", null);
+		this._subject = v.getString("subject", null);
 		return true;
 	};
-	AppAddAdminRegistrationUser.prototype.fromJsonString = function(o) {
+	AppAddinstructorUser.prototype.fromJsonString = function(o) {
 		return this.fromJsonObject((JkJsonJSONParser.parse(o)));
 	};
-	AppAddAdminRegistrationUser.prototype.toJsonString = function() {
+	AppAddinstructorUser.prototype.toJsonString = function() {
 		return JkJsonJSONEncoder.encode((this.toJsonObject()), true, false);
 	};
-	AppAddAdminRegistrationUser.prototype.toString = function() {
+	AppAddinstructorUser.prototype.toString = function() {
 		return this.toJsonString();
 	};
-	AppAddAdminRegistrationUser.forJsonString = function(o) {
-		var v = AppAddAdminRegistrationUser.NEW();
+	AppAddinstructorUser.forJsonString = function(o) {
+		var v = AppAddinstructorUser.NEW();
 		if(!v.fromJsonString(o)) {
 			return null;
 		}
 		return v;
 	};
-	AppAddAdminRegistrationUser.forJsonObject = function(o) {
-		var v = AppAddAdminRegistrationUser.NEW();
+	AppAddinstructorUser.forJsonObject = function(o) {
+		var v = AppAddinstructorUser.NEW();
 		if(!v.fromJsonObject(o)) {
 			return null;
 		}
 		return v;
 	};
-	AppAddAdminRegistrationUser.IS_INSTANCE = function(o) {
-		return o != null && o._t != null && o._t["AppAddAdminRegistrationUser"] === true;
+	AppAddinstructorUser.IS_INSTANCE = function(o) {
+		return o != null && o._t != null && o._t["AppAddinstructorUser"] === true;
 	};
-	let AppAddAdminRegistration = function() {
+	let AppAddinstructor = function() {
 		JkWidgetLayerWidget.call(this);
 		this.vbox = null;
 		this.firstname = null;
@@ -27279,30 +28455,36 @@ function app() {
 		this.username = null;
 		this.password = null;
 		this.phonenumber = null;
+		this.gender = null;
+		this.position = null;
+		this.subject = null;
 	};
-	AppAddAdminRegistration.prototype = (function(o) {
+	AppAddinstructor.prototype = (function(o) {
 		function F() {
 		}
 		;
 		F.prototype = o;
 		return new F();
 	})(JkWidgetLayerWidget.prototype);
-	AppAddAdminRegistration.prototype.constructor = AppAddAdminRegistration;
-	AppAddAdminRegistration.prototype._t = {
+	AppAddinstructor.prototype.constructor = AppAddinstructor;
+	AppAddinstructor.prototype._t = {
 		"JkWidgetParentAwareWidget" : true,
 		"JkWidgetHeightAwareWidget" : true,
 		"JkWidgetWidget" : true,
-		"AppAddAdminRegistration" : true,
+		"AppAddinstructor" : true,
 		"JkWidgetLayerWidget" : true,
 		"JkWidgetContainerWidget" : true,
 		"JkWidgetWidgetWithLayout" : true
 	};
-	AppAddAdminRegistration.prototype._tobj = AppAddAdminRegistration;
-	AppAddAdminRegistration.NEW_JkUiGuiApplicationContext = function(context) {
-		var v = new AppAddAdminRegistration;
-		return v.CTOR_AppAddAdminRegistration_JkUiGuiApplicationContext(context);
+	AppAddinstructor.prototype._tobj = AppAddinstructor;
+	AppAddinstructor.NEW_JkUiGuiApplicationContext = function(context) {
+		var v = new AppAddinstructor;
+		return v.CTOR_AppAddinstructor_JkUiGuiApplicationContext(context);
 	};
-	AppAddAdminRegistration.prototype.CTOR_AppAddAdminRegistration_JkUiGuiApplicationContext = function(context) {
+	AppAddinstructor.prototype.CTOR_AppAddinstructor_JkUiGuiApplicationContext = function(context) {
+		this.subject = null;
+		this.position = null;
+		this.gender = null;
 		this.phonenumber = null;
 		this.password = null;
 		this.username = null;
@@ -27314,28 +28496,34 @@ function app() {
 		}
 		return this;
 	};
-	AppAddAdminRegistration.prototype.initializeWidget = function() {
+	AppAddinstructor.prototype.initializeWidget = function() {
 		JkWidgetLayerWidget.prototype.initializeWidget.call(this);
-		var confirmbtn = JkWidgetCommonButtonWidget.forText(this.context, "Confirm", (function() {
-			var admin = AppAddAdminRegistrationUser.NEW();
-			admin.setFirstname((this.firstname.getWidgetText()));
-			admin.setLastname((this.lastname.getWidgetText()));
-			admin.setUsername((this.username.getWidgetText()));
-			admin.setPassword((this.password.getWidgetText()));
-			admin.setPhonenumber((this.phonenumber.getWidgetText()));
-			AppAPIClient.getInstance().addUser((admin.toDynamicMap()), (function(res1) {
-				this.context.showMessageDialog("Notice", "Admin account successfully added", null);
+		var confirmbtn = JkWidgetCommonButtonWidget.forText(this.context, "Submit", (function() {
+			var user = AppAddinstructorUser.NEW();
+			user.setFirstname((this.firstname.getWidgetText()));
+			user.setLastname((this.lastname.getWidgetText()));
+			user.setUsername((this.username.getWidgetText()));
+			user.setPassword((this.password.getWidgetText()));
+			user.setPhonenumber((this.phonenumber.getWidgetText()));
+			user.setGender((this.gender.getWidgetText()));
+			user.setPosition((this.position.getWidgetText()));
+			user.setSubject((this.subject.getWidgetText()));
+			AppAPIClient.getInstance().addUser((user.toDynamicMap()), (function(res1) {
+				this.context.showMessageDialog("Notice", "Your account successfully added", null);
 				this.firstname.setWidgetText("");
 				this.lastname.setWidgetText("");
 				this.username.setWidgetValue("");
 				this.password.setWidgetText("");
 				this.phonenumber.setWidgetText("");
-			}.bind(this)), (function(err1) {
-				this.context.showMessageDialog("Notice", "Failed to add admin account", null);
+				this.gender.setWidgetText("");
+				this.position.setWidgetText("");
+				this.subject.setWidgetText("");
+			}.bind(this)), (function(error1) {
+				this.context.showMessageDialog("Notice", "HINDI KA MA ADD", null);
 			}.bind(this)));
 		}.bind(this)));
 		var returnbtn = JkWidgetCommonButtonWidget.forText(this.context, "Return", (function() {
-			JkWidgetCommonNavigationWidget.switchToContainer(this, (AppLoginPage.NEW_JkUiGuiApplicationContext(this.context)));
+			JkWidgetCommonNavigationWidget.switchToContainer(this, (AppAdminPage.NEW_JkUiGuiApplicationContext(this.context)));
 		}.bind(this)));
 		confirmbtn.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
 		confirmbtn.setWidgetTextColor((JkGfxColor.white()));
@@ -27347,11 +28535,11 @@ function app() {
 		this.vbox.addWidget(confirmbtn);
 		this.vbox.addWidget(returnbtn);
 	};
-	AppAddAdminRegistration.prototype.createWidget = function() {
+	AppAddinstructor.prototype.createWidget = function() {
 		JkWidgetLayerWidget.prototype.createWidget.call(this);
 		var thisWidget = this;
 		var widget = JkWidgetCanvasWidget.NEW_JkUiGuiApplicationContext(this.context);
-		widget.setWidgetColor((JkGfxColor.instance("DarkGray")));
+		widget.setWidgetColor((JkGfxColor.instance("#008CBA")));
 		this.addWidget(widget);
 		var widget2 = JkWidgetVerticalScrollerWidget.NEW_JkUiGuiApplicationContext(this.context);
 		var widget3 = JkWidgetAlignWidget.NEW_JkUiGuiApplicationContext(this.context);
@@ -27361,7 +28549,7 @@ function app() {
 		this.vbox.setWidgetMargin((this.context.getHeightValue("5000um")));
 		this.vbox.setWidgetSpacing((this.context.getHeightValue("2000um")));
 		var widget4 = JkWidgetLabelWidget.NEW_JkUiGuiApplicationContext(this.context);
-		widget4.setWidgetText("Admin Registation");
+		widget4.setWidgetText("Registation");
 		widget4.setWidgetTextColor((JkGfxColor.black()));
 		widget4.setWidgetFontSize((this.context.getHeightValue("8mm")));
 		widget4.setWidgetTextAlign(JkWidgetLabelWidget.ALIGN_CENTER);
@@ -27402,104 +28590,884 @@ function app() {
 		this.phonenumber.setWidgetFontSize((this.context.getHeightValue("3mm")));
 		this.phonenumber.setWidgetPadding1((this.context.getHeightValue("2500um")));
 		this.vbox.addWidget(this.phonenumber);
+		this.gender = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.gender.setWidgetType(JkWidgetCommonTextInputWidget.TYPE_NAME);
+		this.gender.setWidgetPlaceholder("gender");
+		this.gender.setWidgetBackgroundColor((JkGfxColor.white()));
+		this.gender.setWidgetFontSize((this.context.getHeightValue("3mm")));
+		this.gender.setWidgetPadding1((this.context.getHeightValue("2500um")));
+		this.vbox.addWidget(this.gender);
+		this.position = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.position.setWidgetType(JkWidgetCommonTextInputWidget.TYPE_NAME);
+		this.position.setWidgetPlaceholder("Position");
+		this.position.setWidgetBackgroundColor((JkGfxColor.white()));
+		this.position.setWidgetFontSize((this.context.getHeightValue("3mm")));
+		this.position.setWidgetPadding1((this.context.getHeightValue("2500um")));
+		this.vbox.addWidget(this.position);
+		this.subject = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.subject.setWidgetType(JkWidgetCommonTextInputWidget.TYPE_NAME);
+		this.subject.setWidgetPlaceholder("Subject Handling");
+		this.subject.setWidgetBackgroundColor((JkGfxColor.white()));
+		this.subject.setWidgetFontSize((this.context.getHeightValue("3mm")));
+		this.subject.setWidgetPadding1((this.context.getHeightValue("2500um")));
+		this.vbox.addWidget(this.subject);
 		widget3.addWidget1(this.vbox, 0.5, 0.5, true);
 		widget2.addWidget(widget3);
 		this.addWidget(widget2);
 	};
-	AppAddAdminRegistration.IS_INSTANCE = function(o) {
-		return o != null && o._t != null && o._t["AppAddAdminRegistration"] === true;
+	AppAddinstructor.IS_INSTANCE = function(o) {
+		return o != null && o._t != null && o._t["AppAddinstructor"] === true;
 	};
-	let AppLoginPage = function() {
+	let AppDeleteinfo = function() {
+		JkWidgetVerticalBoxWidget.call(this);
+		this.btnHome = null;
+		this.btnSchedule = null;
+		this.btnAboutUs = null;
+		this.btnLogout = null;
+		this.container = null;
+		this.image = null;
+		this.vbox = null;
+		this.id = null;
+	};
+	AppDeleteinfo.prototype = (function(o) {
+		function F() {
+		}
+		;
+		F.prototype = o;
+		return new F();
+	})(JkWidgetVerticalBoxWidget.prototype);
+	AppDeleteinfo.prototype.constructor = AppDeleteinfo;
+	AppDeleteinfo.prototype._t = {
+		"JkWidgetParentAwareWidget" : true,
+		"JkWidgetVerticalBoxWidget" : true,
+		"JkWidgetWidget" : true,
+		"JkWidgetWidgetWithLayout" : true,
+		"JkWidgetHeightAwareWidget" : true,
+		"JkWidgetContainerWidget" : true,
+		"AppDeleteinfo" : true
+	};
+	AppDeleteinfo.prototype._tobj = AppDeleteinfo;
+	AppDeleteinfo.NEW_JkUiGuiApplicationContext = function(context) {
+		var v = new AppDeleteinfo;
+		return v.CTOR_AppDeleteinfo_JkUiGuiApplicationContext(context);
+	};
+	AppDeleteinfo.prototype.CTOR_AppDeleteinfo_JkUiGuiApplicationContext = function(context) {
+		this.id = null;
+		this.vbox = null;
+		this.image = null;
+		this.container = null;
+		this.btnLogout = null;
+		this.btnAboutUs = null;
+		this.btnSchedule = null;
+		this.btnHome = null;
+		if(JkWidgetVerticalBoxWidget.prototype.CTOR_JkWidgetVerticalBoxWidget_JkUiGuiApplicationContext.call(this, context) == null) {
+			return null;
+		}
+		return this;
+	};
+	AppDeleteinfo.prototype.initializeWidget = function() {
+		JkWidgetVerticalBoxWidget.prototype.initializeWidget.call(this);
+		var deletebtn = JkWidgetCommonButtonWidget.forText(this.context, "Submit", (function() {
+			AppAPIClient.getInstance().getUser((function(response1) {
+				var data = response1.getDynamicMap("data");
+				if(!(data != null)) {
+					return;
+				}
+				var records = data.getDynamicVector("records");
+				var array = records.toVector();
+				if(array != null) {
+					var n = 0;
+					var m = array.length;
+					for(n = 0 ; n < m ; n++) {
+						var record = (function(o) {
+							if(JkLangDynamicMap.IS_INSTANCE && JkLangDynamicMap.IS_INSTANCE(o)) {
+								return o;
+							}
+							return null;
+						}.bind(this))(array[n]);
+						if(record != null) {
+							if(record.getString("id", null) == this.id.getWidgetText()) {
+								var popup = JkWidgetCommonPopupDialogManager.NEW_JkUiGuiApplicationContextJkWidgetWidget(this.context, this);
+								popup.showConfirmDialog("Confirmation", "Are you sure to delete Info?", (function() {
+									AppAPIClient.getInstance().deleteUser((this.id.getWidgetText()), (function(res1) {
+										this.context.showMessageDialog("Notice", "Successfully deleted!", null);
+									}.bind(this)), (function(err1) {
+										this.context.showMessageDialog("Notice", "Failed! to Delete", null);
+									}.bind(this)));
+								}.bind(this)), (function() {
+									;
+								}.bind(this)));
+							}
+						}
+					}
+				}
+			}.bind(this)), null);
+		}.bind(this)));
+		deletebtn.setWidgetFontSize((this.context.getHeightValue("2mm")));
+		deletebtn.setWidgetBackgroundColor((JkGfxColor.instance("#5d89e8")));
+		this.vbox.addWidget(deletebtn);
+	};
+	AppDeleteinfo.prototype.onHomeClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppAdminPage.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppDeleteinfo.prototype.onADDClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppAddinstructor.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppDeleteinfo.prototype.onrecordClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppRecords.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppDeleteinfo.prototype.onLogoutClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppLoginPage.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppDeleteinfo.prototype.onUpdateClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppUpdateinfo.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppDeleteinfo.prototype.createWidget = function() {
+		JkWidgetVerticalBoxWidget.prototype.createWidget.call(this);
+		var thisWidget = this;
+		var widget = JkWidgetCanvasWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget.setWidgetColor((JkGfxColor.instance("#5d89e8")));
+		this.addWidget(widget);
+		this.setWidgetSpacing((this.context.getHeightValue("2000um")));
+		this.setWidgetMargin((this.context.getHeightValue("5mm")));
+		var widget2 = JkWidgetHorizontalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget2.setWidgetSpacing((this.context.getHeightValue("100um")));
+		this.btnHome = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnHome.setWidgetText("HOME");
+		this.btnHome.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnHome.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnHome.setWidgetClickHandler((function() {
+			this.onHomeClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnHome, 1.0);
+		this.btnSchedule = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnSchedule.setWidgetText("ADD INSTRUCTOR");
+		this.btnSchedule.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnSchedule.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnSchedule.setWidgetClickHandler((function() {
+			this.onADDClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnSchedule, 1.0);
+		this.btnAboutUs = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnAboutUs.setWidgetText("RECORDS");
+		this.btnAboutUs.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnAboutUs.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnAboutUs.setWidgetClickHandler((function() {
+			this.onrecordClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnAboutUs, 1.0);
+		this.btnLogout = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnLogout.setWidgetText("LOGOUT");
+		this.btnLogout.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnLogout.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnLogout.setWidgetClickHandler((function() {
+			var popup = JkWidgetCommonPopupDialogManager.NEW_JkUiGuiApplicationContextJkWidgetWidget(this.context, this);
+			popup.showConfirmDialog("Confirmation", "Leave this Page?", (function() {
+				this.onLogoutClicked();
+			}.bind(this)), (function() {
+				;
+			}.bind(this)));
+		}.bind(this)));
+		widget2.addWidget1(this.btnLogout, 1.0);
+		this.addWidget(widget2);
+		var widget3 = JkWidgetVerticalScrollerWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget3.setWidgetScrollBarDisabled(true);
+		this.container = JkWidgetLayerWithBackgroundColorWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.image = JkWidgetImageWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.image.setWidgetImageResource("delete");
+		this.image.setWidgetImageWidth((this.context.getHeightValue("260mm")));
+		this.image.setWidgetImageHeight((this.context.getHeightValue("100mm")));
+		this.container.addWidget(this.image);
+		var widget4 = JkWidgetAlignWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.vbox = JkWidgetVerticalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.vbox.setWidgetMargin((this.context.getHeightValue("5mm")));
+		this.vbox.setWidgetSpacing((this.context.getHeightValue("2000um")));
+		this.id = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.id.setWidgetType(JkWidgetCommonTextInputWidget.TYPE_INTEGER);
+		this.id.setWidgetPlaceholder("ID");
+		this.id.setWidgetBackgroundColor((JkGfxColor.white()));
+		this.id.setWidgetFontSize((this.context.getHeightValue("2mm")));
+		this.id.setWidgetPadding1((this.context.getHeightValue("2500um")));
+		this.vbox.addWidget(this.id);
+		widget4.addWidget1(this.vbox, 0.5, 0.5, false);
+		this.container.addWidget(widget4);
+		widget3.addWidget(this.container);
+		this.addWidget(widget3);
+	};
+	AppDeleteinfo.IS_INSTANCE = function(o) {
+		return o != null && o._t != null && o._t["AppDeleteinfo"] === true;
+	};
+	let AppUpdateinfoUser = function() {
+		JkJsonJSONObjectAdapter.call(this);
+		this._firstname = null;
+		this._lastname = null;
+		this._username = null;
+		this._password = null;
+		this._phonenumber = null;
+		this._gender = null;
+		this._position = null;
+		this._subject = null;
+	};
+	AppUpdateinfoUser.prototype = (function(o) {
+		function F() {
+		}
+		;
+		F.prototype = o;
+		return new F();
+	})(JkJsonJSONObjectAdapter.prototype);
+	AppUpdateinfoUser.prototype.constructor = AppUpdateinfoUser;
+	AppUpdateinfoUser.prototype._t = {
+		"AppUpdateinfoUser" : true,
+		"JkJsonJSONObjectAdapter" : true,
+		"JkJsonJSONObject" : true,
+		"JkLangStringObject" : true
+	};
+	AppUpdateinfoUser.prototype._tobj = AppUpdateinfoUser;
+	AppUpdateinfoUser.NEW = function() {
+		var v = new AppUpdateinfoUser;
+		return v.CTOR_AppUpdateinfoUser();
+	};
+	AppUpdateinfoUser.prototype.CTOR_AppUpdateinfoUser = function() {
+		this._subject = null;
+		this._position = null;
+		this._gender = null;
+		this._phonenumber = null;
+		this._password = null;
+		this._username = null;
+		this._lastname = null;
+		this._firstname = null;
+		if(JkJsonJSONObjectAdapter.prototype.CTOR_JkJsonJSONObjectAdapter.call(this) == null) {
+			return null;
+		}
+		return this;
+	};
+	AppUpdateinfoUser.prototype.setFirstname = function(value) {
+		this._firstname = value;
+		return this;
+	};
+	AppUpdateinfoUser.prototype.getFirstname = function() {
+		return this._firstname;
+	};
+	AppUpdateinfoUser.prototype.setLastname = function(value) {
+		this._lastname = value;
+		return this;
+	};
+	AppUpdateinfoUser.prototype.getLastname = function() {
+		return this._lastname;
+	};
+	AppUpdateinfoUser.prototype.setUsername = function(value) {
+		this._username = value;
+		return this;
+	};
+	AppUpdateinfoUser.prototype.getUsername = function() {
+		return this._username;
+	};
+	AppUpdateinfoUser.prototype.setPassword = function(value) {
+		this._password = value;
+		return this;
+	};
+	AppUpdateinfoUser.prototype.getPassword = function() {
+		return this._password;
+	};
+	AppUpdateinfoUser.prototype.setPhonenumber = function(value) {
+		this._phonenumber = value;
+		return this;
+	};
+	AppUpdateinfoUser.prototype.getPhonenumber = function() {
+		return this._phonenumber;
+	};
+	AppUpdateinfoUser.prototype.setGender = function(value) {
+		this._gender = value;
+		return this;
+	};
+	AppUpdateinfoUser.prototype.getGender = function() {
+		return this._gender;
+	};
+	AppUpdateinfoUser.prototype.setPosition = function(value) {
+		this._position = value;
+		return this;
+	};
+	AppUpdateinfoUser.prototype.getPosition = function() {
+		return this._position;
+	};
+	AppUpdateinfoUser.prototype.setSubject = function(value) {
+		this._subject = value;
+		return this;
+	};
+	AppUpdateinfoUser.prototype.getSubject = function() {
+		return this._subject;
+	};
+	AppUpdateinfoUser.prototype.toJsonObject = function() {
+		var v = JkLangDynamicMap.NEW();
+		if(this._firstname != null) {
+			v.setObject("firstname", (this.asJsonValue(this._firstname)));
+		}
+		if(this._lastname != null) {
+			v.setObject("lastname", (this.asJsonValue(this._lastname)));
+		}
+		if(this._username != null) {
+			v.setObject("username", (this.asJsonValue(this._username)));
+		}
+		if(this._password != null) {
+			v.setObject("password", (this.asJsonValue(this._password)));
+		}
+		if(this._phonenumber != null) {
+			v.setObject("phonenumber", (this.asJsonValue(this._phonenumber)));
+		}
+		if(this._gender != null) {
+			v.setObject("gender", (this.asJsonValue(this._gender)));
+		}
+		if(this._position != null) {
+			v.setObject("position", (this.asJsonValue(this._position)));
+		}
+		if(this._subject != null) {
+			v.setObject("subject", (this.asJsonValue(this._subject)));
+		}
+		return v;
+	};
+	AppUpdateinfoUser.prototype.fromJsonObject = function(o1) {
+		var v = (function(o) {
+			if(JkLangDynamicMap.IS_INSTANCE && JkLangDynamicMap.IS_INSTANCE(o)) {
+				return o;
+			}
+			return null;
+		}.bind(this))(o1);
+		if(!(v != null)) {
+			return false;
+		}
+		this._firstname = v.getString("firstname", null);
+		this._lastname = v.getString("lastname", null);
+		this._username = v.getString("username", null);
+		this._password = v.getString("password", null);
+		this._phonenumber = v.getString("phonenumber", null);
+		this._gender = v.getString("gender", null);
+		this._position = v.getString("position", null);
+		this._subject = v.getString("subject", null);
+		return true;
+	};
+	AppUpdateinfoUser.prototype.fromJsonString = function(o) {
+		return this.fromJsonObject((JkJsonJSONParser.parse(o)));
+	};
+	AppUpdateinfoUser.prototype.toJsonString = function() {
+		return JkJsonJSONEncoder.encode((this.toJsonObject()), true, false);
+	};
+	AppUpdateinfoUser.prototype.toString = function() {
+		return this.toJsonString();
+	};
+	AppUpdateinfoUser.forJsonString = function(o) {
+		var v = AppUpdateinfoUser.NEW();
+		if(!v.fromJsonString(o)) {
+			return null;
+		}
+		return v;
+	};
+	AppUpdateinfoUser.forJsonObject = function(o) {
+		var v = AppUpdateinfoUser.NEW();
+		if(!v.fromJsonObject(o)) {
+			return null;
+		}
+		return v;
+	};
+	AppUpdateinfoUser.IS_INSTANCE = function(o) {
+		return o != null && o._t != null && o._t["AppUpdateinfoUser"] === true;
+	};
+	let AppUpdateinfo = function() {
 		JkWidgetLayerWidget.call(this);
 		this.vbox = null;
+		this.id = null;
+		this.firstname = null;
+		this.lastname = null;
 		this.username = null;
+		this.password = null;
+		this.phonenumber = null;
+		this.gender = null;
+		this.position = null;
+		this.subject = null;
 	};
-	AppLoginPage.prototype = (function(o) {
+	AppUpdateinfo.prototype = (function(o) {
 		function F() {
 		}
 		;
 		F.prototype = o;
 		return new F();
 	})(JkWidgetLayerWidget.prototype);
-	AppLoginPage.prototype.constructor = AppLoginPage;
-	AppLoginPage.prototype._t = {
+	AppUpdateinfo.prototype.constructor = AppUpdateinfo;
+	AppUpdateinfo.prototype._t = {
 		"JkWidgetParentAwareWidget" : true,
-		"AppLoginPage" : true,
 		"JkWidgetHeightAwareWidget" : true,
 		"JkWidgetWidget" : true,
+		"AppUpdateinfo" : true,
 		"JkWidgetLayerWidget" : true,
 		"JkWidgetContainerWidget" : true,
 		"JkWidgetWidgetWithLayout" : true
 	};
-	AppLoginPage.prototype._tobj = AppLoginPage;
-	AppLoginPage.NEW_JkUiGuiApplicationContext = function(context) {
-		var v = new AppLoginPage;
-		return v.CTOR_AppLoginPage_JkUiGuiApplicationContext(context);
+	AppUpdateinfo.prototype._tobj = AppUpdateinfo;
+	AppUpdateinfo.NEW_JkUiGuiApplicationContext = function(context) {
+		var v = new AppUpdateinfo;
+		return v.CTOR_AppUpdateinfo_JkUiGuiApplicationContext(context);
 	};
-	AppLoginPage.prototype.CTOR_AppLoginPage_JkUiGuiApplicationContext = function(context) {
+	AppUpdateinfo.prototype.CTOR_AppUpdateinfo_JkUiGuiApplicationContext = function(context) {
+		this.subject = null;
+		this.position = null;
+		this.gender = null;
+		this.phonenumber = null;
+		this.password = null;
 		this.username = null;
+		this.lastname = null;
+		this.firstname = null;
+		this.id = null;
 		this.vbox = null;
 		if(JkWidgetLayerWidget.prototype.CTOR_JkWidgetLayerWidget_JkUiGuiApplicationContext.call(this, context) == null) {
 			return null;
 		}
 		return this;
 	};
-	AppLoginPage.prototype.initializeWidget = function() {
+	AppUpdateinfo.prototype.initializeWidget = function() {
 		JkWidgetLayerWidget.prototype.initializeWidget.call(this);
-		var loginbtn = JkWidgetCommonButtonWidget.forText(this.context, "Login", (function() {
+		var searchbtn = JkWidgetCommonButtonWidget.forText(this.context, "Search", (function() {
+			AppAPIClient.getInstance().getUser((function(response1) {
+				var data = response1.getDynamicMap("data");
+				if(!(data != null)) {
+					return;
+				}
+				var records = data.getDynamicVector("records");
+				if(!(records != null) || records.getSize() < 1) {
+					;
+				}
+				else {
+					var array = records.toVector();
+					if(array != null) {
+						var n = 0;
+						var m = array.length;
+						for(n = 0 ; n < m ; n++) {
+							var record = (function(o) {
+								if(JkLangDynamicMap.IS_INSTANCE && JkLangDynamicMap.IS_INSTANCE(o)) {
+									return o;
+								}
+								return null;
+							}.bind(this))(array[n]);
+							if(record != null) {
+								if(this.id.getWidgetText() == record.getInteger("id", 0)) {
+									this.firstname.setWidgetText((record.getString("firstname", null)));
+									this.lastname.setWidgetText((record.getString("lastname", null)));
+									this.username.setWidgetText((record.getString("username", null)));
+									this.password.setWidgetText((record.getString("password", null)));
+									this.phonenumber.setWidgetText((record.getString("phonenumber", null)));
+									this.gender.setWidgetText((record.getString("gender", null)));
+									this.position.setWidgetText((record.getString("position", null)));
+									this.subject.setWidgetText((record.getString("subject", null)));
+								}
+							}
+						}
+					}
+				}
+			}.bind(this)), null);
 		}.bind(this)));
-		var signupbtn = JkWidgetCommonButtonWidget.forText(this.context, "Sign Up", (function() {
-			JkWidgetCommonNavigationWidget.switchToContainer(this, (AppAddAdminRegistration.NEW_JkUiGuiApplicationContext(this.context)));
+		var updated = JkWidgetCommonButtonWidget.forText(this.context, "Update", (function() {
 		}.bind(this)));
-		loginbtn.setWidgetBackgroundColor((JkGfxColor.instance("#008CBA")));
-		loginbtn.setWidgetTextColor((JkGfxColor.white()));
-		loginbtn.setWidgetFontSize((this.context.getHeightValue("4mm")));
-		signupbtn.setWidgetBackgroundColor((JkGfxColor.instance("#008CBA")));
-		signupbtn.setWidgetTextColor((JkGfxColor.white()));
-		signupbtn.setWidgetFontSize((this.context.getHeightValue("4mm")));
-		this.vbox.addWidget(loginbtn);
-		this.vbox.addWidget(signupbtn);
+		var backbtn = JkWidgetCommonButtonWidget.forText(this.context, "Back", (function() {
+			JkWidgetCommonNavigationWidget.switchToContainer(this, (AppAdminPage.NEW_JkUiGuiApplicationContext(this.context)));
+		}.bind(this)));
+		searchbtn.setWidgetBackgroundColor((JkGfxColor.instance("#16F0E3")));
+		searchbtn.setWidgetTextColor((JkGfxColor.white()));
+		searchbtn.setWidgetFontSize((this.context.getHeightValue("4mm")));
+		this.vbox.addWidget(searchbtn);
+		updated.setWidgetBackgroundColor((JkGfxColor.instance("#16BFF0")));
+		updated.setWidgetTextColor((JkGfxColor.white()));
+		updated.setWidgetFontSize((this.context.getHeightValue("4mm")));
+		this.vbox.addWidget(updated);
+		backbtn.setWidgetBackgroundColor((JkGfxColor.instance("#28B463")));
+		backbtn.setWidgetTextColor((JkGfxColor.white()));
+		backbtn.setWidgetFontSize((this.context.getHeightValue("4mm")));
+		this.vbox.addWidget(backbtn);
 	};
-	AppLoginPage.prototype.createWidget = function() {
+	AppUpdateinfo.prototype.createWidget = function() {
 		JkWidgetLayerWidget.prototype.createWidget.call(this);
 		var thisWidget = this;
 		var widget = JkWidgetCanvasWidget.NEW_JkUiGuiApplicationContext(this.context);
-		widget.setWidgetColor((JkGfxColor.instance("#229977")));
+		widget.setWidgetColor((JkGfxColor.instance("#5d89e8")));
 		this.addWidget(widget);
 		var widget2 = JkWidgetVerticalScrollerWidget.NEW_JkUiGuiApplicationContext(this.context);
 		var widget3 = JkWidgetAlignWidget.NEW_JkUiGuiApplicationContext(this.context);
 		widget3.setWidgetMarginLeft(400);
 		widget3.setWidgetMarginRight(400);
 		this.vbox = JkWidgetVerticalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
-		this.vbox.setWidgetMargin((this.context.getHeightValue("700um")));
+		this.vbox.setWidgetMargin((this.context.getHeightValue("5000um")));
 		this.vbox.setWidgetSpacing((this.context.getHeightValue("2000um")));
 		var widget4 = JkWidgetLabelWidget.NEW_JkUiGuiApplicationContext(this.context);
-		widget4.setWidgetText("Login");
+		widget4.setWidgetText("Update Information");
 		widget4.setWidgetTextColor((JkGfxColor.black()));
-		widget4.setWidgetFontSize((this.context.getHeightValue("8mm")));
+		widget4.setWidgetFontSize((this.context.getHeightValue("6mm")));
 		widget4.setWidgetTextAlign(JkWidgetLabelWidget.ALIGN_CENTER);
 		widget4.setWidgetFontBold(true);
 		this.vbox.addWidget(widget4);
+		this.id = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.id.setWidgetType(JkWidgetCommonTextInputWidget.TYPE_INTEGER);
+		this.id.setWidgetPlaceholder("Search ID");
+		this.id.setWidgetBackgroundColor((JkGfxColor.white()));
+		this.id.setWidgetFontSize((this.context.getHeightValue("3mm")));
+		this.id.setWidgetPadding1((this.context.getHeightValue("2500um")));
+		this.vbox.addWidget(this.id);
+		this.firstname = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.firstname.setWidgetType(JkWidgetCommonTextInputWidget.TYPE_NAME);
+		this.firstname.setWidgetPlaceholder("FIRST NAME");
+		this.firstname.setWidgetBackgroundColor((JkGfxColor.white()));
+		this.firstname.setWidgetFontSize((this.context.getHeightValue("3mm")));
+		this.firstname.setWidgetPadding1((this.context.getHeightValue("2500um")));
+		this.vbox.addWidget(this.firstname);
+		this.lastname = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.lastname.setWidgetType(JkWidgetCommonTextInputWidget.TYPE_NAME);
+		this.lastname.setWidgetPlaceholder("LAST NAME");
+		this.lastname.setWidgetBackgroundColor((JkGfxColor.white()));
+		this.lastname.setWidgetFontSize((this.context.getHeightValue("3mm")));
+		this.lastname.setWidgetPadding1((this.context.getHeightValue("2500um")));
+		this.vbox.addWidget(this.lastname);
 		this.username = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
 		this.username.setWidgetType(JkWidgetCommonTextInputWidget.TYPE_NAME);
+		this.username.setWidgetPlaceholder("username");
 		this.username.setWidgetBackgroundColor((JkGfxColor.white()));
-		this.username.setWidgetPlaceholder("Username");
-		this.username.setWidgetFontSize((this.context.getHeightValue("5mm")));
-		this.username.setWidgetPadding1((this.context.getHeightValue("1500um")));
+		this.username.setWidgetFontSize((this.context.getHeightValue("3mm")));
+		this.username.setWidgetPadding1((this.context.getHeightValue("2500um")));
 		this.vbox.addWidget(this.username);
-		var widget5 = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
-		widget5.setWidgetType(JkWidgetCommonTextInputWidget.TYPE_PASSWORD);
-		widget5.setWidgetPlaceholder("Password");
-		widget5.setWidgetBackgroundColor((JkGfxColor.white()));
-		widget5.setWidgetFontSize((this.context.getHeightValue("5mm")));
-		widget5.setWidgetPadding1((this.context.getHeightValue("1500um")));
-		this.vbox.addWidget(widget5);
-		widget3.addWidget1(this.vbox, 0.3, 0.3, true);
+		this.password = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.password.setWidgetType(JkWidgetCommonTextInputWidget.TYPE_NAME);
+		this.password.setWidgetPlaceholder("password");
+		this.password.setWidgetBackgroundColor((JkGfxColor.white()));
+		this.password.setWidgetFontSize((this.context.getHeightValue("3mm")));
+		this.password.setWidgetPadding1((this.context.getHeightValue("2500um")));
+		this.vbox.addWidget(this.password);
+		this.phonenumber = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.phonenumber.setWidgetType(JkWidgetCommonTextInputWidget.TYPE_NAME);
+		this.phonenumber.setWidgetPlaceholder("phonenumber");
+		this.phonenumber.setWidgetBackgroundColor((JkGfxColor.white()));
+		this.phonenumber.setWidgetFontSize((this.context.getHeightValue("3mm")));
+		this.phonenumber.setWidgetPadding1((this.context.getHeightValue("2500um")));
+		this.vbox.addWidget(this.phonenumber);
+		this.gender = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.gender.setWidgetType(JkWidgetCommonTextInputWidget.TYPE_INTEGER);
+		this.gender.setWidgetPlaceholder("gender");
+		this.gender.setWidgetBackgroundColor((JkGfxColor.white()));
+		this.gender.setWidgetFontSize((this.context.getHeightValue("3mm")));
+		this.gender.setWidgetPadding1((this.context.getHeightValue("2500um")));
+		this.vbox.addWidget(this.gender);
+		this.position = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.position.setWidgetType(JkWidgetCommonTextInputWidget.TYPE_NAME);
+		this.position.setWidgetPlaceholder("position");
+		this.position.setWidgetBackgroundColor((JkGfxColor.white()));
+		this.position.setWidgetFontSize((this.context.getHeightValue("3mm")));
+		this.position.setWidgetPadding1((this.context.getHeightValue("2500um")));
+		this.vbox.addWidget(this.position);
+		this.subject = JkWidgetCommonTextInputWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.subject.setWidgetType(JkWidgetCommonTextInputWidget.TYPE_NAME);
+		this.subject.setWidgetPlaceholder("subject");
+		this.subject.setWidgetBackgroundColor((JkGfxColor.white()));
+		this.subject.setWidgetFontSize((this.context.getHeightValue("3mm")));
+		this.subject.setWidgetPadding1((this.context.getHeightValue("2500um")));
+		this.vbox.addWidget(this.subject);
+		widget3.addWidget1(this.vbox, 0.5, 0.5, true);
 		widget2.addWidget(widget3);
 		this.addWidget(widget2);
 	};
-	AppLoginPage.IS_INSTANCE = function(o) {
-		return o != null && o._t != null && o._t["AppLoginPage"] === true;
+	AppUpdateinfo.IS_INSTANCE = function(o) {
+		return o != null && o._t != null && o._t["AppUpdateinfo"] === true;
+	};
+	let AppUsersubject = function() {
+		JkWidgetVerticalBoxWidget.call(this);
+		this.btnHome = null;
+		this.btnSchedule = null;
+		this.btnAboutUs = null;
+		this.btnLogout = null;
+		this.container = null;
+		this.vbox = null;
+		this.grid = null;
+	};
+	AppUsersubject.prototype = (function(o) {
+		function F() {
+		}
+		;
+		F.prototype = o;
+		return new F();
+	})(JkWidgetVerticalBoxWidget.prototype);
+	AppUsersubject.prototype.constructor = AppUsersubject;
+	AppUsersubject.prototype._t = {
+		"JkWidgetParentAwareWidget" : true,
+		"JkWidgetVerticalBoxWidget" : true,
+		"JkWidgetWidget" : true,
+		"AppUsersubject" : true,
+		"JkWidgetHeightAwareWidget" : true,
+		"JkWidgetContainerWidget" : true,
+		"JkWidgetWidgetWithLayout" : true
+	};
+	AppUsersubject.prototype._tobj = AppUsersubject;
+	AppUsersubject.NEW_JkUiGuiApplicationContext = function(context) {
+		var v = new AppUsersubject;
+		return v.CTOR_AppUsersubject_JkUiGuiApplicationContext(context);
+	};
+	AppUsersubject.prototype.CTOR_AppUsersubject_JkUiGuiApplicationContext = function(context) {
+		this.grid = null;
+		this.vbox = null;
+		this.container = null;
+		this.btnLogout = null;
+		this.btnAboutUs = null;
+		this.btnSchedule = null;
+		this.btnHome = null;
+		if(JkWidgetVerticalBoxWidget.prototype.CTOR_JkWidgetVerticalBoxWidget_JkUiGuiApplicationContext.call(this, context) == null) {
+			return null;
+		}
+		return this;
+	};
+	AppUsersubject.prototype.initializeWidget = function() {
+		JkWidgetVerticalBoxWidget.prototype.initializeWidget.call(this);
+		this.grid.addColumn("User Id", "id", 0.2, 0);
+		this.grid.addColumn("Name", "firstname", 1.0, 0);
+		this.grid.addColumn("lastName", "lastname", 1.0, 0);
+		this.grid.addColumn("Username", "username", 1.0, 0);
+		this.grid.addColumn("Password", "password", 1.0, 0);
+		this.grid.addColumn("Phonenumber", "phonenumber", 1.0, 0);
+		this.grid.addColumn("Gender", "gender", 1.0, 0);
+		this.grid.addColumn("Position", "position", 1.0, 0);
+		this.grid.addColumn("Subject Handle", "subject", 1.0, 0);
+		this.grid.addWidgetHeaderRow();
+		AppAPIClient.getInstance().getUser((function(response1) {
+			var data = response1.getDynamicMap("data");
+			if(!(data != null)) {
+				return;
+			}
+			var records = data.getDynamicVector("records");
+			if(!(records != null) || records.getSize() < 1) {
+				this.grid.addRow(["NO data Record"], null, null);
+			}
+			else {
+				var array = records.toVector();
+				if(array != null) {
+					var n = 0;
+					var m = array.length;
+					for(n = 0 ; n < m ; n++) {
+						var record = (function(o) {
+							if(JkLangDynamicMap.IS_INSTANCE && JkLangDynamicMap.IS_INSTANCE(o)) {
+								return o;
+							}
+							return null;
+						}.bind(this))(array[n]);
+						if(record != null) {
+							this.grid.addRow([record.getString("id", null), record.getString("firstname", null), record.getString("lastname", null), record.getString("username", null), record.getString("password", null), record.getString("phonenumber", null), record.getString("gender", null), record.getString("position", null), record.getString("subject", null)], null, null);
+						}
+					}
+				}
+			}
+		}.bind(this)), null);
+	};
+	AppUsersubject.prototype.onHomeClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppUserDashboard.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppUsersubject.prototype.onADDClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppUserProfile.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppUsersubject.prototype.onrecordClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppRecords.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppUsersubject.prototype.onLogoutClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppLoginPage.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppUsersubject.prototype.createWidget = function() {
+		JkWidgetVerticalBoxWidget.prototype.createWidget.call(this);
+		var thisWidget = this;
+		var widget = JkWidgetCanvasWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget.setWidgetColor((JkGfxColor.instance("#5d89e8")));
+		this.addWidget(widget);
+		this.setWidgetSpacing((this.context.getHeightValue("2000um")));
+		this.setWidgetMargin((this.context.getHeightValue("5mm")));
+		var widget2 = JkWidgetHorizontalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget2.setWidgetSpacing((this.context.getHeightValue("100um")));
+		this.btnHome = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnHome.setWidgetText("HOME");
+		this.btnHome.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnHome.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnHome.setWidgetClickHandler((function() {
+			this.onHomeClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnHome, 1.0);
+		this.btnSchedule = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnSchedule.setWidgetText("Profile");
+		this.btnSchedule.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnSchedule.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnSchedule.setWidgetClickHandler((function() {
+			this.onADDClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnSchedule, 1.0);
+		this.btnAboutUs = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnAboutUs.setWidgetText("RECORDS");
+		this.btnAboutUs.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnAboutUs.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnAboutUs.setWidgetClickHandler((function() {
+			this.onrecordClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnAboutUs, 1.0);
+		this.btnLogout = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnLogout.setWidgetText("LOGOUT");
+		this.btnLogout.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnLogout.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnLogout.setWidgetClickHandler((function() {
+			var popup = JkWidgetCommonPopupDialogManager.NEW_JkUiGuiApplicationContextJkWidgetWidget(this.context, this);
+			popup.showConfirmDialog("Confirmation", "Leave this Page?", (function() {
+				this.onLogoutClicked();
+			}.bind(this)), (function() {
+				;
+			}.bind(this)));
+		}.bind(this)));
+		widget2.addWidget1(this.btnLogout, 1.0);
+		this.addWidget(widget2);
+		var widget3 = JkWidgetVerticalScrollerWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget3.setWidgetScrollBarDisabled(false);
+		this.container = JkWidgetLayerWithBackgroundColorWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.container.setWidgetColor((JkGfxColor.instance("#264651")));
+		var widget4 = JkWidgetAlignWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.vbox = JkWidgetVerticalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.vbox.setWidgetMargin((this.context.getHeightValue("5mm")));
+		this.vbox.setWidgetSpacing((this.context.getHeightValue("2000um")));
+		var widget5 = JkWidgetLabelWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget5.setWidgetText("SCHEDULE");
+		widget5.setWidgetTextColor((JkGfxColor.black()));
+		widget5.setWidgetFontSize((this.context.getHeightValue("8mm")));
+		widget5.setWidgetTextAlign(JkWidgetLabelWidget.ALIGN_CENTER);
+		widget5.setWidgetFontBold(true);
+		this.vbox.addWidget(widget5);
+		widget4.addWidget1(this.vbox, 0.5, 0.5, false);
+		this.container.addWidget(widget4);
+		this.grid = JkWidgetDatagridDataGridWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.grid.setWidgetCellPadding(1);
+		this.container.addWidget(this.grid);
+		widget3.addWidget(this.container);
+		this.addWidget(widget3);
+	};
+	AppUsersubject.IS_INSTANCE = function(o) {
+		return o != null && o._t != null && o._t["AppUsersubject"] === true;
+	};
+	let AppUserProfile = function() {
+		JkWidgetVerticalBoxWidget.call(this);
+		this.btnHome = null;
+		this.btnProfile = null;
+		this.btnRecords = null;
+		this.btnLogout = null;
+		this.container = null;
+		this.vbox = null;
+	};
+	AppUserProfile.prototype = (function(o) {
+		function F() {
+		}
+		;
+		F.prototype = o;
+		return new F();
+	})(JkWidgetVerticalBoxWidget.prototype);
+	AppUserProfile.prototype.constructor = AppUserProfile;
+	AppUserProfile.prototype._t = {
+		"JkWidgetParentAwareWidget" : true,
+		"AppUserProfile" : true,
+		"JkWidgetVerticalBoxWidget" : true,
+		"JkWidgetWidget" : true,
+		"JkWidgetHeightAwareWidget" : true,
+		"JkWidgetContainerWidget" : true,
+		"JkWidgetWidgetWithLayout" : true
+	};
+	AppUserProfile.prototype._tobj = AppUserProfile;
+	AppUserProfile.NEW_JkUiGuiApplicationContext = function(context) {
+		var v = new AppUserProfile;
+		return v.CTOR_AppUserProfile_JkUiGuiApplicationContext(context);
+	};
+	AppUserProfile.prototype.CTOR_AppUserProfile_JkUiGuiApplicationContext = function(context) {
+		this.vbox = null;
+		this.container = null;
+		this.btnLogout = null;
+		this.btnRecords = null;
+		this.btnProfile = null;
+		this.btnHome = null;
+		if(JkWidgetVerticalBoxWidget.prototype.CTOR_JkWidgetVerticalBoxWidget_JkUiGuiApplicationContext.call(this, context) == null) {
+			return null;
+		}
+		return this;
+	};
+	AppUserProfile.prototype.onHomeClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppUserDashboard.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppUserProfile.prototype.onprofileClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppUserProfile.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppUserProfile.prototype.onrecordClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppUsersubject.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppUserProfile.prototype.onLogoutClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppLoginPage.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppUserProfile.prototype.createWidget = function() {
+		JkWidgetVerticalBoxWidget.prototype.createWidget.call(this);
+		var thisWidget = this;
+		var widget = JkWidgetCanvasWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget.setWidgetColor((JkGfxColor.instance("#5d89e8")));
+		this.addWidget(widget);
+		this.setWidgetSpacing((this.context.getHeightValue("2000um")));
+		this.setWidgetMargin((this.context.getHeightValue("5mm")));
+		var widget2 = JkWidgetHorizontalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget2.setWidgetSpacing((this.context.getHeightValue("100um")));
+		this.btnHome = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnHome.setWidgetText("HOME");
+		this.btnHome.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnHome.setWidgetBackgroundColor((JkGfxColor.instance("#D91E18")));
+		this.btnHome.setWidgetClickHandler((function() {
+			this.onHomeClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnHome, 1.0);
+		this.btnProfile = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnProfile.setWidgetText("Profile");
+		this.btnProfile.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnProfile.setWidgetBackgroundColor((JkGfxColor.instance("#D91E18")));
+		this.btnProfile.setWidgetClickHandler((function() {
+			this.onprofileClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnProfile, 1.0);
+		this.btnRecords = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnRecords.setWidgetText("RECORDS");
+		this.btnRecords.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnRecords.setWidgetBackgroundColor((JkGfxColor.instance("#D91E18")));
+		this.btnRecords.setWidgetClickHandler((function() {
+			this.onrecordClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnRecords, 1.0);
+		this.btnLogout = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnLogout.setWidgetText("LOGOUT");
+		this.btnLogout.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnLogout.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnLogout.setWidgetClickHandler((function() {
+			var popup = JkWidgetCommonPopupDialogManager.NEW_JkUiGuiApplicationContextJkWidgetWidget(this.context, this);
+			popup.showConfirmDialog("Confirmation", "Leave this Page?", (function() {
+				this.onLogoutClicked();
+			}.bind(this)), (function() {
+				;
+			}.bind(this)));
+		}.bind(this)));
+		widget2.addWidget1(this.btnLogout, 1.0);
+		this.addWidget(widget2);
+		var widget3 = JkWidgetVerticalScrollerWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget3.setWidgetScrollBarDisabled(false);
+		this.container = JkWidgetLayerWithBackgroundColorWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.container.setWidgetColor((JkGfxColor.instance("#5d89e8")));
+		var widget4 = JkWidgetAlignWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.vbox = JkWidgetVerticalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.vbox.setWidgetMargin((this.context.getHeightValue("5mm")));
+		this.vbox.setWidgetSpacing((this.context.getHeightValue("2000um")));
+		var widget5 = JkWidgetLabelWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget5.setWidgetText("WALA PA NAHUMAN");
+		widget5.setWidgetTextColor((JkGfxColor.black()));
+		widget5.setWidgetFontSize((this.context.getHeightValue("8mm")));
+		widget5.setWidgetTextAlign(JkWidgetLabelWidget.ALIGN_CENTER);
+		widget5.setWidgetFontBold(true);
+		this.vbox.addWidget(widget5);
+		widget4.addWidget1(this.vbox, 0.5, 0.5, false);
+		this.container.addWidget(widget4);
+		widget3.addWidget(this.container);
+		this.addWidget(widget3);
+	};
+	AppUserProfile.IS_INSTANCE = function(o) {
+		return o != null && o._t != null && o._t["AppUserProfile"] === true;
 	};
 	let AppMainScreen = function() {
 		JkWidgetScreenForWidget.call(this);
@@ -27553,6 +29521,196 @@ function app() {
 	};
 	AppMainScreen.IS_INSTANCE = function(o) {
 		return o != null && o._t != null && o._t["AppMainScreen"] === true;
+	};
+	let AppRecords = function() {
+		JkWidgetVerticalBoxWidget.call(this);
+		this.btnHome = null;
+		this.btnSchedule = null;
+		this.btnAboutUs = null;
+		this.btnLogout = null;
+		this.container = null;
+		this.vbox = null;
+		this.grid = null;
+	};
+	AppRecords.prototype = (function(o) {
+		function F() {
+		}
+		;
+		F.prototype = o;
+		return new F();
+	})(JkWidgetVerticalBoxWidget.prototype);
+	AppRecords.prototype.constructor = AppRecords;
+	AppRecords.prototype._t = {
+		"JkWidgetParentAwareWidget" : true,
+		"JkWidgetVerticalBoxWidget" : true,
+		"JkWidgetWidget" : true,
+		"AppRecords" : true,
+		"JkWidgetHeightAwareWidget" : true,
+		"JkWidgetContainerWidget" : true,
+		"JkWidgetWidgetWithLayout" : true
+	};
+	AppRecords.prototype._tobj = AppRecords;
+	AppRecords.NEW_JkUiGuiApplicationContext = function(context) {
+		var v = new AppRecords;
+		return v.CTOR_AppRecords_JkUiGuiApplicationContext(context);
+	};
+	AppRecords.prototype.CTOR_AppRecords_JkUiGuiApplicationContext = function(context) {
+		this.grid = null;
+		this.vbox = null;
+		this.container = null;
+		this.btnLogout = null;
+		this.btnAboutUs = null;
+		this.btnSchedule = null;
+		this.btnHome = null;
+		if(JkWidgetVerticalBoxWidget.prototype.CTOR_JkWidgetVerticalBoxWidget_JkUiGuiApplicationContext.call(this, context) == null) {
+			return null;
+		}
+		return this;
+	};
+	AppRecords.prototype.initializeWidget = function() {
+		JkWidgetVerticalBoxWidget.prototype.initializeWidget.call(this);
+		this.grid.addColumn("User Id", "id", 0.2, 0);
+		this.grid.addColumn("Name", "firstname", 1.0, 0);
+		this.grid.addColumn("lastName", "lastname", 1.0, 0);
+		this.grid.addColumn("Username", "username", 1.0, 0);
+		this.grid.addColumn("Password", "password", 1.0, 0);
+		this.grid.addColumn("Phonenumber", "phonenumber", 1.0, 0);
+		this.grid.addColumn("Gender", "gender", 1.0, 0);
+		this.grid.addColumn("Position", "position", 1.0, 0);
+		this.grid.addColumn("Subject Handle", "subject", 1.0, 0);
+		this.grid.addWidgetHeaderRow();
+		AppAPIClient.getInstance().getUser((function(response1) {
+			var data = response1.getDynamicMap("data");
+			if(!(data != null)) {
+				return;
+			}
+			var records = data.getDynamicVector("records");
+			if(!(records != null) || records.getSize() < 1) {
+				this.grid.addRow(["NO data"], null, null);
+			}
+			else {
+				var array = records.toVector();
+				if(array != null) {
+					var n = 0;
+					var m = array.length;
+					for(n = 0 ; n < m ; n++) {
+						var record = (function(o) {
+							if(JkLangDynamicMap.IS_INSTANCE && JkLangDynamicMap.IS_INSTANCE(o)) {
+								return o;
+							}
+							return null;
+						}.bind(this))(array[n]);
+						if(record != null) {
+							this.grid.addRow([record.getString("id", null), record.getString("firstname", null), record.getString("lastname", null), record.getString("username", null), record.getString("password", null), record.getString("phonenumber", null), record.getString("gender", null), record.getString("position", null), record.getString("subject", null)], null, null);
+						}
+					}
+				}
+			}
+		}.bind(this)), (function(err1) {
+			this.grid.addRow(["Error"], null, null);
+		}.bind(this)));
+		var btnUpdate = JkWidgetCommonButtonWidget.forText(this.context, "UPDATEInFo", (function() {
+			this.onUpdateClicked();
+		}.bind(this)));
+		btnUpdate.setWidgetFontSize((this.context.getHeightValue("3mm")));
+		this.vbox.addWidget(btnUpdate);
+		var btnDelete = JkWidgetCommonButtonWidget.forText(this.context, "DELETE InFo", (function() {
+			this.onDeleteClicked();
+		}.bind(this)));
+		btnDelete.setWidgetFontSize((this.context.getHeightValue("3mm")));
+		this.vbox.addWidget(btnDelete);
+	};
+	AppRecords.prototype.onHomeClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppAdminPage.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppRecords.prototype.onADDClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppAddinstructor.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppRecords.prototype.onrecordClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppRecords.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppRecords.prototype.onLogoutClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppLoginPage.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppRecords.prototype.onUpdateClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppUpdateinfo.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppRecords.prototype.onDeleteClicked = function() {
+		JkWidgetCommonNavigationWidget.switchToContainer(this, (AppDeleteinfo.NEW_JkUiGuiApplicationContext(this.context)));
+	};
+	AppRecords.prototype.createWidget = function() {
+		JkWidgetVerticalBoxWidget.prototype.createWidget.call(this);
+		var thisWidget = this;
+		var widget = JkWidgetCanvasWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget.setWidgetColor((JkGfxColor.instance("#5d89e8")));
+		this.addWidget(widget);
+		this.setWidgetSpacing((this.context.getHeightValue("2000um")));
+		this.setWidgetMargin((this.context.getHeightValue("5mm")));
+		var widget2 = JkWidgetHorizontalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget2.setWidgetSpacing((this.context.getHeightValue("100um")));
+		this.btnHome = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnHome.setWidgetText("HOME");
+		this.btnHome.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnHome.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnHome.setWidgetClickHandler((function() {
+			this.onHomeClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnHome, 1.0);
+		this.btnSchedule = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnSchedule.setWidgetText("ADD INSTRUCTOR");
+		this.btnSchedule.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnSchedule.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnSchedule.setWidgetClickHandler((function() {
+			this.onADDClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnSchedule, 1.0);
+		this.btnAboutUs = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnAboutUs.setWidgetText("RECORDS");
+		this.btnAboutUs.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnAboutUs.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnAboutUs.setWidgetClickHandler((function() {
+			this.onrecordClicked();
+		}.bind(this)));
+		widget2.addWidget1(this.btnAboutUs, 1.0);
+		this.btnLogout = JkWidgetCommonTextButtonWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.btnLogout.setWidgetText("LOGOUT");
+		this.btnLogout.setWidgetPadding((this.context.getHeightValue("1000um")));
+		this.btnLogout.setWidgetBackgroundColor((JkGfxColor.instance("#264651")));
+		this.btnLogout.setWidgetClickHandler((function() {
+			var popup = JkWidgetCommonPopupDialogManager.NEW_JkUiGuiApplicationContextJkWidgetWidget(this.context, this);
+			popup.showConfirmDialog("Confirmation", "Leave this Page?", (function() {
+				this.onLogoutClicked();
+			}.bind(this)), (function() {
+				;
+			}.bind(this)));
+		}.bind(this)));
+		widget2.addWidget1(this.btnLogout, 1.0);
+		this.addWidget(widget2);
+		var widget3 = JkWidgetVerticalScrollerWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget3.setWidgetScrollBarDisabled(false);
+		this.container = JkWidgetLayerWithBackgroundColorWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.container.setWidgetColor((JkGfxColor.instance("#264651")));
+		var widget4 = JkWidgetAlignWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.vbox = JkWidgetVerticalBoxWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.vbox.setWidgetMargin((this.context.getHeightValue("5mm")));
+		this.vbox.setWidgetSpacing((this.context.getHeightValue("2000um")));
+		var widget5 = JkWidgetLabelWidget.NEW_JkUiGuiApplicationContext(this.context);
+		widget5.setWidgetText("SCHEDULE");
+		widget5.setWidgetTextColor((JkGfxColor.black()));
+		widget5.setWidgetFontSize((this.context.getHeightValue("8mm")));
+		widget5.setWidgetTextAlign(JkWidgetLabelWidget.ALIGN_CENTER);
+		widget5.setWidgetFontBold(true);
+		this.vbox.addWidget(widget5);
+		widget4.addWidget1(this.vbox, 0.5, 0.5, false);
+		this.container.addWidget(widget4);
+		this.grid = JkWidgetDatagridDataGridWidget.NEW_JkUiGuiApplicationContext(this.context);
+		this.grid.setWidgetCellPadding(1);
+		this.container.addWidget(this.grid);
+		widget3.addWidget(this.container);
+		this.addWidget(widget3);
+	};
+	AppRecords.IS_INSTANCE = function(o) {
+		return o != null && o._t != null && o._t["AppRecords"] === true;
 	};
 	AppMainScreen.main();
 }
